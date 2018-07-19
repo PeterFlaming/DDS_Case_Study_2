@@ -1,0 +1,40 @@
+---
+title: "qn_initial_EDA"
+author: "Q Nixon"
+date: "7/19/2018"
+output: html_document
+---
+
+## Get the data
+
+I'm switching between working directories to pull the data from the main repository
+and store everything in a subfolder.  Run the file "qn_initial_EDA.R" first before
+proceeding with the EDA in this markdown file.
+
+```{r, echo=TRUE}
+setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/DDS_Case_Study_2/data")
+well_data <- read.csv("deo_well_data.csv", stringsAsFactors = FALSE)
+registry_data <- read.csv("fracfocus_registry_texas.csv", stringsAsFactors = FALSE)
+well_data$FirstProd <- as.Date(well_data$FirstProd, "%m/%d/%Y")
+well_data$Oil_PkNorm_PerK_6mo <- as.numeric(well_data$Oil_PkNorm_PerK_6mo)
+setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/DDS_Case_Study_2/qn_code_and_plots")
+```
+
+## Initial plots
+
+Below are various plots looking at different variables in the data files.  
+
+```{r, echo=TRUE}
+peak_performance_wells <- subset(well_data, !is.na(well_data$Oil_PkNorm_PerK_6mo))
+boxplot(log(peak_performance_wells$Oil_PkNorm_PerK_6mo))
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
