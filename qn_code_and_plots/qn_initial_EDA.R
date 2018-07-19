@@ -10,5 +10,5 @@ well_data$Oil_PkNorm_PerK_6mo <- as.numeric(well_data$Oil_PkNorm_PerK_6mo)
 
 
 peak_performance_wells <- subset(well_data, !is.na(well_data$Oil_PkNorm_PerK_6mo))
-
 boxplot(log(peak_performance_wells$Oil_PkNorm_PerK_6mo))
+barplot(peak_performance_wells$oper_alias)

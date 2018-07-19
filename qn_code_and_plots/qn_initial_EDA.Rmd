@@ -25,16 +25,21 @@ setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/D
 Below are various plots looking at different variables in the data files.  
 
 ```{r, echo=TRUE}
+library(tidyverse)
 peak_performance_wells <- subset(well_data, !is.na(well_data$Oil_PkNorm_PerK_6mo))
-boxplot(log(peak_performance_wells$Oil_PkNorm_PerK_6mo))
+boxplot(peak_performance_wells$Oil_PkNorm_PerK_6mo, main = "Peak Production")
 ```
 
-## Including Plots
+```{r, echo=TRUE}
+# the range of values is too large, let's try a log transform
+boxplot(log(peak_performance_wells$Oil_PkNorm_PerK_6mo), main = "Log of 6mo Peak Production")
 
-You can also embed plots, for example:
+wells_by_operator <- peak_performance_wells %>% count(oper_alias) %>% arrange(desc(n))
+colnames(wells_by_operator) <- c("operator", "well_count")
+wells_by_operator
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+operator_plot <- ggplot(wells_by_operator, aes(reorder(operator, well_count),
+                                               well_count, fill = operator))
+operator_plot + geom_col() + ggtitle("Wells by Operator") + coord_flip() +
+  theme(legend.position="none")
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
