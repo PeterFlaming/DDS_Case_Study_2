@@ -9,9 +9,6 @@
 * assets -> assets for presentation/report
 * src -> code other than the final analysis
 
-why does all of the folders keep disappearing?!?!?
-
-
 
 
 
