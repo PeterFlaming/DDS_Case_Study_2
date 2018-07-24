@@ -1,6 +1,5 @@
 ---
 title: "Exploratory Data Analysis"
-author: "Brock Friedrich"
 date: "July 24, 2018"
 output:
   html_document:
@@ -81,11 +80,7 @@ driftwood <- read.csv("data/deo_well_data.csv") %>%
 
 ff_distinct_api <- fracfocus %>% distinct(API)
 
-x <- fracfocus %>% group_by(API10) %>%
-    summarize(TotalBaseWaterVolume = max(TotalBaseWaterVolume)
-              , 
 
-              )
 
 wells_distinct_api14 <- driftwood %>% inner_join(fracfocus, by = c("API", "API")) %>% distinct(API)
 
@@ -117,6 +112,33 @@ wells_distinct_api10 <- driftwood %>% inner_join(fracfocus, by = c("API10", "API
 
 
 
+
+```{r}
+
+# Aggregate sand and water
+#-- 20/40, 40/70, 30/50, 100 Mesh
+x <- fracfocus %>%
+    filter('sand' %in% IngredientName
+        | 'silica' %in% IngredientName
+        | 'propp' %in% IngredientName
+        | 'mesh' %in% IngredientName
+        | 'brown' %in% IngredientName
+        | 'white' %in% IngredientName
+        | '30%50' %in% IngredientName
+        | '40%70' %in% IngredientName
+        | '30%50' %in% IngredientName
+        | '100' %in% IngredientName
+        ) %>%
+    group_by(API10) %>%
+    summarize(TotalBaseWaterVolume = max(TotalBaseWaterVolume)
+              , MassIngredient = sum(MassIngredient)
+              , PercentHFJob = sum(PercentHFJob)
+              )
+
+
+x %>% head()
+
+```
 
 
 
