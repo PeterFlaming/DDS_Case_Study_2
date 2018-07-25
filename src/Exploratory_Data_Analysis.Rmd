@@ -32,12 +32,15 @@ setwd("C:/Repositories/DDS_Case_Study_2")
 # Import Datasets
 
 ```{r}
-fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
+
+getwd()
+
+fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               rename(API='APINumber') %>%
               mutate( API=as.character(API)
                      ,API10 = as.character(API10)
-                     ,JobStartDate=as.Date(JobStartDate, "%m/%d/%Y") #TODO Year is not reading correctly
-                     , JobEndDate = as.Date(JobEndDate, "%m/%d/%Y") #TODO Year is not reading correctly
+                     ,JobStartDate=as.Date(JobStartDate, "%m/%d/%Y")
+                     ,JobEndDate=as.Date(JobEndDate, "%m/%d/%Y")
                      ,TotalBaseWaterVolume = as.double(TotalBaseWaterVolume)
                      ,TotalBaseNonWaterVolume = as.double(TotalBaseNonWaterVolume)
                      ,PercentHighAdditive = as.double(PercentHighAdditive)
@@ -80,6 +83,8 @@ driftwood <- read.csv("data/deo_well_data.csv") %>%
 
 ff_distinct_api <- fracfocus %>%
     distinct(API)
+
+
 
 wells_distinct_api14 <- driftwood %>%
     inner_join(fracfocus, by = c("API", "API")) %>%
@@ -159,12 +164,12 @@ x %>% head()
 
 
 
-#####
+##### Avg Frac Size by Year
 
 
 
 
-
+##### Pk-6mo-oil by year
 
 
 
