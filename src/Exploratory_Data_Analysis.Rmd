@@ -35,9 +35,9 @@ setwd("C:/Repositories/DDS_Case_Study_2")
 fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
               rename(API='APINumber') %>%
               mutate( API=as.character(API)
-                     , API10 = as.character(API10)
-                     ,JobStartDate=as.Date(JobStartDate, "%m/%d/%Y")
-                     ,JobEndDate=as.Date(JobEndDate, "%m/%d/%Y")
+                     ,API10 = as.character(API10)
+                     ,JobStartDate=as.Date(JobStartDate, "%m/%d/%Y") #TODO Year is not reading correctly
+                     , JobEndDate = as.Date(JobEndDate, "%m/%d/%Y") #TODO Year is not reading correctly
                      ,TotalBaseWaterVolume = as.double(TotalBaseWaterVolume)
                      ,TotalBaseNonWaterVolume = as.double(TotalBaseNonWaterVolume)
                      ,PercentHighAdditive = as.double(PercentHighAdditive)
@@ -45,7 +45,7 @@ fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
                      ,MassIngredient = as.double(MassIngredient)
                      ,IsWater = as.logical.factor(IsWater)
                      ) %>%
-              select(API
+              select( API
                      ,API10
                      ,WellName
                      ,OperatorName
@@ -78,13 +78,16 @@ driftwood <- read.csv("data/deo_well_data.csv") %>%
 
 ```{r}
 
-ff_distinct_api <- fracfocus %>% distinct(API)
+ff_distinct_api <- fracfocus %>%
+    distinct(API)
 
+wells_distinct_api14 <- driftwood %>%
+    inner_join(fracfocus, by = c("API", "API")) %>%
+    distinct(API)
 
-
-wells_distinct_api14 <- driftwood %>% inner_join(fracfocus, by = c("API", "API")) %>% distinct(API)
-
-wells_distinct_api10 <- driftwood %>% inner_join(fracfocus, by = c("API10", "API10")) %>% distinct(API10)
+wells_distinct_api10 <- driftwood %>%
+    inner_join(fracfocus, by = c("API10", "API10")) %>%
+    distinct(API10)
 
 
 
@@ -117,6 +120,16 @@ wells_distinct_api10 <- driftwood %>% inner_join(fracfocus, by = c("API10", "API
 
 # Aggregate sand and water
 #-- 20/40, 40/70, 30/50, 100 Mesh
+
+
+# Latitude = Important
+# Longitude = Important
+# Form_Avg = Very Important
+# Sand = Very Important
+# Water = Very Important
+# Other chemicals / additives = ???
+
+
 x <- fracfocus %>%
     filter('sand' %in% IngredientName
         | 'silica' %in% IngredientName
@@ -130,8 +143,8 @@ x <- fracfocus %>%
         | '100' %in% IngredientName
         ) %>%
     group_by(API10) %>%
-    summarize(TotalBaseWaterVolume = max(TotalBaseWaterVolume)
-              , MassIngredient = sum(MassIngredient)
+    summarize(TotalWater = max(TotalBaseWaterVolume)
+              , TotalSand = sum(MassIngredient)
               , PercentHFJob = sum(PercentHFJob)
               )
 
@@ -141,7 +154,12 @@ x %>% head()
 ```
 
 
+##### Additive concentrations vs productivity
 
+
+
+
+#####
 
 
 
