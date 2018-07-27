@@ -12,12 +12,12 @@ and store everything in a subfolder.  Run the file "qn_initial_EDA.R" first befo
 proceeding with the EDA in this markdown file.
 
 ```{r, echo=TRUE}
-setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/DDS_Case_Study_2/data")
-well_data <- read.csv("deo_well_data.csv", stringsAsFactors = FALSE)
-registry_data <- read.csv("fracfocus_registry_texas.csv", stringsAsFactors = FALSE)
-well_data$FirstProd <- as.Date(well_data$FirstProd, "%m/%d/%Y")
-well_data$Oil_PkNorm_PerK_6mo <- as.numeric(well_data$Oil_PkNorm_PerK_6mo)
-setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/DDS_Case_Study_2/qn_code_and_plots")
+# setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/DDS_Case_Study_2/data")
+# well_data <- read.csv("deo_well_data.csv", stringsAsFactors = FALSE)
+# registry_data <- read.csv("fracfocus_registry_texas.csv", stringsAsFactors = FALSE)
+# well_data$FirstProd <- as.Date(well_data$FirstProd, "%m/%d/%Y")
+# well_data$Oil_PkNorm_PerK_6mo <- as.numeric(well_data$Oil_PkNorm_PerK_6mo)
+# setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/DDS_Case_Study_2/qn_code_and_plots")
 ```
 
 ## Initial plots
@@ -25,14 +25,14 @@ setwd("~/Documents/@Grad School/@SMU/@Term 1 Courses/Doing Data Science/Week11/D
 Below are various plots looking at different variables in the data files.  
 
 ```{r, echo=TRUE}
-library(tidyverse)
-peak_performance_wells <- subset(well_data, !is.na(well_data$Oil_PkNorm_PerK_6mo))
-boxplot(peak_performance_wells$Oil_PkNorm_PerK_6mo, main = "Peak Production")
+# library(tidyverse)
+# peak_performance_wells <- subset(well_data, !is.na(well_data$Oil_PkNorm_PerK_6mo))
+# boxplot(peak_performance_wells$Oil_PkNorm_PerK_6mo, main = "Peak Production")
 ```
 
 ```{r, echo=TRUE}
 # the range of values is too large, let's try a log transform
-boxplot(log(peak_performance_wells$Oil_PkNorm_PerK_6mo), main = "Log of 6mo Peak Production")
+boxplot(log(peak_performance_wells$Oil_PkNorm_Perk_6mo), main = "Log of 6mo Peak Production")
 
 wells_by_operator <- peak_performance_wells %>% count(oper_alias) %>% arrange(desc(n))
 colnames(wells_by_operator) <- c("operator", "well_count")
