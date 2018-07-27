@@ -86,5 +86,13 @@ wells_by_date <- peak_performance_wells %>%
 plot(wells_by_date$FirstProd, wells_by_date$wells_this_year, 
      main = "Wells by Date")
 
-
+# fracfocus plots
+# frac_wells by operator 
+frac_wells_by_operator <- fracfocus %>% count(OperatorName) %>% arrange(desc(n))
+colnames(frac_wells_by_operator) <- c("operator", "well_count")
+frac_wells_by_operator
+frac_operator_plot <- ggplot(frac_wells_by_operator, aes(reorder(operator, well_count),
+                                               well_count, fill = operator))
+frac_operator_plot + geom_col() + ggtitle("Fracking Wells by Operator") + coord_flip() +
+  theme(legend.position="none")
 
