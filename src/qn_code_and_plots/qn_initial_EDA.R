@@ -101,6 +101,6 @@ library(leaflet)
 frac_map <- leaflet() %>% 
   addTiles(urlTemplate="http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}") %>% 
   addCircleMarkers(~Longitude, ~Latitude, popup = ~as.character(WellName),
-                   data = fracfocus, color = "red", radius = .2, fillOpacity = 0.5) 
+                   data = fracfocus, color = "red", radius = .1, fillOpacity = 0.3) 
 frac_map
 
