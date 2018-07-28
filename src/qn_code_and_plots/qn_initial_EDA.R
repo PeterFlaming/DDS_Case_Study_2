@@ -106,5 +106,12 @@ frac_map
 
 # need pounds per foot and barrels per foot and well size
 
+frac_locations <- fracfocus[, c(2,7,8)]
+well_loc <- merge(driftwood, frac_locations, by.x = "API10", by.y = "API10")
+well_loc <- unique(well_loc)
 
-
+well_map <- leaflet() %>%
+  addTiles(urlTemplate="https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png") %>% 
+  addCircleMarkers(~Longitude, ~Latitude, popup = ~as.character(API10),
+                   data = fracfocus, color = "red", radius = .01, fillOpacity = 0.3) 
+well_map
