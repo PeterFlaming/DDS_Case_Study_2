@@ -76,11 +76,13 @@ driftwood <- read.csv("data/deo_well_data.csv") %>%
               rename(API = 'ï..API') %>%
               mutate(API = as.character(API)
                      , API10 = as.character(API10)
-                     ,PerfLL=as.integer(PerfLL)
+                     , PerfLL=as.integer(PerfLL)
                      , FirstProd = as.Date(FirstProd, "%m/%d/%Y")
-                     ,Oil_PkNorm_Perk_6mo = as.integer(Oil_PkNorm_Perk_6mo)
-                     )
-
+                     , Oil = as.integer(Oil_PkNorm_Perk_6mo) #Oil_PkNorm_Perk_6mo
+                     , FirstProd_Year = as.integer(format(FirstProd, '%Y'))
+                     ) %>%
+                     select(-Oil_PkNorm_Perk_6mo)
+    driftwood %>% head()
 
 ```
 
@@ -100,6 +102,7 @@ wells_distinct_api10 <- driftwood %>%
     distinct(API10)
 
 ```
+
 
 
 
@@ -149,9 +152,15 @@ ff_summary %>% head()
 well_data <- driftwood %>%
     inner_join(ff_summary, by = c("API10", "API10")) %>%
     mutate(lb_ft = TotalSand / PerfLL
-           , bbl_ft = TotalWater / PerfLL
+           , bbl_ft = TotalWater / PerfLL #TODO: TotalWater bbl looks way too high.
            , gal_ft = bbl_ft / 42
-           )
+           , distance = sqrt(gal_ft ^ 2 + lb_ft ^ 2) * (180 / pi) # linear_distance_from_origin (hypotenuse length)
+           , angle = atan(gal_ft / lb_ft) * (180 / pi) #in degrees
+           , deviation = abs(45 - angle) #deviation_from_45deg
+           , weight = 500 # weighting_constant
+           , frac_rating = distance-(deviation-weight) # weighted_distance_from_origin
+           ) %>%
+           select(-distance, -angle, -deviation, -weight)
 
 
 
@@ -170,17 +179,31 @@ well_data %>% head()
 
 ```{r}
 
+#Frac job profile as frac lb_ft vs bbl_ft
+ggplot((well_data), aes(x = lb_ft, y = bbl_ft)) +
+    geom_point()
+      #geom_point(aes(fill = ifelse((ibu %in% ibu_outliers), "Outlier", "Valid")),
+                 #size = 4,
+                 #shape = 21,
+                 #position = position_jitter()) +
+                 #stat_boxplot(geom = 'errorbar') +
+                 #geom_boxplot(alpha = .5,
+                   #outlier.shape = NA) +
+                   #guides(fill = guide_legend(title = NULL))
 
-ggplot((styles %>% drop_na(ibu)), aes(x = "", y = ibu)) +
-      geom_point(aes(fill = ifelse((ibu %in% ibu_outliers), "Outlier", "Valid")),
-                 size = 4,
-                 shape = 21,
-                 position = position_jitter()) +
-                 stat_boxplot(geom = 'errorbar') +
-                 geom_boxplot(alpha = .5,
-                   outlier.shape = NA) +
-                   guides(fill = guide_legend(title = NULL))
 
+```
+
+
+
+```{r}
+#TODO: productivity at ~2000 bbl_oil/1000 ft looks suspicious
+
+# distribution of wells by productivity
+ggplot(well_data) +  
+    geom_histogram(aes(x = Oil), binwidth = 100) +
+    theme(text = element_text(size = 10),
+        axis.text.x = element_text(angle = 90, hjust = 1))
 
 ```
 
@@ -189,6 +212,118 @@ ggplot((styles %>% drop_na(ibu)), aes(x = "", y = ibu)) +
 ##### Pk-6mo-oil by year
 
 
+```{r}
+
+#TODO: Oil productivity seems to increase with FirstProd date.  Needs further exploration.
+
+# stat = identity seems to be doing a sum of productivity by year.  2018 is not complete yet.  Normalize over number of wells to correct.
+
+ggplot(well_data) +
+    geom_histogram(aes(x = FirstProd_Year, y = Oil), stat = "identity") +
+    theme(text = element_text(size = 10),
+        axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+
+
+
 ##### Is PkNorm_6mo_Oil normally distributed for each formation?
+
+
+```{r}
+
+ggplot(well_data, aes(x = FirstProd, y = Oil)) +
+    geom_point() +
+    facet_grid(. ~ form_avg)
+
+```
+
+1.	Research Question – Clearly stated
+
+    - does well productivity increase with 'frac size'? how does it increase?  are there regional trends? trends by formation?
+        - do any additives affect oil productivity? regional? trends by formation?
+
+2.	Hypothesis 
+
+ - Examples:
+     - Group Differences:
+         - addatives/chemicals
+         - what specific additives are associated with increased producivity
+            - H~0~: mu_oil_additive1 = 0
+            - H~A~: mu_oil_additive1 <> 0 
+
+
+     - Regression:
+        - Explanatory: mu_oil_additive1
+        - Response: Oil
+
+     - Multiple Regression
+        - Explanatory: sand, water
+        - Response: Oil    
+
+        - Explanatory: long, lat, form_avg
+        - Response: Oil       
+
+
+3.	A Code book - Matthew
+        - Convert original data codebooks to markdown
+        - Build codebooks for our analysis
+
+4.	READme file - Quinton
+        - Build Readme    
+        - Code Commenting
+
+5.	Exploratory Data - All
+    a.	Please provide (in table format or similar), descriptive statistics on at least 7 variables (age, Income, etc.).  Create a simple histogram for two of them.  Comment on the shape of the distribution in your markdown.
+    b.	Give the frequencies (in table format or similar) for Gender, Education, and Occupation.  They can be separate tables, if that’s your choice
+
+6. Markdown/Code - Brock
+
+    a.	One Linear regressions
+
+
+    b.	One model of your choice (can be linear regression, thus 2 linear regressions total)
+        - linear regression
+        - multiple regression/anova
+
+    c.	Results
+ 
+
+    d.	Discussion
+
+
+    e.	Conclusion
+
+
+11. Presentation - All
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
