@@ -115,3 +115,49 @@ well_map <- leaflet() %>%
   addCircleMarkers(~Longitude, ~Latitude, popup = ~as.character(API10),
                    data = fracfocus, color = "red", radius = .01, fillOpacity = 0.3) 
 well_map
+
+ff_distinct_api <- fracfocus %>%
+  distinct(API)
+
+
+# match brock's renamed tables
+wells_distinct_api14 <- driftwood %>%
+  inner_join(fracfocus, by = c("API", "API")) %>%
+  distinct(API)
+
+wells_distinct_api10 <- driftwood %>%
+  inner_join(fracfocus, by = c("API10", "API10")) %>%
+  distinct(API10)
+
+ff_summary <- fracfocus %>%
+  filter('sand' %in% IngredientName
+         | 'silica' %in% IngredientName
+         | 'propp' %in% IngredientName
+         | 'mesh' %in% IngredientName
+         | 'brown' %in% IngredientName
+         | 'white' %in% IngredientName
+         | '30%50' %in% IngredientName
+         | '40%70' %in% IngredientName
+         | '30%50' %in% IngredientName
+         | '100' %in% IngredientName
+  ) %>%
+  group_by(API10) %>%
+  summarize(TotalWater = max(TotalBaseWaterVolume)
+            , TotalSand = sum(MassIngredient)
+            , PercentHFJob = sum(PercentHFJob)
+            # Add additional summary variables here.
+  )
+
+
+ff_summary %>% head()
+
+well_data_2 <- driftwood %>%
+  inner_join(ff_summary, by = c("API10", "API10")) %>%
+  mutate(lb_ft = TotalSand / PerfLL
+         , bbl_ft = TotalWater / PerfLL
+         , gal_ft = bbl_ft / 42
+  )
+well_data_2 %>% head()
+
+
+
