@@ -96,3 +96,11 @@ frac_operator_plot <- ggplot(frac_wells_by_operator, aes(reorder(operator, well_
 frac_operator_plot + geom_col() + ggtitle("Fracking Wells by Operator") + coord_flip() +
   theme(legend.position="none")
 
+library(leaflet)
+
+frac_map <- leaflet() %>% 
+  addTiles(urlTemplate="http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}") %>% 
+  addCircleMarkers(~Longitude, ~Latitude, popup = ~as.character(WellName),
+                   data = fracfocus, color = "red", radius = .2, fillOpacity = 0.5) 
+frac_map
+
