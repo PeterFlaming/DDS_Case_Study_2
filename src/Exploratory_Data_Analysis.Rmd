@@ -26,6 +26,10 @@ options(knitr.table.format = "markdown")
 
 setwd("C:/Repositories/DDS_Case_Study_2")
 
+#prevent implicit conversion to scientific notation
+options(scipen = 999)
+
+
 ```
 
 
@@ -35,7 +39,7 @@ setwd("C:/Repositories/DDS_Case_Study_2")
 
 getwd()
 
-fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
+fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
               rename(API='APINumber') %>%
               mutate( API=as.character(API)
                      ,API10 = as.character(API10)
@@ -73,9 +77,10 @@ driftwood <- read.csv("data/deo_well_data.csv") %>%
               mutate(API = as.character(API)
                      , API10 = as.character(API10)
                      ,PerfLL=as.integer(PerfLL)
-                     ,FirstProd=as.Date(FirstProd)
+                     , FirstProd = as.Date(FirstProd, "%m/%d/%Y")
                      ,Oil_PkNorm_Perk_6mo = as.integer(Oil_PkNorm_Perk_6mo)
                      )
+
 
 ```
 
@@ -93,28 +98,6 @@ wells_distinct_api14 <- driftwood %>%
 wells_distinct_api10 <- driftwood %>%
     inner_join(fracfocus, by = c("API10", "API10")) %>%
     distinct(API10)
-
-
-
-
-  #SELECT 
-    #API10
-    #,MAX(TotalBaseWaterVolume) AS Max_TotalBaseWaterVolume
-    #,SUM(MassIngredient) AS Sum_MassIngredient
-    #,SUM(PercentHFJob) AS Sum_PercentHFJob   
-  #FROM  dbo.PB_FRAC_FOCUS_REGISTRY ff
-    #WHERE ff.IngredientName LIKE '%sand%' 
-    #OR ff.IngredientName LIKE '%silica%'
-    #OR ff.IngredientName LIKE '%propp%'
-    #OR ff.IngredientName LIKE '%mesh%'
-    #OR ff.IngredientName LIKE '%brown%'
-    #OR ff.IngredientName LIKE '%white%'
-    #OR ff.IngredientName LIKE '%30%50%'
-    #OR ff.IngredientName LIKE '%40%70%'
-    #OR ff.IngredientName LIKE '%30%50%'
-    #OR ff.IngredientName LIKE '%100%'
-    #-- 20/40, 40/70, 30/50, 100 Mesh
-    #GROUP BY API10
 
 ```
 
@@ -135,7 +118,7 @@ wells_distinct_api10 <- driftwood %>%
 # Other chemicals / additives = ???
 
 
-x <- fracfocus %>%
+ff_summary <- fracfocus %>%
     filter('sand' %in% IngredientName
         | 'silica' %in% IngredientName
         | 'propp' %in% IngredientName
@@ -151,10 +134,28 @@ x <- fracfocus %>%
     summarize(TotalWater = max(TotalBaseWaterVolume)
               , TotalSand = sum(MassIngredient)
               , PercentHFJob = sum(PercentHFJob)
+              # Add additional summary variables here.
               )
 
 
-x %>% head()
+ff_summary %>% head()
+
+```
+
+
+
+```{r}
+
+well_data <- driftwood %>%
+    inner_join(ff_summary, by = c("API10", "API10")) %>%
+    mutate(lb_ft = TotalSand / PerfLL
+           , bbl_ft = TotalWater / PerfLL
+           , gal_ft = bbl_ft / 42
+           )
+
+
+
+well_data %>% head()
 
 ```
 
@@ -167,11 +168,27 @@ x %>% head()
 ##### Avg Frac Size by Year
 
 
+```{r}
+
+
+ggplot((styles %>% drop_na(ibu)), aes(x = "", y = ibu)) +
+      geom_point(aes(fill = ifelse((ibu %in% ibu_outliers), "Outlier", "Valid")),
+                 size = 4,
+                 shape = 21,
+                 position = position_jitter()) +
+                 stat_boxplot(geom = 'errorbar') +
+                 geom_boxplot(alpha = .5,
+                   outlier.shape = NA) +
+                   guides(fill = guide_legend(title = NULL))
+
+
+```
+
 
 
 ##### Pk-6mo-oil by year
 
 
-
+##### Is PkNorm_6mo_Oil normally distributed for each formation?
 
 
