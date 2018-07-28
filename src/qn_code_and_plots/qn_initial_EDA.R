@@ -104,3 +104,7 @@ frac_map <- leaflet() %>%
                    data = fracfocus, color = "red", radius = .1, fillOpacity = 0.3) 
 frac_map
 
+# need pounds per foot and barrels per foot
+
+
+
