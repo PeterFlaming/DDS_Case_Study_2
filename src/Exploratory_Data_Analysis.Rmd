@@ -14,8 +14,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ggplot2::theme_set(ggplot2::theme_bw())
 ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5))
-knitr::opts_chunk$set(fig.width=12, 
-                      fig.height=8, 
+knitr::opts_chunk$set(fig.width=6,#12, 
+                      fig.height=4,#8, 
                       fig.path='Figs/',
                       warning=FALSE, 
                       message=FALSE)
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(fig.width=12,
 require(tidyverse)
 require(magrittr)
 require(kableExtra)
-options(knitr.table.format = "markdown")
+options(knitr.table.format = "asis")#"markdown")
 
 setwd("C:/Repositories/DDS_Case_Study_2")
 
@@ -42,7 +42,7 @@ options(scipen = 999)
 
 getwd()
 
-fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
+fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               rename(API='APINumber') %>%
               mutate( API=as.character(API)
                      ,API10 = as.character(API10)
@@ -75,7 +75,7 @@ fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
                      )
 
 
-driftwood <- read.csv("data/deo_well_data.csv") %>%
+driftwood <- read.csv("../data/deo_well_data.csv") %>%
               rename(API = 'ï..API') %>%
               mutate(API = as.character(API)
                      , API10 = as.character(API10)
@@ -85,7 +85,8 @@ driftwood <- read.csv("data/deo_well_data.csv") %>%
                      , FirstProd_Year = as.integer(format(FirstProd, '%Y'))
                      ) %>%
                      select(-Oil_PkNorm_Perk_6mo)
-    driftwood %>% head()
+
+# driftwood %>% head()
 
 ```
 
@@ -166,9 +167,26 @@ well_data <- driftwood %>%
 
 
 
-well_data %>% head()
+well_data %>% head() 
 
 ```
+
+##### Descriptive Analysis
+
+```{r}
+require(summarytools)
+well_summary <- as.data.frame(summarytools::descr(well_data, transpose= TRUE)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
+
+well_summary %>% 
+  rownames_to_column('attribute') %>%
+  mutate_if(is.numeric, round) %>%
+  column_to_rownames('attribute') %>%
+  select(Mean, Median, Min, Max, Std.Dev, Q1, Q3, IQR, N.Valid, Pct.Valid)
+
+
+```
+
+
 
 
 ##### Additive concentrations vs productivity
@@ -234,13 +252,49 @@ ggplot(well_data) +
 ##### Is PkNorm_6mo_Oil normally distributed for each formation?
 
 
-```{r}
+```{r fig.height=6, fig.width=12}
 
-ggplot(well_data, aes(x = FirstProd, y = Oil)) +
-    geom_point() +
-    facet_grid(. ~ form_avg)
+require(car)
+
+form_avg <- well_data$form_avg
+lb_ft <- well_data$lb_ft
+bbl_ft <- well_data$bbl_ft
+oil <- well_data$Oil
+
+
+scatterplotMatrix(cbind(lb_ft, bbl_ft, form_avg, oil)#cbind(Brain, Body, Litter, Gestation) 
+                  , smooth=FALSE
+                  , diagonal="histogram"
+                  , col= "steelblue")  
+
 
 ```
+
+```{r}
+scatterplotMatrix(cbind(log(lb_ft), log(bbl_ft), form_avg, log(oil))#cbind(Brain, Body, Litter, Gestation) 
+                  , smooth=FALSE
+                  , diagonal="histogram"
+                  , col= "steelblue")  
+```
+
+
+```{r}
+
+simple.lm <- lm(oil ~ lb_ft + bbl_ft + form_avg)
+moderate.lm <- lm(oil ~ lb_ft + bbl_ft + form_avg + lb_ft:bbl_ft)
+```
+
+```{r}
+plot(simple.lm)
+```
+```{r}
+plot(moderate.lm)
+```
+
+```{r}
+anova(simple.lm, moderate.lm)
+```
+
 
 1.	Research Question – Clearly stated
 
