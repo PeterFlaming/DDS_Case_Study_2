@@ -1,24 +1,9 @@
 
-
-# Setup
-
-```{r setup}
 if(!exists("summarize_frame", mode="function")) source("Functions.R")
 
-```
 
 
-
-```{r}
-
-```
-
-
-# Import Data
-
-```{r}
-
-fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
+fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
               standardize_names() %>%
               rename(api='apinumber') %>%
               mutate( api=as.character(api)
@@ -53,22 +38,16 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
              as.tibble()
 
 
-```
 
 # Supplementary Data Frames - Unique record per well
 
-```{r}
-
 ff_distinct_api <- fracfocus %>%
     distinct(api)
-
-```
 
 # Clean Frac Focus Data
 
 ### Frac Focus Summary - Unique record per well
 
-```{r}
 ff_summary <- fracfocus %>%
     filter('sand' %in% ingredientname
         | 'silica' %in% ingredientname
@@ -88,12 +67,13 @@ ff_summary <- fracfocus %>%
               # add additional summary variables here.
               )
 
-
 ff_summary %>% head()
 
 summarize_frame(ff_summary)
 
-```
+
+
+
 
 
 

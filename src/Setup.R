@@ -20,3 +20,5 @@ knitr::opts_knit$set(root.dir = normalizePath(".."),
                      child.dir = normalizePath(".."))
 
 
+if(!exists("summarize_frame", mode="function")) source("Functions.R")
+

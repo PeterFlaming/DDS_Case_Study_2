@@ -1705,146 +1705,34 @@ $(document).ready(function () {
 <h1>Setup</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxua25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKVxuZ2dwbG90Mjo6dGhlbWVfc2V0KGdncGxvdDI6OnRoZW1lX2J3KCkpXG5nZ3Bsb3QyOjp0aGVtZV91cGRhdGUocGxvdC50aXRsZSA9IGdncGxvdDI6OmVsZW1lbnRfdGV4dChoanVzdCA9IDAuNSkpXG5rbml0cjo6b3B0c19jaHVuayRzZXQoZmlnLndpZHRoPTYsIzEyLCBcbiAgICAgICAgICAgICAgICAgICAgICBmaWcuaGVpZ2h0PTQsIzgsIFxuICAgICAgICAgICAgICAgICAgICAgIGZpZy5wYXRoPSdGaWdzLycsXG4gICAgICAgICAgICAgICAgICAgICAgd2FybmluZz1GQUxTRSwgXG4gICAgICAgICAgICAgICAgICAgICAgbWVzc2FnZT1GQUxTRSlcblxucmVxdWlyZSh0aWR5dmVyc2UpXG5yZXF1aXJlKG1hZ3JpdHRyKVxucmVxdWlyZShrYWJsZUV4dHJhKVxucmVxdWlyZShjYXIpXG4jb3B0aW9ucyhrbml0ci50YWJsZS5mb3JtYXQgPSBcImFzaXNcIikjXCJtYXJrZG93blwiKVxuXG4jcHJldmVudCBpbXBsaWNpdCBjb252ZXJzaW9uIHRvIHNjaWVudGlmaWMgbm90YXRpb25cbm9wdGlvbnMoc2NpcGVuID0gOTk5KVxua25pdHI6Om9wdHNfa25pdCRzZXQocm9vdC5kaXIgPSBub3JtYWxpemVQYXRoKFwiLi5cIiksXG4gICAgICAgICAgICAgICAgICAgICBjaGlsZC5kaXIgPSBub3JtYWxpemVQYXRoKFwiLi5cIikpXG5cblxuYGBgIn0= -->
-<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
-ggplot2::theme_set(ggplot2::theme_bw())
-ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5))
-knitr::opts_chunk$set(fig.width=6,#12, 
-                      fig.height=4,#8, 
-                      fig.path='Figs/',
-                      warning=FALSE, 
-                      message=FALSE)
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYoIWV4aXN0cyhcInN1bW1hcml6ZV9mcmFtZVwiLCBtb2RlPVwiZnVuY3Rpb25cIikpIHNvdXJjZShcInNyYy9GdW5jdGlvbnMuUlwiKVxuXG4ja25pdHI6OmtuaXRfY2hpbGQoJ0RhdGFJbXBvcnQtRnJhY0ZvY3VzLlJtZCcsIG9wdGlvbnMgPSBOVUxMLCBlbnZpciA9IGtuaXRyOjprbml0X2dsb2JhbCgpKVxuZHJpZnR3b29kIDwtIHJlYWQuY3N2KFwiZGF0YS9kZW9fd2VsbF9kYXRhLmNzdlwiKSAlPiVcbiAgICAgICAgICAgICBzdGFuZGFyZGl6ZV9uYW1lcygpICU+JSBcbiAgICAgICAgICAgICByZW5hbWUob2lsPSdvaWxwa25vcm1wZXJrNm1vJykgJT4lXG4gICAgICAgICAgICAgbXV0YXRlKGFwaSA9IGFzLmNoYXJhY3RlcihhcGkpXG4gICAgICAgICAgICAgICAgICAgICAsIGFwaTEwID0gYXMuY2hhcmFjdGVyKGFwaTEwKVxuICAgICAgICAgICAgICAgICAgICAgLCBwZXJmbGw9YXMuaW50ZWdlcihwZXJmbGwpXG4gICAgICAgICAgICAgICAgICAgICAsIGZpcnN0cHJvZCA9IGFzLkRhdGUoZmlyc3Rwcm9kLCBcIiVtLyVkLyVZXCIpXG4gICAgICAgICAgICAgICAgICAgICAsIG9pbCA9IGFzLmludGVnZXIob2lsKVxuICAgICAgICAgICAgICAgICAgICAgLCBmaXJzdHByb2RfeWVhciA9IGFzLmludGVnZXIoZm9ybWF0KGZpcnN0cHJvZCwgJyVZJykpXG4gICAgICAgICAgICAgICAgICAgICApICU+JVxuICAgICAgICAgICAgIGFzLnRpYmJsZSgpXG5cbmRyaWZ0d29vZCAlPiUgaGVhZCgpXG5gYGAifQ== -->
+<pre class="r"><code>if(!exists(&quot;summarize_frame&quot;, mode=&quot;function&quot;)) source(&quot;src/Functions.R&quot;)
 
-require(tidyverse)
-require(magrittr)
-require(kableExtra)
-require(car)
-#options(knitr.table.format = &quot;asis&quot;)#&quot;markdown&quot;)
-
-#prevent implicit conversion to scientific notation
-options(scipen = 999)
-knitr::opts_knit$set(root.dir = normalizePath(&quot;..&quot;),
-                     child.dir = normalizePath(&quot;..&quot;))
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="setup-1" class="section level1">
-<h1>Setup</h1>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYoIWV4aXN0cyhcInN1bW1hcml6ZV9mcmFtZVwiLCBtb2RlPVwiZnVuY3Rpb25cIikpIHNvdXJjZShcIkZ1bmN0aW9ucy5SXCIpXG5cbmBgYCJ9 -->
-<pre class="r"><code>if(!exists(&quot;summarize_frame&quot;, mode=&quot;function&quot;)) source(&quot;Functions.R&quot;)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="import-data" class="section level1">
-<h1>Import Data</h1>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5mcmFjZm9jdXMgPC0gcmVhZC5jc3YoXCIuLi9kYXRhL2ZyYWNmb2N1c19yZWdpc3RyeS5jc3ZcIikgJT4lXG4gICAgICAgICAgICAgIHN0YW5kYXJkaXplX25hbWVzKCkgJT4lXG4gICAgICAgICAgICAgIHJlbmFtZShhcGk9J2FwaW51bWJlcicpICU+JVxuICAgICAgICAgICAgICBtdXRhdGUoIGFwaT1hcy5jaGFyYWN0ZXIoYXBpKVxuICAgICAgICAgICAgICAgICAgICAgLGFwaTEwID0gYXMuY2hhcmFjdGVyKGFwaTEwKVxuICAgICAgICAgICAgICAgICAgICAgLGpvYnN0YXJ0ZGF0ZT1hcy5EYXRlKGpvYnN0YXJ0ZGF0ZSwgXCIlbS8lZC8lWVwiKVxuICAgICAgICAgICAgICAgICAgICAgLGpvYmVuZGRhdGU9YXMuRGF0ZShqb2JlbmRkYXRlLCBcIiVtLyVkLyVZXCIpXG4gICAgICAgICAgICAgICAgICAgICAsdG90YWxiYXNld2F0ZXJ2b2x1bWUgPSBhcy5kb3VibGUodG90YWxiYXNld2F0ZXJ2b2x1bWUpXG4gICAgICAgICAgICAgICAgICAgICAsdG90YWxiYXNlbm9ud2F0ZXJ2b2x1bWUgPSBhcy5kb3VibGUodG90YWxiYXNlbm9ud2F0ZXJ2b2x1bWUpXG4gICAgICAgICAgICAgICAgICAgICAscGVyY2VudGhpZ2hhZGRpdGl2ZSA9IGFzLmRvdWJsZShwZXJjZW50aGlnaGFkZGl0aXZlKVxuICAgICAgICAgICAgICAgICAgICAgLHBlcmNlbnRoZmpvYiA9IGFzLmRvdWJsZShwZXJjZW50aGZqb2IpXG4gICAgICAgICAgICAgICAgICAgICAsbWFzc2luZ3JlZGllbnQgPSBhcy5kb3VibGUobWFzc2luZ3JlZGllbnQpXG4gICAgICAgICAgICAgICAgICAgICAsaXN3YXRlciA9IGFzLmxvZ2ljYWwuZmFjdG9yKGlzd2F0ZXIpXG4gICAgICAgICAgICAgICAgICAgICApICU+JVxuICAgICAgICAgICAgICBzZWxlY3QoIGFwaVxuICAgICAgICAgICAgICAgICAgICAgLGFwaTEwXG4gICAgICAgICAgICAgICAgICAgICAsd2VsbG5hbWVcbiAgICAgICAgICAgICAgICAgICAgICxvcGVyYXRvcm5hbWVcbiAgICAgICAgICAgICAgICAgICAgICxqb2JzdGFydGRhdGVcbiAgICAgICAgICAgICAgICAgICAgICxqb2JlbmRkYXRlXG4gICAgICAgICAgICAgICAgICAgICAsbGF0aXR1ZGVcbiAgICAgICAgICAgICAgICAgICAgICxsb25naXR1ZGVcbiAgICAgICAgICAgICAgICAgICAgICx0b3RhbGJhc2V3YXRlcnZvbHVtZVxuICAgICAgICAgICAgICAgICAgICAgLHRvdGFsYmFzZW5vbndhdGVydm9sdW1lXG4gICAgICAgICAgICAgICAgICAgICAsc3RhdGVuYW1lXG4gICAgICAgICAgICAgICAgICAgICAsY291bnR5bmFtZVxuICAgICAgICAgICAgICAgICAgICAgLGluZ3JlZGllbnRuYW1lXG4gICAgICAgICAgICAgICAgICAgICAscGVyY2VudGhpZ2hhZGRpdGl2ZVxuICAgICAgICAgICAgICAgICAgICAgLHBlcmNlbnRoZmpvYlxuICAgICAgICAgICAgICAgICAgICAgLG1hc3NpbmdyZWRpZW50XG4gICAgICAgICAgICAgICAgICAgICAsaXN3YXRlclxuICAgICAgICAgICAgICAgICAgICAgKSAlPiVcbiAgICAgICAgICAgICBhcy50aWJibGUoKVxuXG5cbmBgYCJ9 -->
-<pre class="r"><code>
-fracfocus &lt;- read.csv(&quot;../data/fracfocus_registry.csv&quot;) %&gt;%
-              standardize_names() %&gt;%
-              rename(api='apinumber') %&gt;%
-              mutate( api=as.character(api)
-                     ,api10 = as.character(api10)
-                     ,jobstartdate=as.Date(jobstartdate, &quot;%m/%d/%Y&quot;)
-                     ,jobenddate=as.Date(jobenddate, &quot;%m/%d/%Y&quot;)
-                     ,totalbasewatervolume = as.double(totalbasewatervolume)
-                     ,totalbasenonwatervolume = as.double(totalbasenonwatervolume)
-                     ,percenthighadditive = as.double(percenthighadditive)
-                     ,percenthfjob = as.double(percenthfjob)
-                     ,massingredient = as.double(massingredient)
-                     ,iswater = as.logical.factor(iswater)
-                     ) %&gt;%
-              select( api
-                     ,api10
-                     ,wellname
-                     ,operatorname
-                     ,jobstartdate
-                     ,jobenddate
-                     ,latitude
-                     ,longitude
-                     ,totalbasewatervolume
-                     ,totalbasenonwatervolume
-                     ,statename
-                     ,countyname
-                     ,ingredientname
-                     ,percenthighadditive
-                     ,percenthfjob
-                     ,massingredient
-                     ,iswater
+#knitr::knit_child('DataImport-FracFocus.Rmd', options = NULL, envir = knitr::knit_global())
+driftwood &lt;- read.csv(&quot;data/deo_well_data.csv&quot;) %&gt;%
+             standardize_names() %&gt;% 
+             rename(oil='oilpknormperk6mo') %&gt;%
+             mutate(api = as.character(api)
+                     , api10 = as.character(api10)
+                     , perfll=as.integer(perfll)
+                     , firstprod = as.Date(firstprod, &quot;%m/%d/%Y&quot;)
+                     , oil = as.integer(oil)
+                     , firstprod_year = as.integer(format(firstprod, '%Y'))
                      ) %&gt;%
              as.tibble()
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="supplementary-data-frames---unique-record-per-well" class="section level1">
-<h1>Supplementary Data Frames - Unique record per well</h1>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5mZl9kaXN0aW5jdF9hcGkgPC0gZnJhY2ZvY3VzICU+JVxuICAgIGRpc3RpbmN0KGFwaSlcblxuYGBgIn0= -->
-<pre class="r"><code>
-ff_distinct_api &lt;- fracfocus %&gt;%
-    distinct(api)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="clean-frac-focus-data" class="section level1">
-<h1>Clean Frac Focus Data</h1>
-<div id="frac-focus-summary---unique-record-per-well" class="section level3">
-<h3>Frac Focus Summary - Unique record per well</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmZfc3VtbWFyeSA8LSBmcmFjZm9jdXMgJT4lXG4gICAgZmlsdGVyKCdzYW5kJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJ3NpbGljYScgJWluJSBpbmdyZWRpZW50bmFtZVxuICAgICAgICB8ICdwcm9wcCcgJWluJSBpbmdyZWRpZW50bmFtZVxuICAgICAgICB8ICdtZXNoJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJ2Jyb3duJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJ3doaXRlJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJzMwJTUwJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJzQwJTcwJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJzMwJTUwJyAlaW4lIGluZ3JlZGllbnRuYW1lXG4gICAgICAgIHwgJzEwMCcgJWluJSBpbmdyZWRpZW50bmFtZVxuICAgICAgICApICU+JVxuICAgIGdyb3VwX2J5KGFwaTEwKSAlPiVcbiAgICBzdW1tYXJpemUodG90YWx3YXRlciA9IG1heCh0b3RhbGJhc2V3YXRlcnZvbHVtZSlcbiAgICAgICAgICAgICAgLCB0b3RhbHNhbmQgPSBzdW0obWFzc2luZ3JlZGllbnQpXG4gICAgICAgICAgICAgICwgcGVyY2VudGhmam9iID0gc3VtKHBlcmNlbnRoZmpvYilcbiAgICAgICAgICAgICAgIyBhZGQgYWRkaXRpb25hbCBzdW1tYXJ5IHZhcmlhYmxlcyBoZXJlLlxuICAgICAgICAgICAgICApXG5cblxuZmZfc3VtbWFyeSAlPiUgaGVhZCgpXG5cbnN1bW1hcml6ZV9mcmFtZShmZl9zdW1tYXJ5KVxuXG5gYGAifQ== -->
-<pre class="r"><code>ff_summary &lt;- fracfocus %&gt;%
-    filter('sand' %in% ingredientname
-        | 'silica' %in% ingredientname
-        | 'propp' %in% ingredientname
-        | 'mesh' %in% ingredientname
-        | 'brown' %in% ingredientname
-        | 'white' %in% ingredientname
-        | '30%50' %in% ingredientname
-        | '40%70' %in% ingredientname
-        | '30%50' %in% ingredientname
-        | '100' %in% ingredientname
-        ) %&gt;%
-    group_by(api10) %&gt;%
-    summarize(totalwater = max(totalbasewatervolume)
-              , totalsand = sum(massingredient)
-              , percenthfjob = sum(percenthfjob)
-              # add additional summary variables here.
-              )
 
-
-ff_summary %&gt;% head()
-
-summarize_frame(ff_summary)
-</code></pre>
+driftwood %&gt;% head()</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-</div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4cGxvcmF0b3J5IERhdGEgQW5hbHlzaXMiDQpkYXRlOiAiSnVseSAyNCwgMjAxOCINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KDQotLS0NCg0KIyBTZXR1cA0KDQoNCg0KDQpgYGB7ciBjb2RlID0gcmVhZExpbmVzKCdTZXR1cC5SJyl9DQpgYGANCg0KDQpgYGB7ciB0ZXN0LW1haW4sIGNoaWxkID0gJ0RhdGFJbXBvcnQtRnJhY0ZvY3VzLlJtZCd9DQoNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4cGxvcmF0b3J5IERhdGEgQW5hbHlzaXMiDQpkYXRlOiAiSnVseSAyNCwgMjAxOCINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQojIFNldHVwDQoNCg0KDQoNCmBgYHtyIGNvZGUgPSByZWFkTGluZXMoJ1NldHVwLlInKX0NCmBgYA0KDQoNCmBgYHtyfQ0KaWYoIWV4aXN0cygic3VtbWFyaXplX2ZyYW1lIiwgbW9kZT0iZnVuY3Rpb24iKSkgc291cmNlKCJzcmMvRnVuY3Rpb25zLlIiKQ0KDQoja25pdHI6OmtuaXRfY2hpbGQoJ0RhdGFJbXBvcnQtRnJhY0ZvY3VzLlJtZCcsIG9wdGlvbnMgPSBOVUxMLCBlbnZpciA9IGtuaXRyOjprbml0X2dsb2JhbCgpKQ0KZHJpZnR3b29kIDwtIHJlYWQuY3N2KCJkYXRhL2Rlb193ZWxsX2RhdGEuY3N2IikgJT4lDQogICAgICAgICAgICAgc3RhbmRhcmRpemVfbmFtZXMoKSAlPiUgDQogICAgICAgICAgICAgcmVuYW1lKG9pbD0nb2lscGtub3JtcGVyazZtbycpICU+JQ0KICAgICAgICAgICAgIG11dGF0ZShhcGkgPSBhcy5jaGFyYWN0ZXIoYXBpKQ0KICAgICAgICAgICAgICAgICAgICAgLCBhcGkxMCA9IGFzLmNoYXJhY3RlcihhcGkxMCkNCiAgICAgICAgICAgICAgICAgICAgICwgcGVyZmxsPWFzLmludGVnZXIocGVyZmxsKQ0KICAgICAgICAgICAgICAgICAgICAgLCBmaXJzdHByb2QgPSBhcy5EYXRlKGZpcnN0cHJvZCwgIiVtLyVkLyVZIikNCiAgICAgICAgICAgICAgICAgICAgICwgb2lsID0gYXMuaW50ZWdlcihvaWwpDQogICAgICAgICAgICAgICAgICAgICAsIGZpcnN0cHJvZF95ZWFyID0gYXMuaW50ZWdlcihmb3JtYXQoZmlyc3Rwcm9kLCAnJVknKSkNCiAgICAgICAgICAgICAgICAgICAgICkgJT4lDQogICAgICAgICAgICAgYXMudGliYmxlKCkNCg0KZHJpZnR3b29kICU+JSBoZWFkKCkNCmBgYA0KDQo=</div>
 
 
 

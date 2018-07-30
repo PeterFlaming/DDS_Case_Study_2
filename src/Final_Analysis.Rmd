@@ -1,20 +1,23 @@
 ---
 title: "Exploratory Data Analysis"
+output:
+  html_document:
+    df_print: paged
 date: "July 24, 2018"
-output: html_notebook
-
+theme: cosmo
 ---
-
 # Setup
 
 
 
 
-```{r code = readLines('Setup.R')}
+```{r code = readLines('Setup.R'), message=FALSE, warning=FALSE}
 ```
 
 
-```{r test-main, child = 'DataImport-FracFocus.Rmd'}
+```{r code = readLines('DataImport-FracFocus.R')}
+
+#knitr::knit_child('DataImport-FracFocus.Rmd', options = NULL, envir = knitr::knit_global())
 
 ```
 
