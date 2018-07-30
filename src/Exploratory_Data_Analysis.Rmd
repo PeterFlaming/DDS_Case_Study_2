@@ -21,6 +21,8 @@ output:
 
 ```{r setup}
 
+getwd()
+
 cool_1 = "steelblue"
 
 ```
@@ -63,68 +65,72 @@ cool_1 = "steelblue"
 
 ```{r}
 
-getwd()
 
-fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
-              rename(API='APINumber') %>%
-              mutate( API=as.character(API)
-                     ,API10 = as.character(API10)
-                     ,JobStartDate=as.Date(JobStartDate, "%m/%d/%Y")
-                     ,JobEndDate=as.Date(JobEndDate, "%m/%d/%Y")
-                     ,TotalBaseWaterVolume = as.double(TotalBaseWaterVolume)
-                     ,TotalBaseNonWaterVolume = as.double(TotalBaseNonWaterVolume)
-                     ,PercentHighAdditive = as.double(PercentHighAdditive)
-                     ,PercentHFJob = as.double(PercentHFJob)
-                     ,MassIngredient = as.double(MassIngredient)
-                     ,IsWater = as.logical.factor(IsWater)
+
+fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
+              standardize_names() %>%
+              rename(api='apinumber') %>%
+              mutate( api=as.character(api)
+                     ,api10 = as.character(api10)
+                     ,jobstartdate=as.Date(jobstartdate, "%m/%d/%Y")
+                     ,jobenddate=as.Date(jobenddate, "%m/%d/%Y")
+                     ,totalbasewatervolume = as.double(totalbasewatervolume)
+                     ,totalbasenonwatervolume = as.double(totalbasenonwatervolume)
+                     ,percenthighadditive = as.double(percenthighadditive)
+                     ,percenthfjob = as.double(percenthfjob)
+                     ,massingredient = as.double(massingredient)
+                     ,iswater = as.logical.factor(iswater)
                      ) %>%
-              select( API
-                     ,API10
-                     ,WellName
-                     ,OperatorName
-                     ,JobStartDate
-                     ,JobEndDate
-                     ,Latitude
-                     ,Longitude
-                     ,TotalBaseWaterVolume
-                     ,TotalBaseNonWaterVolume
-                     ,StateName
-                     ,CountyName
-                     ,IngredientName
-                     ,PercentHighAdditive
-                     ,PercentHFJob
-                     ,MassIngredient
-                     ,IsWater
-                     )
-
-
-driftwood <- read.csv("data/deo_well_data.csv") %>%
-              rename(API = 'ï..API') %>%
-              mutate(API = as.character(API)
-                     , API10 = as.character(API10)
-                     , PerfLL=as.integer(PerfLL)
-                     , FirstProd = as.Date(FirstProd, "%m/%d/%Y")
-                     , Oil = as.integer(Oil_PkNorm_Perk_6mo) #Oil_PkNorm_Perk_6mo
-                     , FirstProd_Year = as.integer(format(FirstProd, '%Y'))
+              select( api
+                     ,api10
+                     ,wellname
+                     ,operatorname
+                     ,jobstartdate
+                     ,jobenddate
+                     ,latitude
+                     ,longitude
+                     ,totalbasewatervolume
+                     ,totalbasenonwatervolume
+                     ,statename
+                     ,countyname
+                     ,ingredientname
+                     ,percenthighadditive
+                     ,percenthfjob
+                     ,massingredient
+                     ,iswater
                      ) %>%
-                     select(-Oil_PkNorm_Perk_6mo)
+             as.tibble()
+
+driftwood <- read.csv("../data/deo_well_data.csv") %>%
+             standardize_names() %>% 
+             rename(oil='oilpknormperk6mo') %>%
+             mutate(api = as.character(api)
+                     , api10 = as.character(api10)
+                     , perfll=as.integer(perfll)
+                     , firstprod = as.date(firstprod, "%m/%d/%Y")
+                     , oil = as.integer(oil)
+                     , firstprod_year = as.integer(format(firstprod, '%Y'))
+                     ) %>%
+             as.tibble()
 
 # driftwood %>% head()
+
+
 
 ```
 
 ```{r}
 
 ff_distinct_api <- fracfocus %>%
-    distinct(API)
+    distinct(api)
 
 wells_distinct_api14 <- driftwood %>%
-    inner_join(fracfocus, by = c("API", "API")) %>%
-    distinct(API)
+    inner_join(fracfocus, by = c("api", "api")) %>%
+    distinct(api)
 
 wells_distinct_api10 <- driftwood %>%
-    inner_join(fracfocus, by = c("API10", "API10")) %>%
-    distinct(API10)
+    inner_join(fracfocus, by = c("api10", "api10")) %>%
+    distinct(api10)
 
 
 ```
@@ -148,22 +154,22 @@ wells_distinct_api10 <- driftwood %>%
 
 
 ff_summary <- fracfocus %>%
-    filter('sand' %in% IngredientName
-        | 'silica' %in% IngredientName
-        | 'propp' %in% IngredientName
-        | 'mesh' %in% IngredientName
-        | 'brown' %in% IngredientName
-        | 'white' %in% IngredientName
-        | '30%50' %in% IngredientName
-        | '40%70' %in% IngredientName
-        | '30%50' %in% IngredientName
-        | '100' %in% IngredientName
+    filter('sand' %in% ingredientname
+        | 'silica' %in% ingredientname
+        | 'propp' %in% ingredientname
+        | 'mesh' %in% ingredientname
+        | 'brown' %in% ingredientname
+        | 'white' %in% ingredientname
+        | '30%50' %in% ingredientname
+        | '40%70' %in% ingredientname
+        | '30%50' %in% ingredientname
+        | '100' %in% ingredientname
         ) %>%
-    group_by(API10) %>%
-    summarize(TotalWater = max(TotalBaseWaterVolume)
-              , TotalSand = sum(MassIngredient)
-              , PercentHFJob = sum(PercentHFJob)
-              # Add additional summary variables here.
+    group_by(api10) %>%
+    summarize(totalwater = max(totalbasewatervolume)
+              , totalsand = sum(massingredient)
+              , percenthfjob = sum(percenthfjob)
+              # add additional summary variables here.
               )
 
 
@@ -176,9 +182,9 @@ ff_summary %>% head()
 ```{r}
 
 well_data <- driftwood %>%
-    inner_join(ff_summary, by = c("API10", "API10")) %>%
-    mutate(lb_ft = TotalSand / PerfLL
-           , bbl_ft = TotalWater / PerfLL #TODO: TotalWater bbl looks way too high.
+    inner_join(ff_summary, by = c("api10", "api10")) %>%
+    mutate(lb_ft = totalsand / perfll
+           , bbl_ft = totalwater / perfll #todo: totalwater bbl looks way too high.
            , gal_ft = bbl_ft / 42
            , distance = sqrt(gal_ft ^ 2 + lb_ft ^ 2) * (180 / pi) # linear_distance_from_origin (hypotenuse length)
            , angle = atan(gal_ft / lb_ft) * (180 / pi) #in degrees
@@ -201,9 +207,9 @@ well_data %>% head()
 <!-- ```{r} -->
 
 <!-- well_data <- driftwood %>% -->
-<!--     inner_join(ff_summary, by = c("API10", "API10")) %>% -->
-<!--     mutate(lb_ft = TotalSand / PerfLL -->
-<!--            , bbl_ft = TotalWater / PerfLL #TODO: TotalWater bbl looks way too high. -->
+<!--     inner_join(ff_summary, by = c("api10", "api10")) %>% -->
+<!--     mutate(lb_ft = totalsand / perfll -->
+<!--            , bbl_ft = totalwater / perfll #todo: totalwater bbl looks way too high. -->
 <!--            , gal_ft = bbl_ft / 42 -->
 <!--            , distance = sqrt(gal_ft ^ 2 + lb_ft ^ 2) * (180 / pi) # linear_distance_from_origin (hypotenuse length) -->
 <!--            , angle = atan(gal_ft / lb_ft) * (180 / pi) #in degrees -->
@@ -221,17 +227,17 @@ well_data %>% head()
 
 
 
-<!-- ### Investigate Frac Focus -->
+<!-- ### investigate frac focus -->
 
 
 <!-- ```{r} -->
 
 <!-- ggplot((fracfocus %>% na.omit(.)), -->
-<!--        aes(x = form_avg, y = oil)) + #TODO: Move to Appendix -->
+<!--        aes(x = form_avg, y = oil)) + #todo: move to appendix -->
 <!--        geom_boxplot(fill = cool_1) + -->
-<!--        ggtitle("ABV by State") + -->
-<!--        xlab("States") + -->
-<!--        ylab("Alcohol by Volume (%)") + -->
+<!--        ggtitle("abv by state") + -->
+<!--        xlab("states") + -->
+<!--        ylab("alcohol by volume (%)") + -->
 <!--        theme(text = element_text(size = 10), -->
 <!--         axis.text.x = element_text(angle = 90, vjust = 0.5), -->
 <!--         plot.title = element_text(hjust = 0.5, size = 16)) -->
@@ -253,17 +259,17 @@ well_data %>% head()
 
 
 
-##### Descriptive Analysis
+##### descriptive analysis
 
 ```{r}
 require(summarytools)
-well_summary <- as.data.frame(summarytools::descr(well_data, transpose= TRUE)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
+well_summary <- as.data.frame(summarytools::descr(well_data, transpose= true)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
 
 well_summary %>% 
   rownames_to_column('attribute') %>%
   mutate_if(is.numeric, round) %>%
   column_to_rownames('attribute') %>%
-  select(Mean, Median, Min, Max, Std.Dev, Q1, Q3, IQR, N.Valid, Pct.Valid)
+  select(mean, median, min, max, std.dev, q1, q3, iqr, n.valid, pct.valid)
 
 
 ```
@@ -276,17 +282,17 @@ well_summary %>%
 
 
 
-##### Additive concentrations vs productivity
+##### additive concentrations vs productivity
 
 
 
 
-##### Avg Frac Size by Year
+##### avg frac size by year
 
 
 ```{r}
 
-#Frac job profile as frac lb_ft vs bbl_ft
+#frac job profile as frac lb_ft vs bbl_ft
 ggplot((well_data), aes(x = lb_ft, y = bbl_ft)) +
     geom_point() 
 
@@ -302,11 +308,11 @@ ggplot((well_data), aes(x = lb_ft, y = bbl_ft)) +
 
 
 ```{r}
-#TODO: productivity at ~2000 bbl_oil/1000 ft looks suspicious
+#todo: productivity at ~2000 bbl_oil/1000 ft looks suspicious
 
 # distribution of wells by productivity
 ggplot(well_data) +  
-    geom_histogram(aes(x = Oil), binwidth = 100) +
+    geom_histogram(aes(x = oil), binwidth = 100) +
     theme(text = element_text(size = 10),
         axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -314,17 +320,17 @@ ggplot(well_data) +
 
 
 
-##### Pk-6mo-oil by year
+##### pk-6mo-oil by year
 
 
 ```{r}
 
-#TODO: Oil productivity seems to increase with FirstProd date.  Needs further exploration.
+#todo: oil productivity seems to increase with firstprod date.  needs further exploration.
 
-# stat = identity seems to be doing a sum of productivity by year.  2018 is not complete yet.  Normalize over number of wells to correct.
+# stat = identity seems to be doing a sum of productivity by year.  2018 is not complete yet.  normalize over number of wells to correct.
 
 ggplot(well_data) +
-    geom_histogram(aes(x = FirstProd_Year, y = Oil), stat = "identity") +
+    geom_histogram(aes(x = firstprod_year, y = oil), stat = "identity") +
     theme(text = element_text(size = 10),
         axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -334,7 +340,7 @@ ggplot(well_data) +
 
 
 
-##### Is PkNorm_6mo_Oil normally distributed for each formation?
+##### is pknorm_6mo_oil normally distributed for each formation?
 
 
 ```{r fig.height=6, fig.width=12}
@@ -344,13 +350,13 @@ require(car)
 # form_avg <- well_data$form_avg
 # lb_ft <- well_data$lb_ft
 # bbl_ft <- well_data$bbl_ft
-# oil <- well_data$Oil
+# oil <- well_data$oil
 
-features <- well_data %>% select(lb_ft, bbl_ft, form_avg, Oil)
+features <- well_data %>% select(lb_ft, bbl_ft, form_avg, oil)
 
-#cbind(lb_ft, bbl_ft, form_avg, oil)#cbind(Brain, Body, Litter, Gestation)
-scatterplotMatrix(features
-                  , smooth=FALSE
+#cbind(lb_ft, bbl_ft, form_avg, oil)#cbind(brain, body, litter, gestation)
+scatterplotmatrix(features
+                  , smooth=false
                   , diagonal="histogram"
                   , col= "steelblue")  
 
@@ -367,8 +373,8 @@ features <- features %>%
 #cbind(log(lb_ft), log(bbl_ft), form_avg, log(oil))
       
       
-scatterplotMatrix(features
-                  , smooth=FALSE
+scatterplotmatrix(features
+                  , smooth=false
                   , diagonal="histogram"
                   , col= "steelblue")
 ```
@@ -401,7 +407,7 @@ anova(simple.lm, moderate.lm)
 
 # component residual plots
 
-crPlots(simple.lm)
+crplots(simple.lm)
 ```
 
 
