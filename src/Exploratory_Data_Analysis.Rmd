@@ -9,31 +9,54 @@ output:
 
 # Setup
 
-```{r setup, message = FALSE, warning = FALSE}
-
-knitr::opts_chunk$set(echo = TRUE)
-ggplot2::theme_set(ggplot2::theme_bw())
-ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5))
-knitr::opts_chunk$set(fig.width=6,#12, 
-                      fig.height=4,#8, 
-                      fig.path='Figs/',
-                      warning=FALSE, 
-                      message=FALSE)
-
-require(tidyverse)
-require(magrittr)
-require(kableExtra)
-options(knitr.table.format = "asis")#"markdown")
-
-setwd("C:/Repositories/DDS_Case_Study_2")
-
-#prevent implicit conversion to scientific notation
-options(scipen = 999)
 
 
 
+
+
+
+```{r code = readLines('Setup.R')}
+```
+
+
+```{r setup}
+
+cool_1 = "steelblue"
 
 ```
+
+
+
+
+
+
+
+<!-- ```{r setup, message = FALSE, warning = FALSE} -->
+
+<!-- knitr::opts_chunk$set(echo = TRUE) -->
+<!-- ggplot2::theme_set(ggplot2::theme_bw()) -->
+<!-- ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5)) -->
+<!-- knitr::opts_chunk$set(fig.width=6,#12,  -->
+<!--                       fig.height=4,#8,  -->
+<!--                       fig.path='Figs/', -->
+<!--                       warning=FALSE,  -->
+<!--                       message=FALSE) -->
+
+<!-- require(tidyverse) -->
+<!-- require(magrittr) -->
+<!-- require(kableExtra) -->
+<!-- require(car) -->
+<!-- options(knitr.table.format = "asis")#"markdown") -->
+
+<!-- setwd("C:/Repositories/DDS_Case_Study_2") -->
+
+<!-- #prevent implicit conversion to scientific notation -->
+<!-- options(scipen = 999) -->
+
+
+
+
+<!-- ``` -->
 
 
 # Import Datasets
@@ -42,7 +65,7 @@ options(scipen = 999)
 
 getwd()
 
-fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
+fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
               rename(API='APINumber') %>%
               mutate( API=as.character(API)
                      ,API10 = as.character(API10)
@@ -75,7 +98,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      )
 
 
-driftwood <- read.csv("../data/deo_well_data.csv") %>%
+driftwood <- read.csv("data/deo_well_data.csv") %>%
               rename(API = 'ï..API') %>%
               mutate(API = as.character(API)
                      , API10 = as.character(API10)
@@ -169,7 +192,66 @@ well_data <- driftwood %>%
 
 well_data %>% head() 
 
+
+
+
 ```
+
+<!-- #################### -->
+<!-- ```{r} -->
+
+<!-- well_data <- driftwood %>% -->
+<!--     inner_join(ff_summary, by = c("API10", "API10")) %>% -->
+<!--     mutate(lb_ft = TotalSand / PerfLL -->
+<!--            , bbl_ft = TotalWater / PerfLL #TODO: TotalWater bbl looks way too high. -->
+<!--            , gal_ft = bbl_ft / 42 -->
+<!--            , distance = sqrt(gal_ft ^ 2 + lb_ft ^ 2) * (180 / pi) # linear_distance_from_origin (hypotenuse length) -->
+<!--            , angle = atan(gal_ft / lb_ft) * (180 / pi) #in degrees -->
+<!--            , deviation = abs(45 - angle) #deviation_from_45deg -->
+<!--            , weight = 500 # weighting_constant -->
+<!--            , frac_rating = distance-(deviation-weight) # weighted_distance_from_origin -->
+<!--            ) %>% -->
+<!--            select(-distance, -angle, -deviation, -weight) -->
+
+
+
+<!-- well_data %>% head()  -->
+
+<!-- ``` -->
+
+
+
+<!-- ### Investigate Frac Focus -->
+
+
+<!-- ```{r} -->
+
+<!-- ggplot((fracfocus %>% na.omit(.)), -->
+<!--        aes(x = form_avg, y = oil)) + #TODO: Move to Appendix -->
+<!--        geom_boxplot(fill = cool_1) + -->
+<!--        ggtitle("ABV by State") + -->
+<!--        xlab("States") + -->
+<!--        ylab("Alcohol by Volume (%)") + -->
+<!--        theme(text = element_text(size = 10), -->
+<!--         axis.text.x = element_text(angle = 90, vjust = 0.5), -->
+<!--         plot.title = element_text(hjust = 0.5, size = 16)) -->
+
+
+<!-- ``` -->
+<!-- #################### -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##### Descriptive Analysis
 

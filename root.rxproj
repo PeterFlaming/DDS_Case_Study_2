@@ -9,7 +9,11 @@
     <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupFile>Script.R</StartupFile>
+    <StartupFile>src\Script.R</StartupFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <SettingsFile>
+    </SettingsFile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

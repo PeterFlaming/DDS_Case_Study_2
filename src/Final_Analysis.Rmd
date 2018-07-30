@@ -1,0 +1,17 @@
+---
+title: "Exploratory Data Analysis"
+date: "July 24, 2018"
+output: html_notebook
+
+---
+
+# Setup
+
+
+
+
+```{r code = readLines('Setup.R')}
+```
+
+
+
