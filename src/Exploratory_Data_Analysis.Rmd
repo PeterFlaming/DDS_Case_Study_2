@@ -186,6 +186,11 @@ well_summary %>%
 
 ```
 
+```{r}
+
+
+
+```
 
 
 
@@ -201,19 +206,17 @@ well_summary %>%
 
 #Frac job profile as frac lb_ft vs bbl_ft
 ggplot((well_data), aes(x = lb_ft, y = bbl_ft)) +
-    geom_point()
-      #geom_point(aes(fill = ifelse((ibu %in% ibu_outliers), "Outlier", "Valid")),
-                 #size = 4,
-                 #shape = 21,
-                 #position = position_jitter()) +
-                 #stat_boxplot(geom = 'errorbar') +
-                 #geom_boxplot(alpha = .5,
-                   #outlier.shape = NA) +
-                   #guides(fill = guide_legend(title = NULL))
+    geom_point() 
 
 
 ```
 
+```{r}
+
+ggplot((well_data), aes(x = lb_ft, y = bbl_ft)) +
+    geom_point()
+
+```
 
 
 ```{r}
@@ -256,13 +259,15 @@ ggplot(well_data) +
 
 require(car)
 
-form_avg <- well_data$form_avg
-lb_ft <- well_data$lb_ft
-bbl_ft <- well_data$bbl_ft
-oil <- well_data$Oil
+# form_avg <- well_data$form_avg
+# lb_ft <- well_data$lb_ft
+# bbl_ft <- well_data$bbl_ft
+# oil <- well_data$Oil
 
+features <- well_data %>% select(lb_ft, bbl_ft, form_avg, Oil)
 
-scatterplotMatrix(cbind(lb_ft, bbl_ft, form_avg, oil)#cbind(Brain, Body, Litter, Gestation) 
+#cbind(lb_ft, bbl_ft, form_avg, oil)#cbind(Brain, Body, Litter, Gestation)
+scatterplotMatrix(features
                   , smooth=FALSE
                   , diagonal="histogram"
                   , col= "steelblue")  
@@ -271,10 +276,25 @@ scatterplotMatrix(cbind(lb_ft, bbl_ft, form_avg, oil)#cbind(Brain, Body, Litter,
 ```
 
 ```{r}
-scatterplotMatrix(cbind(log(lb_ft), log(bbl_ft), form_avg, log(oil))#cbind(Brain, Body, Litter, Gestation) 
+features <- features %>% 
+  filter_all(any_vars(. > 0)) %>%
+  mutate_at(.vars=vars(-form_avg), .funs=funs(round(.))) %>%
+  #mutate_if(is.numeric, log(.)) %>%
+  na.omit()
+
+#cbind(log(lb_ft), log(bbl_ft), form_avg, log(oil))
+      
+      
+scatterplotMatrix(features
                   , smooth=FALSE
                   , diagonal="histogram"
-                  , col= "steelblue")  
+                  , col= "steelblue")
+```
+
+
+```{r}
+
+
 ```
 
 
@@ -294,6 +314,16 @@ plot(moderate.lm)
 ```{r}
 anova(simple.lm, moderate.lm)
 ```
+
+```{r}
+
+# component residual plots
+
+crPlots(simple.lm)
+```
+
+
+
 
 
 1.	Research Question – Clearly stated
