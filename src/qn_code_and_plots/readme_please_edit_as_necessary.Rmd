@@ -1,0 +1,15 @@
+---
+title: "MSDS - DDS Case Study 2 ReadMe"
+author: "Q Nixon"
+date: "7/31/2018"
+output: html_document
+---
+
+## Factors that influence Oil Well Productivity
+
+The purpose of this investigation is to understand the parameters that impact the productivity of oils wells and develop a method for predicting performance based on those parameters.  We specifically consider size, geographic area, rock formation, and production additives.
+
+This investigation was designed with reproducibility in mind.  In order to recreate the analysis presented here, or use the data to make an original analysis, simply fork or clone the repository.  All necessary data and code are included.
+
+This project utilizes open source software and can be run on most modern computers (including virtual machines).  R is used as the primary language.  The project does have some software dependencies.  These libraries, however, are commonly used, readily available R packages.
+
