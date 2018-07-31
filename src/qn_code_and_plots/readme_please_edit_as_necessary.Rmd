@@ -13,3 +13,15 @@ This investigation was designed with reproducibility in mind.  In order to recre
 
 This project utilizes open source software and can be run on most modern computers (including virtual machines).  R is used as the primary language.  The project does have some software dependencies.  These libraries, however, are commonly used, readily available R packages.
 
+## Contact 
+
+Do we want a statement about contact info?
+
+## Additional References
+
+Do we want a section listing additional information about oil wells?
+
+## License info
+
+Does anyone know if SMU has its own license for grad students like the MIT license?
+
