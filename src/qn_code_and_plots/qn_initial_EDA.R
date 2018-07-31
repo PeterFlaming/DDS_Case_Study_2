@@ -159,5 +159,11 @@ well_data_2 <- driftwood %>%
   )
 well_data_2 %>% head()
 
+# well_data_2 plots
+plot(log(well_data_2$TotalSand), log(well_data_2$Oil_PkNorm_Perk_6mo),
+     main = "Log of Peak performance vs. Log of Total Sand")
+
+plot(log(well_data_2$TotalWater) , well_data_2$Oil_PkNorm_Perk_6mo,
+     main = "Peak performance vs. Log of Total Water")
 
 
