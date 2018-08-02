@@ -166,4 +166,10 @@ plot(log(well_data_2$TotalSand), log(well_data_2$Oil_PkNorm_Perk_6mo),
 plot(log(well_data_2$TotalWater) , well_data_2$Oil_PkNorm_Perk_6mo,
      main = "Peak performance vs. Log of Total Water")
 
+x_wells <- subset(well_data_2, well_data_2$form_avg == "WFMP_C")
+plot(log(x_wells$TotalSand), log(x_wells$Oil_PkNorm_Perk_6mo),
+     main = "log(Peak performance) vs. log(Total Sand) for WFMP_C")
+# c is interesting
+# SPBY_L_SHALE is interesting
+# SPBY_M is sparse, but could be interesting
 
