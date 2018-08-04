@@ -11,13 +11,35 @@ theme: cosmo
 
 
 
-```{r code = readLines('Setup.R'), message=FALSE, warning=FALSE}
+<!-- ```{r code = readLines('Setup.R'), message=FALSE, warning=FALSE} -->
+<!-- ``` -->
+
+```{r setup}
+
+source("Setup.R")
+source("Functions.R")
+read_chunk('DataImport-FracFocus.R')
+
 ```
 
 
-```{r code = readLines('DataImport-FracFocus.R')}
 
-#knitr::knit_child('DataImport-FracFocus.Rmd', options = NULL, envir = knitr::knit_global())
 
+# TEST CODE #
+```{r echo = FALSE}
+
+#getwd()
+#read_chunk('Functions.R')
+#read_chunk('DataImport-FracFocus.R')
+#source("Functions.R")
+
+```
+
+
+```{r fracfocus_import}
+```
+
+```{r}
+fracfocus
 ```
 

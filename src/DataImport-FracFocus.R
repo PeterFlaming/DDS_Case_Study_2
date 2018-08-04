@@ -1,9 +1,13 @@
+#setwd('C:\\Repositories\\DDS_Case_Study_2\\src')
+source('Setup.R')
+source('Functions.R')
 
-if(!exists("summarize_frame", mode="function")) source("Functions.R")
+#if(!exists("summarize_frame", mode="function")) source("Functions.R")
 
+## ---- fracfocus_import
 
-
-fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
+#import fracfocus data
+fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               standardize_names() %>%
               rename(api='apinumber') %>%
               mutate( api=as.character(api)
@@ -38,14 +42,16 @@ fracfocus <- read.csv("data/fracfocus_registry.csv") %>%
              as.tibble()
 
 
+## ---- fracfocus_distinct
 
 # Supplementary Data Frames - Unique record per well
-
 ff_distinct_api <- fracfocus %>%
     distinct(api)
 
-# Clean Frac Focus Data
 
+## ---- fracfocus_distinct
+
+# Clean Frac Focus Data
 ### Frac Focus Summary - Unique record per well
 
 ff_summary <- fracfocus %>%
@@ -67,9 +73,12 @@ ff_summary <- fracfocus %>%
               # add additional summary variables here.
               )
 
-ff_summary %>% head()
+#ff_summary %>% head()
 
-summarize_frame(ff_summary)
+
+## @knitr fracfocus_summary
+
+#summarize_frame(ff_summary)
 
 
 

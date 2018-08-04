@@ -1,6 +1,8 @@
 
 # Define Custom Functions
 
+
+## @knitr functions
 summarize_frame <- function(df)
 {
   #returns table of summary statistics for each numberic column in dataframe
@@ -22,16 +24,6 @@ standardize_names <- function(df)
 
 }
 
-
-
-# 
-# 
-# # df <- fracfocus
-# df %>% standardize_names() %>% head()
-# 
-# 
-# 
-# 
 
 
 
