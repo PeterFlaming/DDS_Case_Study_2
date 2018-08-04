@@ -76,13 +76,13 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ) %>%
              as.tibble()
 
-driftwood <- read.csv("data/deo_well_data.csv") %>%
+driftwood <- read.csv("../data/deo_well_data.csv") %>%
              standardize_names() %>% 
              rename(oil='oilpknormperk6mo') %>%
              mutate(api = as.character(api)
                      , api10 = as.character(api10)
                      , perfll=as.integer(perfll)
-                     , firstprod = as.date(firstprod, "%m/%d/%Y")
+                     , firstprod = as.Date(firstprod, "%m/%d/%Y")
                      , oil = as.integer(oil)
                      , firstprod_year = as.integer(format(firstprod, '%Y'))
                      ) %>%

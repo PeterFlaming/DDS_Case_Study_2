@@ -36,10 +36,46 @@ read_chunk('DataImport-FracFocus.R')
 ```
 
 
+## Frac Focus - Data
+
+
+#### Import
+
 ```{r fracfocus_import}
 ```
 
-```{r}
-fracfocus
+#### Distinct api List
+
+```{r fracfocus_distinct_api}
 ```
+
+#### Distinct api10 List
+
+```{r fracfocus_distinct_api10}
+```
+
+#### Summarize By api10 
+
+```{r fracfocus_aggregates}
+```
+
+#### Aggregates 
+
+```{r fracfocus_aggregates}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -42,14 +42,21 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
              as.tibble()
 
 
-## ---- fracfocus_distinct
+## ---- fracfocus_distinct_api
 
-# Supplementary Data Frames - Unique record per well
+# Supplementary Data Frames - Unique record per api
 ff_distinct_api <- fracfocus %>%
     distinct(api)
 
+## ---- fracfocus_distinct_api10
 
-## ---- fracfocus_distinct
+# Supplementary Data Frames - Unique record per api10
+ff_distinct_api10 <- fracfocus %>%
+    distinct(api10)
+
+
+
+## ---- fracfocus_summary
 
 # Clean Frac Focus Data
 ### Frac Focus Summary - Unique record per well
@@ -76,9 +83,9 @@ ff_summary <- fracfocus %>%
 #ff_summary %>% head()
 
 
-## @knitr fracfocus_summary
+## ---- fracfocus_aggregates
 
-#summarize_frame(ff_summary)
+summarize_frame(ff_summary)
 
 
 
