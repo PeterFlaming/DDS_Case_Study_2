@@ -1,10 +1,16 @@
 ---
-title: "Exploratory Data Analysis"
+title: "Measuring Well Productivity by Completion Design"
 output:
-  html_document:
-    df_print: paged
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: github
+    toc: true
+    number_sections: true
+    df_print: kable
+    fontsize: 11pt
+    fontfamily: palatino
 date: "July 24, 2018"
-theme: cosmo
+
 ---
 # Setup
 
@@ -41,48 +47,54 @@ read_chunk('DataImport-WellFeatures.R')
 
 
 
-## Frac Focus Data
+# Frac Focus Data
 
 
-#### Import
+## Import
 
 ```{r fracfocus_import}
 ```
 
-#### Count Locations and Wellbores
+## Count Locations and Wellbores
 
 ```{r fracfocus_count}
 ```
 
-#### Aggregate Proppant and Water by wellbore
+## Aggregate Proppant and Water by wellbore
 
-#### Aggregates 
+```{r fracfocus_summary}
+```
+
+## Aggregates
 
 ```{r fracfocus_aggregates}
 ```
 
-## Well Features and Characteristics
+# Well Features and Characteristics
 
 ```{r wellfeatures_import}
 ```
 
-#### Count Locations and Wellbores
+## Count Locations and Wellbores
 
 ```{r wellfeatures_count}
 ```
 
+## Aggregates
+
+```{r fracfocus_aggregates}
+```
 
 
-#### ---- welldata_cals
-
-
-
-
-
-
-
+```{r}
 
 
 
+```
 
 
+
+
+```{r}
+
+```

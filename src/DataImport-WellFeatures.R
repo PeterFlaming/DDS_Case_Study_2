@@ -1,4 +1,4 @@
-#setwd('C:\\Repositories\\DDS_Case_Study_2\\src')
+setwd('C:\\Repositories\\DDS_Case_Study_2\\src')
 source('Setup.R')
 source('Functions.R')
 
@@ -32,15 +32,15 @@ wf_loccount <- wellfeatures %>%
     distinct(api10) %>%
     summarize(locations = n())
 
-data.frame("Distinct Locations" = wf_loccount
+kable_zen(data.frame("Distinct Locations" = wf_loccount
           ,"Unique Wellbores" = wf_wellcount
-          ,row.names=c("Well_Features"))
+          ,row.names=c("Well_Features")))
 
 
 
 ## ---- wellfeatures_aggregates
 
-summarize_frame(wellfeatures)
+kable_zen(summarize_frame(wellfeatures))
 
 
 
