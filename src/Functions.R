@@ -5,15 +5,9 @@
 ## @knitr functions
 summarize_frame <- function(frameframe)
 {
-<<<<<<< HEAD
     #returns table of summary statistics for each numberic column in dataframe
     x <- as.data.frame(summarytools::descr(frameframe, transpose = TRUE)) %>%
     rownames_to_column('Attribute') %>%
-=======
-    # returns table of summary statistics for each numeric column in dataframe
-    as.data.frame(summarytools::descr(frameframe, transpose = TRUE)) %>%
-    rownames_to_column('attribute') %>%
->>>>>>> 3b02cc0fe237137980570ffe7cfe13cd29e4e3fd
     mutate_if(is.numeric, round) %>%
     column_to_rownames('Attribute') %>%
     select(Mean, Median, Min, Max, Std.Dev, Q1, Q3, IQR, N.Valid, Pct.Valid) 
