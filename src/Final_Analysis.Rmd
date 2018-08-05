@@ -15,7 +15,7 @@ theme: cosmo
 <!-- ``` -->
 
 ```{r setup}
-
+# run setup files, create custom functions, and read in data for analysis
 source("Setup.R")
 source("Functions.R")
 read_chunk('DataImport-FracFocus.R')
