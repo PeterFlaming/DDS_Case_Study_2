@@ -19,6 +19,7 @@ theme: cosmo
 source("Setup.R")
 source("Functions.R")
 read_chunk('DataImport-FracFocus.R')
+read_chunk('DataImport-WellFeatures.R')
 
 ```
 
@@ -35,8 +36,12 @@ read_chunk('DataImport-FracFocus.R')
 
 ```
 
+# Executive Summary
 
-## Frac Focus - Data
+
+
+
+## Frac Focus Data
 
 
 #### Import
@@ -44,29 +49,31 @@ read_chunk('DataImport-FracFocus.R')
 ```{r fracfocus_import}
 ```
 
-#### Distinct api List
+#### Count Locations and Wellbores
 
-```{r fracfocus_distinct_api}
+```{r fracfocus_count}
 ```
 
-#### Distinct api10 List
-
-```{r fracfocus_distinct_api10}
-```
-
-#### Summarize By api10 
-
-```{r fracfocus_aggregates}
-```
+#### Aggregate Proppant and Water by wellbore
 
 #### Aggregates 
 
 ```{r fracfocus_aggregates}
 ```
 
+## Well Features and Characteristics
+
+```{r wellfeatures_import}
+```
+
+#### Count Locations and Wellbores
+
+```{r wellfeatures_count}
+```
 
 
 
+#### ---- welldata_cals
 
 
 

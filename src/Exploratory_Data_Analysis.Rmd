@@ -19,7 +19,7 @@ output:
 ```
 
 
-```{r setup, }
+```{r setup}
 
 
 # knitr::opts_chunk$set(
@@ -238,7 +238,7 @@ well_data %>% head()
 
 ```{r}
 require(summarytools)
-well_summary <- as.data.frame(summarytools::descr(well_data, transpose= true)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
+well_summary <- as.data.frame(summarytools::descr(well_data, transpose= TRUE)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
 
 well_summary %>% 
   rownames_to_column('attribute') %>%

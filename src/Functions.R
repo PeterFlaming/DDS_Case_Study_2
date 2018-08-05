@@ -3,10 +3,10 @@
 
 
 ## @knitr functions
-summarize_frame <- function(df)
+summarize_frame <- function(frameframe)
 {
-  #returns table of summary statistics for each numberic column in dataframe
-  as.data.frame(summarytools::descr(df, transpose = TRUE)) %>%
+    #returns table of summary statistics for each numberic column in dataframe
+    as.data.frame(summarytools::descr(frameframe, transpose = TRUE)) %>%
     rownames_to_column('attribute') %>%
     mutate_if(is.numeric, round) %>%
     column_to_rownames('attribute') %>%
@@ -15,9 +15,9 @@ summarize_frame <- function(df)
   
 }
 
-standardize_names <- function(df) 
+standardize_names <- function(frameframe) 
 {  
-  df %>% 
+    frameframe %>% 
     rename_all(gsub, pattern = '[[:punct:] ]+', replacement = '') %>%
     rename_all(tolower) %>%
     rename_all(trimws)
