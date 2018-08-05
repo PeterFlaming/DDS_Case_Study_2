@@ -5,7 +5,7 @@
 ## @knitr functions
 summarize_frame <- function(frameframe)
 {
-    #returns table of summary statistics for each numeric column in dataframe
+    # returns table of summary statistics for each numeric column in dataframe
     as.data.frame(summarytools::descr(frameframe, transpose = TRUE)) %>%
     rownames_to_column('attribute') %>%
     mutate_if(is.numeric, round) %>%
@@ -15,8 +15,8 @@ summarize_frame <- function(frameframe)
   
 }
 
-#standardizes column names for consistency and readability, including trimming
-#whitespace
+# standardizes column names for consistency and readability, including trimming
+# whitespace
 standardize_names <- function(frameframe) 
 {  
     frameframe %>% 
