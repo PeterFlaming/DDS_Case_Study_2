@@ -15,6 +15,8 @@ summarize_frame <- function(frameframe)
   
 }
 
+#standardizes column names for consistency and readability, including trimming
+#whitespace
 standardize_names <- function(frameframe) 
 {  
     frameframe %>% 
