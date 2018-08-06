@@ -6,24 +6,25 @@ source('Functions.R')
 
 wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
              standardize_names() %>% 
-             rename(oil.pk='oilpknormperk6mo'
-                    ,api14='api') %>%
+             rename(oil.pk.bbl='oilpknormperk6mo'
+                    ,api14='api'
+                    ,perfll.ft='perfll') %>%
              mutate(api14 = as.character(api14)
                    ,api10 = as.character(api10)
-                   ,perfll=as.integer(perfll)
+                   ,perfll.ft=as.integer(perfll.ft)
                    ,firstprod = as.Date(firstprod, "%m/%d/%Y")
-                   ,oil.pk = as.integer(oil.pk)
-                   ,vintage = as.integer(format(firstprod, '%Y'))
+                   ,oil.pk.bbl = as.integer(oil.pk.bbl)
+                   ,vintage.yr = as.integer(format(firstprod, '%Y'))
                    ,age.mo = as.integer((as.Date('08/01/2018', "%m/%d/%Y") - firstprod)/(365/12)) #30.4 = avg month duration
                 ) %>%
              as.tibble()
 
 
-wf_units <- data.frame(
-        vars = c("api14","api10","operalias","formavg","status"    
-                ,"perfll","firstprod","oil.pk","vintage","age.mo"),
-        units = c("","","","",""    
-                ,"(ft)","","(bbl/day)","(year)","(months)"))
+# wf_units <- data.frame(
+#         vars = c("api14","api10","operalias","formavg","status"    
+#                 ,"perfll","firstprod","oil.pk","vintage","age.mo"),
+#         units = c("","","","",""    
+#                 ,"(ft)","","(bbl/day)","(year)","(months)"))
 
 
 

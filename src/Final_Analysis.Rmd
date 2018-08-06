@@ -14,6 +14,7 @@ output:
     df_print: kable
     fontsize: 11pt
     fontfamily: palatino
+
 date: "July 24, 2018"
 
 ---
@@ -94,7 +95,8 @@ read_chunk('Explore_Data.R')
 ```{r exp_summary}
 ```
 
-
+```{r exp_boxplot_fracsize}
+```
 
 # Appendix:
 

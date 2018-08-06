@@ -8,40 +8,58 @@ source('DataImport-FracFocus.R')
 
 welldata <- wellfeatures %>%
     inner_join(ff_summary, by = c("api10", "api10")) %>%
-    mutate(lb_ft = totalsand / perfll
-           , bbl_ft = totalwater / perfll #todo: totalwater bbl looks way too high.
-           , gal_ft = bbl_ft / 42
-           , distance = sqrt(gal_ft ^ 2 + lb_ft ^ 2) * (180 / pi) # linear_distance_from_origin (hypotenuse length)
-           , angle = atan(gal_ft / lb_ft) * (180 / pi) #in degrees
+    #rename(vintage.yr = vintage) %>%
+    mutate(lb.ft = totalsand.lb / perfll.ft
+           , gal.ft = totalwater.gal / perfll.ft #todo: totalwater bbl looks way too high.
+           , bbl.ft = gal.ft / 42
+           , distance = sqrt(gal.ft ^ 2 + lb.ft ^ 2) * (180 / pi) # linear_distance_from_origin (hypotenuse length)
+           , angle = atan(gal.ft / lb.ft) * (180 / pi) #in degrees
            , deviation = abs(45 - angle) #deviation_from_45deg
            , weight = 500 # weighting_constant
-           , frac_size = distance-(deviation-weight) # weighted_distance_from_origin
+           , frac.size = distance-(deviation-weight) # weighted_distance_from_origin
            ) %>%
            select(-distance, -angle, -deviation, -weight)
+
+welldata %>% head()
 
 
 ## ---- exp_summary
 welldata_summary <- select_if(welldata, is.numeric) %>% as.data.frame()
 
-kable_zen(descr(welldata_summary))
+    kable(descr(welldata_summary), digits = 0) %>%
+    kable_styling(position = "center"
+                 ,full_width = TRUE)
 
-# ## ---- exp
 
 
 
+## ---- exp_boxplot_fracsize
 
 ggplot((welldata), #%>% na.omit(abv)), 
-       aes(x=reorder(formavg, tvd, FUN=median) , y=log(frac_size), fill = formavg)) +
+       aes(x=reorder(formavg, tvd.ft, FUN=mean) , y=log(frac.size), fill = formavg)) +
   geom_boxplot() +
-  scale_fill_manual(values = COL.ALLFORMS[]) +
+  scale_fill_manual(values = rev(COL.ALLFORMS)) +
   ggtitle("Frac Size by Formation") +
   xlab("Geological Formation") +
-  ylab("International Bitterness Units (IBU)") +
+  ylab("Frac Size (dimensionless)") +
+  coord_flip() +
+  scale_x_discrete(limits = names(COL.ALLFORMS))
   theme(text = element_text(size=10),
         axis.text.x = element_text(angle=90, vjust=0.5),
         plot.title = element_text(hjust = 0.5, size = 16))
 
 
+ggplot((welldata), #%>% na.omit(abv)), 
+       aes(x=reorder(formavg, tvd.ft, FUN=median) , y=oil.pk.bbl, fill = formavg)) +
+  geom_boxplot() +
+  scale_fill_manual(values = rev(COL.ALLFORMS)) +
+  ggtitle("Frac Size by Formation") +
+  xlab("Geological Formation") +
+  ylab("International Bitterness Units (IBU)") +
+  coord_flip() +
+  theme(text = element_text(size=10),
+        axis.text.x = element_text(angle=90, vjust=0.5),
+        plot.title = element_text(hjust = 0.5, size = 16))
 
 
 

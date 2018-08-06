@@ -6,8 +6,8 @@ require(knitr)
 require(summarytools)
 require(units)
 
-knitr::opts_chunk$set(fig.width=6,#12, 
-                      fig.height=4,#8, 
+knitr::opts_chunk$set(fig.width=12, 
+                      fig.height=8, 
                       fig.path='../Figs/',
                       warning=TRUE, 
                       message=TRUE,

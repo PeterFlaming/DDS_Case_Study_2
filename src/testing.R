@@ -10,8 +10,9 @@ fracfocus %>% colnames()
 class(COL.ALLFORMS)
 
 
-COL.ALLFORMS %>% names()
+COL.ALLFORMS[name]
 
+c("c","b","a")
 
 
 

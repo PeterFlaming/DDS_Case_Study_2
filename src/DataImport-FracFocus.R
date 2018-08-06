@@ -80,16 +80,16 @@ ff_summary <- fracfocus %>%
         | '100' %in% ingredientname
         ) %>%
     group_by(api10) %>%
-    summarize(totalwater = max(totalbasewatervolume)
-              ,totalsand = sum(massingredient)
-              ,tvd = max(tvd)
+    summarize(totalwater.gal = max(totalbasewatervolume)
+              ,totalsand.lb = sum(massingredient)
+              ,tvd.ft = max(tvd)
               #, percenthfjob = sum(percenthfjob)
               # add additional summary variables here.
               )
 
-ff_units <- data.frame(
-        vars = c("api10", "totalwater","totalsand", "tvd"),
-        units = c("","(gal)","(lbs)", "(ft)"))
+# ff_units <- data.frame(
+#         vars = c("api10", "totalwater","totalsand", "tvd"),
+#         units = c("","(gal)","(lbs)", "(ft)"))
 
 
 ## ---- fracfocus_aggregates
