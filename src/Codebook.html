@@ -9,7 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Matthew" />
+<meta name="author" content="Brock Friedrich, Quinton Nixon, Peter Flaming, Matthew Trevathan" />
 
 
 <title>DDS Case Study 2 Codebook</title>
@@ -122,7 +122,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">DDS Case Study 2 Codebook</h1>
-<h4 class="author"><em>Matthew</em></h4>
+<h4 class="author"><em>Brock Friedrich, Quinton Nixon, Peter Flaming, Matthew Trevathan</em></h4>
 <h4 class="date"><em>August 4, 2018</em></h4>
 
 </div>
@@ -135,35 +135,54 @@ $(document).ready(function () {
 <div id="driftwood-data-points" class="section level1">
 <h1>Driftwood Data Points</h1>
 <ul>
-<li>API - fourteen digit american petroleum institue number</li>
-<li>API10 - ten digit american petroleum institue number. Represents a unique hole in the ground.</li>
-<li>oper_alias - standardized operator (company) names</li>
-<li>Form_Avg - geological formation names</li>
-<li>PerfLL - wellbore lateral length</li>
-<li>FirstProd - date of first oil/gas production</li>
-<li>Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft</li>
+<li><p>API - fourteen digit american petroleum institue number</p></li>
+<li><p>API10 - ten digit american petroleum institue number. Represents a unique hole in the ground.</p></li>
+<li><p>oper_alias - standardized operator (company) names</p></li>
+<li><p>Form_Avg - geological formation names</p></li>
+<li><p>PerfLL - wellbore lateral length</p></li>
+<li><p>FirstProd - date of first oil/gas production</p></li>
+<li><p>Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft</p></li>
 </ul>
 </div>
 <div id="fracfocus-registry-data" class="section level1">
 <h1>FracFocus Registry data</h1>
-<p>pKey - Key index for the table</p>
-<p>JobStartDate - The date on which the hydraulic fracturing job was initiated. Does not include site preparation or setup.</p>
-<p>JobEndDate - The date on which the hydraulic fracturing job was completed. Does not include site teardown.</p>
-<p>APINumber - The American Petroleum Institute well identification number formatted as follows xx-xxx-xxxxx0000 Where: First two digits represent the state, second three digits represent the county, third 5 digits represent the well.</p>
-<p>StateNumber - The first two digits of the API number. Range is from 01-50.</p>
-<p>CountyNumber - The 3 digit county code.</p>
-<p>OperatorName - The name of the operator.</p>
-<p>WellName - The name of the well.</p>
-<p>Latitude - The lines that circle the earth horizontally, running side to side at equal distances apart on the earth. Latitude is typically expressed in degrees North/ South. In the FracFocus system these lines are shown in decimal degrees and must be between 15 and 75.</p>
-<p>Longitude - The lines that circle the earth vertically, running top to bottom that are equal distances apart at the equator and merge at the geographic top and bottom of the earth. Longitude is typically expressed in degrees East/ West. In the FracFocus system the number representing these lines are shown in decimal degrees and must be between -180 and -163 Note: Longitude number must be preceded by a negative sign.</p>
-<p>Projection - The geographic coordinate system to which the latitude and longitude are related. In the FracFocus system the projection systems allowed are NAD (North American Datum) 27 or 83 and UTM (Universal Transverse Mercator).</p>
-<p>TVD - The vertical distance from a point in the well (usually the current or final depth) to a point at the surface, usually the elevation of the rotary kelly bushing.</p>
-<p>TotalBaseWaterVolume - The total volume of water used as a carrier fluid for the hydraulic fracturing job (in gallons).</p>
-<p>TotalBaseNonWaterVolume - The total volume of non water components used as a carrier fluid for the hydraulic fracturing job (in gallons)</p>
-<p>StateName - The name of the state where the surface location of the well resides. Calculated from the API number.</p>
-<p>CountyName - The name of the county were the surface location of the well resides. Calculated from the API number.</p>
-<p>FFVersion - A key which designates which version of FracFocus was used when the disclosure was submitted.</p>
-<p>FederalWell - True = Yes, False = No.</p>
+<ul>
+<li><p>pKey - Key index for the table</p></li>
+<li><p>JobStartDate - The date on which the hydraulic fracturing job was initiated. Does not include site preparation or setup.</p></li>
+<li><p>JobEndDate - The date on which the hydraulic fracturing job was completed. Does not include site teardown.</p></li>
+<li><p>APINumber - The American Petroleum Institute well identification number formatted as follows xx-xxx-xxxxx0000 Where: First two digits represent the state, second three digits represent the county, third 5 digits represent the well.</p></li>
+<li><p>StateNumber - The first two digits of the API number. Range is from 01-50.</p></li>
+<li><p>CountyNumber - The 3 digit county code.</p></li>
+<li><p>OperatorName - The name of the operator.</p></li>
+<li><p>WellName - The name of the well.</p></li>
+<li><p>Latitude - The lines that circle the earth horizontally, running side to side at equal distances apart on the earth. Latitude is typically expressed in degrees North/ South. In the FracFocus system these lines are shown in decimal degrees and must be between 15 and 75.</p></li>
+<li><p>Longitude - The lines that circle the earth vertically, running top to bottom that are equal distances apart at the equator and merge at the geographic top and bottom of the earth. Longitude is typically expressed in degrees East/ West. In the FracFocus system the number representing these lines are shown in decimal degrees and must be between -180 and -163 Note: Longitude number must be preceded by a negative sign.</p></li>
+<li>Projection - The geographic coordinate system to which the latitude and longitude are related. In the</li>
+<li><p>FracFocus system the projection systems allowed are NAD (North American Datum) 27 or 83 and UTM (Universal Transverse Mercator).</p></li>
+<li><p>TVD - The vertical distance from a point in the well (usually the current or final depth) to a point at the surface, usually the elevation of the rotary kelly bushing.</p></li>
+<li><p>TotalBaseWaterVolume - The total volume of water used as a carrier fluid for the hydraulic fracturing job (in gallons).</p></li>
+<li><p>TotalBaseNonWaterVolume - The total volume of non water components used as a carrier fluid for the hydraulic fracturing job (in gallons)</p></li>
+<li><p>StateName - The name of the state where the surface location of the well resides. Calculated from the API number.</p></li>
+<li><p>CountyName - The name of the county were the surface location of the well resides. Calculated from the API number.</p></li>
+<li><p>FFVersion - A key which designates which version of FracFocus was used when the disclosure was submitted.</p></li>
+<li><p>FederalWell - True = Yes, False = No.</p></li>
+</ul>
+</div>
+<div id="r-packages-used" class="section level1">
+<h1>R Packages Used</h1>
+<ul>
+<li><p>tidyverse</p></li>
+<li><p>magrittr</p></li>
+<li><p>kableExtra</p></li>
+<li><p>car</p></li>
+</ul>
+</div>
+<div id="functions-used-to-tidy-data" class="section level1">
+<h1>Functions Used to tidy data</h1>
+<ul>
+<li><p>as.tibble() - Coerce lists and matrices to data frames</p></li>
+<li></li>
+</ul>
 </div>
 
 
