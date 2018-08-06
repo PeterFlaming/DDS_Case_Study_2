@@ -4,8 +4,13 @@ st_options()
 
 welldata %>% head()
 
+fracfocus %>% colnames()
 
 
+class(COL.ALLFORMS)
+
+
+COL.ALLFORMS %>% names()
 
 
 

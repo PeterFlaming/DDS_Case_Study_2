@@ -175,34 +175,36 @@ Friedrich</div></span>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">              </span><span class="kw">rename</span>(<span class="dt">api14=</span><span class="st">'apinumber'</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">              </span><span class="kw">mutate</span>( <span class="dt">api14=</span><span class="kw">as.character</span>(api14)</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">                     ,<span class="dt">api10 =</span> <span class="kw">as.character</span>(api10)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">                     ,<span class="dt">jobstartdate=</span><span class="kw">as.Date</span>(jobstartdate, <span class="st">&quot;%m/%d/%Y&quot;</span>)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">                     ,<span class="dt">jobenddate=</span><span class="kw">as.Date</span>(jobenddate, <span class="st">&quot;%m/%d/%Y&quot;</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">                     ,<span class="dt">totalbasewatervolume =</span> <span class="kw">as.double</span>(totalbasewatervolume)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">                     ,<span class="dt">totalbasenonwatervolume =</span> <span class="kw">as.double</span>(totalbasenonwatervolume)</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">                     ,<span class="dt">percenthighadditive =</span> <span class="kw">as.double</span>(percenthighadditive)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">                     ,<span class="dt">percenthfjob =</span> <span class="kw">as.double</span>(percenthfjob)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">                     ,<span class="dt">massingredient =</span> <span class="kw">as.double</span>(massingredient)</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">                     ,<span class="dt">iswater =</span> <span class="kw">as.logical.factor</span>(iswater)</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">                     ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="st">              </span><span class="kw">select</span>( api14</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">                     ,api10</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">                     ,wellname</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">                     ,operatorname</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">                     ,jobstartdate</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">                     ,jobenddate</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">                     ,latitude</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">                     ,longitude</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">                     ,totalbasewatervolume</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">                     ,totalbasenonwatervolume</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">                     ,statename</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">                     ,countyname</a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">                     ,ingredientname</a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">                     ,percenthighadditive</a>
-<a class="sourceLine" id="cb2-30" data-line-number="30">                     ,percenthfjob</a>
-<a class="sourceLine" id="cb2-31" data-line-number="31">                     ,massingredient</a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">                     ,iswater</a>
-<a class="sourceLine" id="cb2-33" data-line-number="33">                     ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-34" data-line-number="34"><span class="st">             </span><span class="kw">as.tibble</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb2-7" data-line-number="7">                     ,<span class="dt">tvd =</span> <span class="kw">as.integer</span>(tvd)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">                     ,<span class="dt">jobstartdate=</span><span class="kw">as.Date</span>(jobstartdate, <span class="st">&quot;%m/%d/%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">                     ,<span class="dt">jobenddate=</span><span class="kw">as.Date</span>(jobenddate, <span class="st">&quot;%m/%d/%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">                     ,<span class="dt">totalbasewatervolume =</span> <span class="kw">as.double</span>(totalbasewatervolume)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">                     ,<span class="dt">totalbasenonwatervolume =</span> <span class="kw">as.double</span>(totalbasenonwatervolume)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">                     ,<span class="dt">percenthighadditive =</span> <span class="kw">as.double</span>(percenthighadditive)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">                     ,<span class="dt">percenthfjob =</span> <span class="kw">as.double</span>(percenthfjob)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">                     ,<span class="dt">massingredient =</span> <span class="kw">as.double</span>(massingredient)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">                     ,<span class="dt">iswater =</span> <span class="kw">as.logical.factor</span>(iswater)</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">                     ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">              </span><span class="kw">select</span>( api14</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">                     ,api10</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">                     ,wellname</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">                     ,operatorname</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">                     ,tvd</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">                     ,jobstartdate</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">                     ,jobenddate</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">                     ,latitude</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">                     ,longitude</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">                     ,totalbasewatervolume</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">                     ,totalbasenonwatervolume</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">                     ,statename</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">                     ,countyname</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">                     ,ingredientname</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">                     ,percenthighadditive</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">                     ,percenthfjob</a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">                     ,massingredient</a>
+<a class="sourceLine" id="cb2-34" data-line-number="34">                     ,iswater</a>
+<a class="sourceLine" id="cb2-35" data-line-number="35">                     ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="st">             </span><span class="kw">as.tibble</span>()</a></code></pre></div>
 </div>
 <div id="count-locations-and-wellbores" class="section level2">
 <h2><span class="header-section-number">3.2</span> Count Locations and Wellbores</h2>
@@ -265,10 +267,15 @@ Frac_Focus
 <a class="sourceLine" id="cb4-12" data-line-number="12">        ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">    </span><span class="kw">group_by</span>(api10) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">totalwater =</span> <span class="kw">max</span>(totalbasewatervolume)</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">              , <span class="dt">totalsand =</span> <span class="kw">sum</span>(massingredient)</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">              , <span class="dt">percenthfjob =</span> <span class="kw">sum</span>(percenthfjob)</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">              <span class="co"># add additional summary variables here.</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18">              )</a></code></pre></div>
+<a class="sourceLine" id="cb4-15" data-line-number="15">              ,<span class="dt">totalsand =</span> <span class="kw">sum</span>(massingredient)</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">              ,<span class="dt">tvd =</span> <span class="kw">max</span>(tvd)</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">              <span class="co">#, percenthfjob = sum(percenthfjob)</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">              <span class="co"># add additional summary variables here.</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">              )</a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21">ff_units &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb4-22" data-line-number="22">        <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;api10&quot;</span>, <span class="st">&quot;totalwater&quot;</span>,<span class="st">&quot;totalsand&quot;</span>, <span class="st">&quot;tvd&quot;</span>),</a>
+<a class="sourceLine" id="cb4-23" data-line-number="23">        <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="st">&quot;(gal)&quot;</span>,<span class="st">&quot;(lbs)&quot;</span>, <span class="st">&quot;(ft)&quot;</span>))</a></code></pre></div>
 </div>
 <div id="aggregates" class="section level2">
 <h2><span class="header-section-number">3.4</span> Aggregates</h2>
@@ -313,13 +320,13 @@ totalwater
 8631322.07
 </td>
 <td style="text-align:right;">
-8517091.015
+8517091.0
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-7960218.0
+7960218
 </td>
 <td style="text-align:right;">
 202222958
@@ -342,13 +349,13 @@ totalsand
 834510.36
 </td>
 <td style="text-align:right;">
-520151.136
+520151.1
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-807304.0
+807304
 </td>
 <td style="text-align:right;">
 4556769
@@ -365,28 +372,28 @@ totalsand
 </tr>
 <tr>
 <td style="text-align:left;">
-percenthfjob
+tvd
 </td>
 <td style="text-align:right;">
-14498.57
+88517.78
 </td>
 <td style="text-align:right;">
-9432.805
+4445992.9
 </td>
 <td style="text-align:right;">
-2
+0
 </td>
 <td style="text-align:right;">
-13524.5
+9281
 </td>
 <td style="text-align:right;">
-133617
+250014549
 </td>
 <td style="text-align:right;">
-10942
+8011
 </td>
 <td style="text-align:right;">
-15293
+10575
 </td>
 <td style="text-align:right;">
 3162
@@ -412,17 +419,26 @@ percenthfjob
 <a class="sourceLine" id="cb6-12" data-line-number="12">                ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">             </span><span class="kw">as.tibble</span>()</a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co"># wellfeatures %&gt;% head()</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co"># wellfeatures %&gt;% </span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co"># mutate(age.mo = as.integer((as.Date('08/01/2018', &quot;%m/%d/%Y&quot;) - firstprod)/30.4)) %&gt;%</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co"># select(firstprod, age.mo) %&gt;%</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co"># head() </span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16">wf_units &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb6-17" data-line-number="17">        <span class="dt">vars =</span> <span class="kw">c</span>(<span class="st">&quot;api14&quot;</span>,<span class="st">&quot;api10&quot;</span>,<span class="st">&quot;operalias&quot;</span>,<span class="st">&quot;formavg&quot;</span>,<span class="st">&quot;status&quot;</span>    </a>
+<a class="sourceLine" id="cb6-18" data-line-number="18">                ,<span class="st">&quot;perfll&quot;</span>,<span class="st">&quot;firstprod&quot;</span>,<span class="st">&quot;oil.pk&quot;</span>,<span class="st">&quot;vintage&quot;</span>,<span class="st">&quot;age.mo&quot;</span>),</a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">        <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>    </a>
+<a class="sourceLine" id="cb6-20" data-line-number="20">                ,<span class="st">&quot;(ft)&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;(bbl/day)&quot;</span>,<span class="st">&quot;(year)&quot;</span>,<span class="st">&quot;(months)&quot;</span>))</a>
 <a class="sourceLine" id="cb6-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co"># class(as.Date('08/01/2018', &quot;%m/%d/%Y&quot;))</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co"># wellfeatures$firstprod - as.Date('08/01/2018', &quot;%m/%d/%Y&quot;)</span></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#read.csv(&quot;../data/deo_well_data.csv&quot;) %&gt;%standardize_names() %&gt;%  head()</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co"># wellfeatures %&gt;% head()</span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co"># wellfeatures %&gt;% </span></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co"># mutate(age.mo = as.integer((as.Date('08/01/2018', &quot;%m/%d/%Y&quot;) - firstprod)/30.4)) %&gt;%</span></a>
+<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co"># select(firstprod, age.mo) %&gt;%</span></a>
+<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co"># head() </span></a>
+<a class="sourceLine" id="cb6-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co"># class(as.Date('08/01/2018', &quot;%m/%d/%Y&quot;))</span></a>
+<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co"># wellfeatures$firstprod - as.Date('08/01/2018', &quot;%m/%d/%Y&quot;)</span></a>
+<a class="sourceLine" id="cb6-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#read.csv(&quot;../data/deo_well_data.csv&quot;) %&gt;%standardize_names() %&gt;%  head()</span></a></code></pre></div>
 <div id="count-locations-and-wellbores-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Count Locations and Wellbores</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># count unique wellbores. api14 represents a unique wellbore.</span></a>
@@ -512,13 +528,13 @@ totalwater
 8631322.07
 </td>
 <td style="text-align:right;">
-8517091.015
+8517091.0
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-7960218.0
+7960218
 </td>
 <td style="text-align:right;">
 202222958
@@ -541,13 +557,13 @@ totalsand
 834510.36
 </td>
 <td style="text-align:right;">
-520151.136
+520151.1
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-807304.0
+807304
 </td>
 <td style="text-align:right;">
 4556769
@@ -564,28 +580,28 @@ totalsand
 </tr>
 <tr>
 <td style="text-align:left;">
-percenthfjob
+tvd
 </td>
 <td style="text-align:right;">
-14498.57
+88517.78
 </td>
 <td style="text-align:right;">
-9432.805
+4445992.9
 </td>
 <td style="text-align:right;">
-2
+0
 </td>
 <td style="text-align:right;">
-13524.5
+9281
 </td>
 <td style="text-align:right;">
-133617
+250014549
 </td>
 <td style="text-align:right;">
-10942
+8011
 </td>
 <td style="text-align:right;">
-15293
+10575
 </td>
 <td style="text-align:right;">
 3162
@@ -610,18 +626,13 @@ percenthfjob
 <a class="sourceLine" id="cb9-9" data-line-number="9">           , <span class="dt">weight =</span> <span class="dv">500</span> <span class="co"># weighting_constant</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10">           , <span class="dt">frac_size =</span> distance<span class="op">-</span>(deviation<span class="op">-</span>weight) <span class="co"># weighted_distance_from_origin</span></a>
 <a class="sourceLine" id="cb9-11" data-line-number="11">           ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="st">           </span><span class="kw">select</span>(<span class="op">-</span>distance, <span class="op">-</span>angle, <span class="op">-</span>deviation, <span class="op">-</span>weight)</a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#welldata %&gt;% head()</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="st">           </span><span class="kw">select</span>(<span class="op">-</span>distance, <span class="op">-</span>angle, <span class="op">-</span>deviation, <span class="op">-</span>weight)</a></code></pre></div>
 </div>
 <div id="summarize-well-data" class="section level2">
 <h2><span class="header-section-number">5.2</span> Summarize Well Data</h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">welldata_summary &lt;-<span class="st"> </span><span class="kw">select_if</span>(welldata, is.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#with(welldata_summary, descr(welldata_summary))</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">kable_zen</span>(<span class="kw">descr</span>(welldata_summary))</a></code></pre></div>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">kable_zen</span>(<span class="kw">descr</span>(welldata_summary))</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -830,28 +841,28 @@ totalsand
 </tr>
 <tr>
 <td style="text-align:left;">
-percenthfjob
+tvd
 </td>
 <td style="text-align:right;">
-13853.14570
+8895.33962
 </td>
 <td style="text-align:right;">
-10992.055934
+3182.506867
 </td>
 <td style="text-align:right;">
-1007.0000000
+0.0000000
 </td>
 <td style="text-align:right;">
-12956.0000
+8649.0000
 </td>
 <td style="text-align:right;">
-133617
+92089
 </td>
 <td style="text-align:right;">
-9201.5000
+7757.5000
 </td>
 <td style="text-align:right;">
-14589.5000
+9426.0000
 </td>
 <td style="text-align:right;">
 1908
@@ -975,90 +986,70 @@ frac_size
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># ## ---- scatter_lb_v_bbl</span></a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># ## ---- exp</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb11-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co"># ggplot((welldata %&gt;% na.omit(abv)), </span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#        aes(x=state , y=abv)) +  #TODO: Move to Appendix</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#   geom_boxplot(fill = abv_fill) +</span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#   ggtitle(&quot;IBU by State&quot;) +</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#   xlab(&quot;States&quot;) +</span></a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#   ylab(&quot;International Bitterness Units (IBU)&quot;) +</span></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#   theme(text = element_text(size=10),</span></a>
-<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#         axis.text.x = element_text(angle=90, vjust=0.5),</span></a>
-<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#         plot.title = element_text(hjust = 0.5, size = 16))</span></a>
-<a class="sourceLine" id="cb11-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb11-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb11-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb11-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb11-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb11-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb11-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb11-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb11-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb11-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb11-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb11-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb11-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb11-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb11-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb11-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb11-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb11-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb11-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb11-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb11-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb11-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb11-37" data-line-number="37"><span class="co"># ggplot((welldata), aes(x = lb_ft, y = bbl_ft)) +</span></a>
-<a class="sourceLine" id="cb11-38" data-line-number="38"><span class="co">#     geom_point() </span></a>
-<a class="sourceLine" id="cb11-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb11-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb11-41" data-line-number="41"><span class="co"># ## ---- hist_production</span></a>
-<a class="sourceLine" id="cb11-42" data-line-number="42"></a>
-<a class="sourceLine" id="cb11-43" data-line-number="43"><span class="co"># ggplot(welldata) +  </span></a>
-<a class="sourceLine" id="cb11-44" data-line-number="44"><span class="co">#     geom_histogram(aes(x = oil), binwidth = 100) +</span></a>
-<a class="sourceLine" id="cb11-45" data-line-number="45"><span class="co">#     theme(text = element_text(size = 10),</span></a>
-<a class="sourceLine" id="cb11-46" data-line-number="46"><span class="co">#         axis.text.x = element_text(angle = 90, hjust = 1))</span></a>
-<a class="sourceLine" id="cb11-47" data-line-number="47"></a>
-<a class="sourceLine" id="cb11-48" data-line-number="48"></a>
-<a class="sourceLine" id="cb11-49" data-line-number="49"></a>
-<a class="sourceLine" id="cb11-50" data-line-number="50"></a>
-<a class="sourceLine" id="cb11-51" data-line-number="51"></a>
-<a class="sourceLine" id="cb11-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb11-53" data-line-number="53"><span class="co"># number of wells v formation by vintage</span></a>
-<a class="sourceLine" id="cb11-54" data-line-number="54"></a>
-<a class="sourceLine" id="cb11-55" data-line-number="55"></a>
-<a class="sourceLine" id="cb11-56" data-line-number="56"><span class="co"># Geographic area -&gt; lat v lon by formation -&gt; color by oil_pk</span></a>
-<a class="sourceLine" id="cb11-57" data-line-number="57"></a>
-<a class="sourceLine" id="cb11-58" data-line-number="58"></a>
-<a class="sourceLine" id="cb11-59" data-line-number="59"><span class="co"># Average productivity v formation by vintage</span></a>
-<a class="sourceLine" id="cb11-60" data-line-number="60"></a>
-<a class="sourceLine" id="cb11-61" data-line-number="61"></a>
-<a class="sourceLine" id="cb11-62" data-line-number="62"></a>
-<a class="sourceLine" id="cb11-63" data-line-number="63"><span class="co"># Average frac size</span></a>
-<a class="sourceLine" id="cb11-64" data-line-number="64"><span class="co"># Average age of well (or avg length of production)</span></a>
-<a class="sourceLine" id="cb11-65" data-line-number="65"><span class="co"># Average productivity</span></a>
-<a class="sourceLine" id="cb11-66" data-line-number="66"><span class="co"># Wells by formation type</span></a>
-<a class="sourceLine" id="cb11-67" data-line-number="67"><span class="co"># Number of different additives used</span></a>
-<a class="sourceLine" id="cb11-68" data-line-number="68"><span class="co"># Average amount of sand used</span></a>
-<a class="sourceLine" id="cb11-69" data-line-number="69"><span class="co"># Average amount of water used</span></a>
-<a class="sourceLine" id="cb11-70" data-line-number="70"></a>
-<a class="sourceLine" id="cb11-71" data-line-number="71"></a>
-<a class="sourceLine" id="cb11-72" data-line-number="72"></a>
-<a class="sourceLine" id="cb11-73" data-line-number="73"><span class="cf">if</span> (<span class="op">!</span><span class="kw">interactive</span>()) {</a>
-<a class="sourceLine" id="cb11-74" data-line-number="74"><span class="kw">require</span>(rmarkdown)</a>
-<a class="sourceLine" id="cb11-75" data-line-number="75"><span class="kw">setwd</span>(<span class="st">'C:</span><span class="ch">\\</span><span class="st">Repositories</span><span class="ch">\\</span><span class="st">DDS_Case_Study_2</span><span class="ch">\\</span><span class="st">src'</span>)</a>
-<a class="sourceLine" id="cb11-76" data-line-number="76">rmarkdown<span class="op">::</span><span class="kw">render</span>(<span class="st">'Explore_Data.Rmd'</span>)</a>
-<a class="sourceLine" id="cb11-77" data-line-number="77"><span class="kw">browseURL</span>(<span class="st">'Explore_Data.html'</span>)</a>
-<a class="sourceLine" id="cb11-78" data-line-number="78"></a>
-<a class="sourceLine" id="cb11-79" data-line-number="79">}</a></code></pre></div>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="kw">ggplot</span>((welldata), <span class="co">#%&gt;% na.omit(abv)), </span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">       <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(formavg, tvd, <span class="dt">FUN=</span>median) , <span class="dt">y=</span><span class="kw">log</span>(frac_size), <span class="dt">fill =</span> formavg)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> COL.ALLFORMS[]) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Frac Size by Formation&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Geological Formation&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;International Bitterness Units (IBU)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>, <span class="dt">vjust=</span><span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="dv">16</span>))</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># ggplot((welldata), aes(x = lb_ft, y = bbl_ft)) +</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#     geom_point() </span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co"># ## ---- hist_production</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co"># ggplot(welldata) +  </span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#     geom_histogram(aes(x = oil), binwidth = 100) +</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#     theme(text = element_text(size = 10),</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#         axis.text.x = element_text(angle = 90, hjust = 1))</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co"># number of wells v formation by vintage</span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb12-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb12-20" data-line-number="20"><span class="co"># Geographic area -&gt; lat v lon by formation -&gt; color by oil_pk</span></a>
+<a class="sourceLine" id="cb12-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb12-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb12-23" data-line-number="23"><span class="co"># Average productivity v formation by vintage</span></a>
+<a class="sourceLine" id="cb12-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb12-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb12-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb12-27" data-line-number="27"><span class="co"># Average frac size</span></a>
+<a class="sourceLine" id="cb12-28" data-line-number="28"><span class="co"># Average age of well (or avg length of production)</span></a>
+<a class="sourceLine" id="cb12-29" data-line-number="29"><span class="co"># Average productivity</span></a>
+<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co"># Wells by formation type</span></a>
+<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="co"># Number of different additives used</span></a>
+<a class="sourceLine" id="cb12-32" data-line-number="32"><span class="co"># Average amount of sand used</span></a>
+<a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co"># Average amount of water used</span></a>
+<a class="sourceLine" id="cb12-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb12-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb12-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb12-37" data-line-number="37"><span class="cf">if</span> (<span class="op">!</span><span class="kw">interactive</span>()) {</a>
+<a class="sourceLine" id="cb12-38" data-line-number="38"><span class="kw">require</span>(rmarkdown)</a>
+<a class="sourceLine" id="cb12-39" data-line-number="39"><span class="kw">setwd</span>(<span class="st">'C:</span><span class="ch">\\</span><span class="st">Repositories</span><span class="ch">\\</span><span class="st">DDS_Case_Study_2</span><span class="ch">\\</span><span class="st">src'</span>)</a>
+<a class="sourceLine" id="cb12-40" data-line-number="40">rmarkdown<span class="op">::</span><span class="kw">render</span>(<span class="st">'Explore_Data.Rmd'</span>)</a>
+<a class="sourceLine" id="cb12-41" data-line-number="41"><span class="kw">browseURL</span>(<span class="st">'Explore_Data.html'</span>)</a>
+<a class="sourceLine" id="cb12-42" data-line-number="42"></a>
+<a class="sourceLine" id="cb12-43" data-line-number="43">}</a></code></pre></div>
 </div>
 </div>
 <div id="appendix" class="section level1">
 <h1><span class="header-section-number">6</span> Appendix:</h1>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.5.0 (2018-04-23)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## Running under: Windows 10 x64 (build 16299)
@@ -1075,8 +1066,8 @@ frac_size
 ##  [1] units_0.6-0        summarytools_0.8.5 rmarkdown_1.10     bindrcpp_0.2.2     knitr_1.20         car_3.0-0          carData_3.0-1      kableExtra_0.9.0   magrittr_1.5       forcats_0.3.0      stringr_1.3.1      dplyr_0.7.5        purrr_0.2.5        readr_1.1.1        tidyr_0.8.1        tibble_1.4.2       ggplot2_2.2.1      tidyverse_1.2.1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.17       lubridate_1.7.4    lattice_0.20-35    utf8_1.1.4         assertthat_0.2.0   rprojroot_1.3-2    digest_0.6.15      psych_1.8.4        R6_2.2.2           cellranger_1.1.0   plyr_1.8.4         backports_1.1.2    evaluate_0.10.1    highr_0.7          httr_1.3.1         pillar_1.2.3       rlang_0.2.1        lazyeval_0.2.1     curl_3.2           readxl_1.1.0       rstudioapi_0.7     data.table_1.11.4  foreign_0.8-70     pander_0.6.1       RCurl_1.95-4.10    munsell_0.5.0      broom_0.4.4        compiler_3.5.0     modelr_0.1.2       pkgconfig_2.0.1    mnormt_1.5-5       htmltools_0.3.6    tidyselect_0.2.4   rio_0.5.10         codetools_0.2-15   matrixStats_0.53.1 viridisLite_0.3.0  crayon_1.3.4       bitops_1.0-6       grid_3.5.0         nlme_3.1-137      
-## [42] jsonlite_1.5       gtable_0.2.0       scales_0.5.0       zip_1.0.0          cli_1.0.0          stringi_1.1.7      pryr_0.1.4         reshape2_1.4.3     xml2_1.2.0         rapportools_1.0    openxlsx_4.1.0     tools_3.5.0        glue_1.2.0         prettydoc_0.2.1    hms_0.4.2          abind_1.4-5        parallel_3.5.0     yaml_2.1.19        colorspace_1.3-2   rvest_0.3.2        bindr_0.1.1        haven_1.1.1</code></pre>
+##  [1] Rcpp_0.12.17       lubridate_1.7.4    lattice_0.20-35    utf8_1.1.4         assertthat_0.2.0   rprojroot_1.3-2    digest_0.6.15      psych_1.8.4        R6_2.2.2           cellranger_1.1.0   plyr_1.8.4         backports_1.1.2    evaluate_0.10.1    highr_0.7          httr_1.3.1         pillar_1.2.3       rlang_0.2.1        lazyeval_0.2.1     curl_3.2           readxl_1.1.0       rstudioapi_0.7     data.table_1.11.4  labeling_0.3       foreign_0.8-70     pander_0.6.1       RCurl_1.95-4.10    munsell_0.5.0      broom_0.4.4        compiler_3.5.0     modelr_0.1.2       pkgconfig_2.0.1    mnormt_1.5-5       htmltools_0.3.6    tidyselect_0.2.4   rio_0.5.10         codetools_0.2-15   matrixStats_0.53.1 viridisLite_0.3.0  crayon_1.3.4       bitops_1.0-6       grid_3.5.0        
+## [42] nlme_3.1-137       jsonlite_1.5       gtable_0.2.0       scales_0.5.0       zip_1.0.0          cli_1.0.0          stringi_1.1.7      pryr_0.1.4         reshape2_1.4.3     xml2_1.2.0         rapportools_1.0    openxlsx_4.1.0     tools_3.5.0        glue_1.2.0         prettydoc_0.2.1    hms_0.4.2          abind_1.4-5        parallel_3.5.0     yaml_2.1.19        colorspace_1.3-2   rvest_0.3.2        bindr_0.1.1        haven_1.1.1</code></pre>
 </div>
 </article>
 </div>

@@ -31,10 +31,11 @@ kable_zen(descr(welldata_summary))
 
 
 ggplot((welldata), #%>% na.omit(abv)), 
-       aes(x=formavg , y=log(lb_ft))) +  #TODO: Move to Appendix
-  geom_boxplot(fill = COL.A.G) +
-  ggtitle("IBU by State") +
-  xlab("States") +
+       aes(x=reorder(formavg, tvd, FUN=median) , y=log(frac_size), fill = formavg)) +
+  geom_boxplot() +
+  scale_fill_manual(values = COL.ALLFORMS[]) +
+  ggtitle("Frac Size by Formation") +
+  xlab("Geological Formation") +
   ylab("International Bitterness Units (IBU)") +
   theme(text = element_text(size=10),
         axis.text.x = element_text(angle=90, vjust=0.5),

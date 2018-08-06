@@ -34,6 +34,40 @@ COL.CP.B3 = '#CEFFFF' # pale blue
 COL.CP.O4 = '#FFA58B' # pale orange
 COL.CP.N5 = '#CCB1AE' # light brown
 
+COL.SPBY_U = '#354A73'
+COL.SPBY_M = '#4D6BA6'
+COL.SPBY_L_SILT = '#2A3A59'
+COL.SPBY_JO_MILL = '#6877A6'
+COL.SPBY_L_SHALE = '#002673'
+COL.DEAN = '#A80084'
+COL.WFMP_A = '#A80000'
+COL.WFMP_B = '#A8A800'
+COL.WFMP_B_LOWER = '#737300'
+COL.WFMP_C = '#38A800'
+COL.WFMP_C_TARGET = '#56B262'
+COL.WFMP_D = '#9C9C9C'
+COL.STRAWN = '#828282'
+COL.UNKNOWN = '#B730E8'
+COL.GRID_ERROR = '#E1E1E1'
+
+COL.ALLFORMS <- c("SPBY_U" = COL.SPBY_U
+                , "SPBY_M" = COL.SPBY_M
+                , "SPBY_L_SILT" = COL.SPBY_L_SILT
+                , "SPBY_JO_MILL" = COL.SPBY_JO_MILL
+                , "SPBY_L_SHALE" = COL.SPBY_L_SHALE
+                , "DEAN" = COL.DEAN
+                , "WFMP_A" = COL.WFMP_A
+                , "WFMP_B" = COL.WFMP_B
+                , "WFMP_B_LOWER" = COL.WFMP_B_LOWER
+                , "WFMP_C" = COL.WFMP_C
+                , "WFMP_C_TARGET" = COL.WFMP_C_TARGET
+                , "WFMP_D" = COL.WFMP_D
+                , "STRAWN" = COL.STRAWN
+                , "UNKNOWN" = COL.UNKNOWN
+                , "GRID_ERROR" = COL.GRID_ERROR
+                )
+
+
 
 ## @knitr functions
 summarize_frame <- function(frameframe)
