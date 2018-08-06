@@ -32,7 +32,7 @@ output:
 `Matthew Trevathan     mrtrevathan0                             `     
 
 
-### Purose of Case Study 1
+### Purose of Case Study 2
 
 The client wishes to invest in the Oil & Gas industry with respect the Permian Basin, and doesn't know today's Top Plays for the region, or what type of play would be high in demand in the future. We were hired to find out what kind of play (conventional or unconventional) is most successful today in the Permian Basin by the quantitification and statitistical analysis of the well data provided for the region from open sources. This case study will make it clear to see what aspects of well data makes each play so favorable to the industry leaders in a highly competive market. We gathered data from an opensource database [here](http://fracfocusdata.org/digitaldownload/fracfocuscsv.zip) on the nation's drilling operators and companies focusing our study on the listed levels of total vertical depth (TVD), total base water volume (TBWV), projection, and frac'ing chemicals and fluids. From these data we found the most desired play in the U.S. by carefully measuring the correlation of these predictive variables from the most frequently used parameters across each play and operator/company in the region. The resulting list of top plays includes the best type to invest in for our client. 
 
