@@ -67,24 +67,22 @@ COL.ALLFORMS <- c("SPBY_U" = COL.SPBY_U
                 , "GRID_ERROR" = COL.GRID_ERROR
                 )
 
-FORM_ORDER <- c(  "SPBY_U" = 1
-                , "SPBY_M" = 2
-                , "SPBY_L_SILT" = 3
-                , "SPBY_JO_MILL" = 4
-                , "SPBY_L_SHALE" = 5
-                , "DEAN" = 6
-                , "WFMP_A" = 7
-                , "WFMP_B" = 8
-                , "WFMP_B_LOWER" = 9
-                , "WFMP_C" = 10
-                , "WFMP_C_TARGET" = 11
-                , "WFMP_D" = 12
-                , "STRAWN" = 13
-                , "UNKNOWN" = 14
-                , "GRID_ERROR" = 15
-                )
-
-class(FORM_ORDER)
+# FORM_ORDER <- c("SPBY_U"
+#                 , "SPBY_M"
+#                 , "SPBY_L_SILT"
+#                 , "SPBY_JO_MILL"
+#                 , "SPBY_L_SHALE"
+#                 , "DEAN"
+#                 , "WFMP_A"
+#                 , "WFMP_B"
+#                 , "WFMP_B_LOWER"
+#                 , "WFMP_C"
+#                 , "WFMP_C_TARGET"
+#                 , "WFMP_D"
+#                 , "STRAWN"
+#                 , "UNKNOWN"
+#                 , "GRID_ERROR"
+#                 )
 
 ## @knitr functions
 summarize_frame <- function(frameframe)

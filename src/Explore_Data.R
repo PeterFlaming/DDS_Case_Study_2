@@ -20,17 +20,40 @@ welldata <- wellfeatures %>%
            ) %>%
            select(-distance, -angle, -deviation, -weight)
 
-welldata %>% head()
-
 
 ## ---- exp_summary
-welldata_summary <- select_if(welldata, is.numeric) %>% as.data.frame()
 
-    kable(descr(welldata_summary), digits = 0) %>%
+#welldata_summary <- select_if(welldata, is.numeric) %>% as.data.frame()
+
+
+    kable(descr(welldata), digits = 0) %>%
     kable_styling(position = "center"
                  ,full_width = TRUE)
 
 
+## ---- exp_freq
+
+# freq(welldata$vintage.yr)
+
+# welldata %>%
+# select(operalias, formavg, status, vintage.yr)
+
+freq_by_vintage <- kable(freq(welldata$vintage.yr) %>% 
+    kable_styling(position = "float_right", full_width = FALSE))
+freq_by_operalias <- kable(freq(welldata$operalias) %>% 
+    kable_styling(position = "float_right", full_width = FALSE))
+freq_by_status <- kable(freq(welldata$status) %>% 
+    kable_styling(position = "float_right", full_width = FALSE))
+
+freq_layout <- rbind(c(1,1,1,2,2),
+                     c(1,1,1,3,3))
+
+grid.arrange(tableGrob(freq_by_vintage)
+                      ,tableGrob(freq_by_operalias)
+                      ,tableGrob(freq_by_status)
+                      , layout_matrix = freq_layout)
+
+## ---- exp_freq_by_form
 
 
 ## ---- exp_boxplot_fracsize
@@ -38,21 +61,24 @@ welldata_summary <- select_if(welldata, is.numeric) %>% as.data.frame()
 ggplot((welldata), #%>% na.omit(abv)), 
        aes(x=reorder(formavg, tvd.ft, FUN=mean) , y=log(frac.size), fill = formavg)) +
   geom_boxplot() +
-  scale_fill_manual(values = rev(COL.ALLFORMS)) +
+  scale_fill_manual(values = COL.ALLFORMS) +
+  scale_x_discrete(limits = rev(names(COL.ALLFORMS))) + #manually set x.axis order
   ggtitle("Frac Size by Formation") +
   xlab("Geological Formation") +
   ylab("Frac Size (dimensionless)") +
   coord_flip() +
-  scale_x_discrete(limits = names(COL.ALLFORMS))
   theme(text = element_text(size=10),
         axis.text.x = element_text(angle=90, vjust=0.5),
         plot.title = element_text(hjust = 0.5, size = 16))
 
 
+## ---- exp_boxplot_oil
+
 ggplot((welldata), #%>% na.omit(abv)), 
-       aes(x=reorder(formavg, tvd.ft, FUN=median) , y=oil.pk.bbl, fill = formavg)) +
+       aes(x=formavg , y=oil.pk.bbl, fill = formavg)) +
   geom_boxplot() +
-  scale_fill_manual(values = rev(COL.ALLFORMS)) +
+  scale_fill_manual(values = COL.ALLFORMS) +
+  scale_x_discrete(limits = rev(names(COL.ALLFORMS))) + #manually set x.axis order
   ggtitle("Frac Size by Formation") +
   xlab("Geological Formation") +
   ylab("International Bitterness Units (IBU)") +
@@ -62,12 +88,14 @@ ggplot((welldata), #%>% na.omit(abv)),
         plot.title = element_text(hjust = 0.5, size = 16))
 
 
+## ---- exp_hist_prod
+
+# qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5),
+#    main="Distribution of Gas Milage", xlab="Miles Per Gallon",
+#    ylab="Density")
 
 
-
-
-
-
+## ---- 
 
 
 
@@ -119,7 +147,7 @@ ggplot((welldata), #%>% na.omit(abv)),
 if (!interactive()) {
 require(rmarkdown)
 setwd('C:\\Repositories\\DDS_Case_Study_2\\src')
-rmarkdown::render('Explore_Data.Rmd')
+rmarkdown::render('Explore_Data.R')
 browseURL('Explore_Data.html')
 
 }

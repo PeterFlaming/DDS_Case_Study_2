@@ -12,8 +12,7 @@ class(COL.ALLFORMS)
 
 COL.ALLFORMS[name]
 
-c("c","b","a")
-
+names(COL.ALLFORMS)
 
 
 

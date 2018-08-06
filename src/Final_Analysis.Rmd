@@ -24,6 +24,12 @@ date: "July 24, 2018"
 
 
 
+
+  html_document:
+    theme: null
+    highlight: null
+    css: dark.css
+
 <!-- ```{r code = readLines('Setup.R'), message=FALSE, warning=FALSE} -->
 <!-- ``` -->
 
@@ -53,32 +59,32 @@ read_chunk('Explore_Data.R')
 
 ## Count Locations and Wellbores
 
-```{r fracfocus_count}
+```{r fracfocus_count, cache = TRUE}
 ```
 
 ## Aggregate Proppant and Water by wellbore
 
-```{r fracfocus_summary}
+```{r fracfocus_summary, cache = TRUE}
 ```
 
 ## Aggregates
 
-```{r fracfocus_aggregates}
+```{r fracfocus_aggregates, cache = TRUE}
 ```
 
 # Well Features and Characteristics
 
-```{r wellfeatures_import}
+```{r wellfeatures_import, cache = TRUE}
 ```
 
 ## Count Locations and Wellbores
 
-```{r wellfeatures_count}
+```{r wellfeatures_count, cache = TRUE}
 ```
 
 ## Aggregates
 
-```{r fracfocus_aggregates}
+```{r fracfocus_aggregates, cache = TRUE}
 ```
 
 
@@ -97,6 +103,13 @@ read_chunk('Explore_Data.R')
 
 ```{r exp_boxplot_fracsize}
 ```
+
+```{r exp_boxplot_fracsize}
+```
+
+```{r exp_freq}
+```
+
 
 # Appendix:
 

@@ -5,6 +5,8 @@ require(car)
 require(knitr)
 require(summarytools)
 require(units)
+require(grid)
+require(gridExtra)
 
 knitr::opts_chunk$set(fig.width=12, 
                       fig.height=8, 
