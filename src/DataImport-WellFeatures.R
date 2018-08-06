@@ -55,10 +55,15 @@ wf_loccount <- wellfeatures %>%
     distinct(api10) %>%
     summarize(locations = n())
 
-kable_zen(data.frame("Distinct Locations" = wf_loccount
-          ,"Unique Wellbores" = wf_wellcount
-          ,row.names=c("Well_Features"))
-          )
+kable(data.frame("Distinct Locations" = wf_loccount
+                ,"Unique Wellbores" = wf_wellcount
+                ,row.names=c("Well_Features")
+                )
+          , digits = 0) %>%
+        kable_styling(position = "float_right", 
+                full_width = FALSE,
+                bootstrap_options = c("striped", "hover", "condensed")
+                )
 
 
 

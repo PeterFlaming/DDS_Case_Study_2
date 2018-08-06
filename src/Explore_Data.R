@@ -28,6 +28,12 @@ welldata <- wellfeatures %>%
                  ,full_width = TRUE)
 
 
+## ---- exp_clean_forms
+
+
+
+## ---- exp_clean_frac_size
+
 ## ---- exp_freq
 
 # freq(welldata$vintage.yr)
@@ -35,7 +41,7 @@ welldata <- wellfeatures %>%
 # welldata %>%
 # select(operalias, formavg, status, vintage.yr)
 
-kable(freq(welldata$vintage.yr) %>% 
+kable(freq(welldata$vintage.yr, digits = 0) %>% 
     kable_styling(position = "float_right", 
                   full_width = FALSE,
                   bootstrap_options = c("striped", "hover", "condensed")
@@ -44,7 +50,7 @@ kable(freq(welldata$vintage.yr) %>%
     )
 #  kable(freq(welldata$operalias) %>% 
 #     kable_styling(position = "float_left", full_width = FALSE))
-kable(freq(welldata$status) %>% 
+kable(freq(welldata$status, digits = 0) %>% 
     kable_styling(position = "float_left", full_width = FALSE))
 
 # freq_layout <- rbind(c(1,1,1,2,2),

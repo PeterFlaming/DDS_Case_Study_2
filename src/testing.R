@@ -22,7 +22,10 @@ freq(welldata$status) %>% as.data.frame() %>% select("Freq","% Total")
 
 
 
-
+#   html_document:
+#     theme: null
+#     highlight: null
+#     css: dark.css
 
 
 
