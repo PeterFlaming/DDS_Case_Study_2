@@ -5,78 +5,6 @@ date: "8/2/2018"
 output: html_document
 ---
 
-```{r setup}
-knitr::opts_chunk$set(echo = TRUE)
-library(abind)
-library(acepack)
-library(ade4)
-library(AER)
-library(Amelia)
-library(animation)
-library(anim.plots)
-library(assertthat)
-library(broom)
-library(car)
-library(carData)
-library(caret)
-library(class)
-library(cluster)
-library(clusterGeneration)
-library(DAISIE)
-library(data.table)
-library(dbplyr)
-library(dplyr)
-library(dygraphs)
-library(forcats)
-library(forecast)
-library(ggplot2)
-library(ggthemes)
-library(gtable)
-library(gvlma)
-library(lubridate)
-library(magrittr)
-library(maptools)
-library(MASS)
-library(Matrix)
-library(methods)
-library(mnormt)
-library(modelr)
-library(msme)
-library(nlme)
-library(nnet)
-library(nortest)
-library(pracma)
-library(prettyunits)
-library(princurve)
-library(psych)
-library(purrr)
-library(quantreg)
-library(R.utils)
-library(repmis)
-library(reshape)
-library(reshape2)
-library(rmarkdown)
-library(robustbase)
-library(sandwich)
-library(stringr)
-library(summarytools)
-library(survival)
-library(survey)
-library(textclean)
-library(textshape)
-library(tibble)
-library(tidyr)
-library(tidyselect)
-library(tidyverse)
-library(tseries)
-library(urca)
-library(uroot)
-library(utf8)
-library(VGAM)
-library(Zelig)
-library(zoo)
-```
-
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
@@ -84,31 +12,94 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r fracfocus_registry}
-fracfocus_registry <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/fracfocus_registry.csv")
+library(readr)
+fracfocus_registry <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/fracfocus_registry.csv",
+col_types = cols(API10 = col_number(),
+APINumber = col_skip(), ClaimantCompany = col_skip(),
+CountyNumber = col_number(), DTMOD = col_skip(),
+FFVersion = col_number(), FederalWell = col_logical(),
+IndianWell = col_logical(), IngredientComment = col_skip(),
+IngredientMSDS = col_logical(), IsWater = col_skip(),
+JobEndDate = col_date(format = "%m/%d/%Y"),
+JobStartDate = col_date(format = "%m/%d/%Y"),
+Latitude = col_number(), Longitude = col_number(),
+MassIngredient = col_number(), PercentHFJob = col_skip(),
+PercentHighAdditive = col_skip(),
+Source = col_skip(), StateNumber = col_skip(),
+Supplier = col_skip(), SystemApproach = col_skip(),
+TVD = col_number(), TotalBaseNonWaterVolume = col_number(),
+TotalBaseWaterVolume = col_number(),
+TradeName = col_skip(), pKey = col_number(),
+pKeyDisclosure = col_number(), pKeyPurpose = col_skip(),
+pKeyRegistryUpload = col_skip()),
+na = "0")
+View(fracfocus_registry)
 str(fracfocus_registry)
 TVD <- as.data.frame.numeric(fracfocus_registry$TVD)
 TBWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseWaterVolume)
 TBNonWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseNonWaterVolume)
+
+fracfocus_registry_clean <- drop_na(fracfocus_registry)
+
+summary(fracfocus_registry_clean)
 ```
 
 ```{r deo_well_data}
 deo_well_data <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/deo_well_data.csv")
-deo_well_data$PerfLL <- as.data.frame.numeric(deo_well_data$PerfLL)
-deo_well_data$FirstProd <- as.data.frame.numeric(deo_well_data$FirstProd)
-deo_well_data$Oil_PkNorm_Perk_6mo <- as.data.frame.numeric(deo_well_data$Oil_PkNorm_Perk_6mo)
+deo_well_data["PerfLL"] <- as.numeric(deo_well_data$PerfLL)
+deo_well_data["FirstProd"] <- as.numeric(deo_well_data$FirstProd)
+deo_well_data["Oil_PkNorm_Perk_6mo"] <- as.numeric(deo_well_data$Oil_PkNorm_Perk_6mo)
+
 str(deo_well_data)
+
+deo_well_data_clean <- drop_na(deo_well_data)
+
+summary(deo_well_data_clean)
 ```
 
-```{r Basin_Data}
+```{r Permian Basin Well Data Selection}
+library(tidyverse)
 Basin_Data <- merge.data.frame(deo_well_data, fracfocus_registry, by = intersect(x="API10", y="API10"))
-str(Basin_Data)
-```
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+summary(Basin_Data)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Data Preperation for Logistic Regression Model
+
+```{r Logistic Model for Basin_Data}
+library(AER)
+#Creating Logistic Model binary outcome for TVD greater than 8782ft set as yes, and less than 8782 as no
+Basin_Data$ynTVD[Basin_Data$TVD <= 8782] <- 0
+Basin_Data$ynTVD[Basin_Data$TVD >= 8782] <- 1
+#Create a dichotomous factor to be used as the outcome variable in a logistic regression model
+Basin_Data$ynTVD <- factor(Basin_Data$ynTVD, levels=c(0,1), labels=c("No","Yes"))
+#View table of output for new predictor variable ynTVD
+table(Basin_Data$ynTVD)
+#Selecting Basin variables for Logistic Regression and creating new dataset for analysis
+Basin_Model_Data <- Basin_Data[, c(4, 5, 8, 15, 16, 17, 18, 22, 32)]
+head(Basin_Model_Data)
+#Descriptive Statistics for Model variables
+summary(Basin_Model_Data)
+
+
+```
+
+```{r Full Logistic Regression Model}
+#Full Model formula = ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, family = binomial(), data = Basin_Model_Data_clean
+fit.full.basin <- glm(ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, data=Basin_Model_Data, family=binomial(link='logit'))
+#Descriptive Statistics for the Full Logistic Regression Model
+summary(fit.full.basin)
+#There are three formations ("SPBY_L_SILT", "SPBY_M", and "WFMP_D") and one predictor variable ("StatusTA") that are not statistically significant
+plot(fit.full.basin)
+```
+
+
+```{r Reduced Logistic Regression Model}
+Basin_Model_Data[, "form_avg_reduced"] <- Basin_Model_Data[!is.na(rownames(c("SPBY_L_SILT", "SPBY_M", "WFMP_D")))]
+#Reduced Logistic Model 
+fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + CountyName + Latitude + Longitude + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
+#Descriptive Statistics for the Reduced Logistic Regression Model
+summary(fit.reduced.basin)
+#Plot of reduced Logistic Model
+plot(fit.reduced.basin)
+```
+
