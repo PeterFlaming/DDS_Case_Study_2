@@ -34,13 +34,14 @@ wf_loccount <- wellfeatures %>%
 
 kable_zen(data.frame("Distinct Locations" = wf_loccount
           ,"Unique Wellbores" = wf_wellcount
-          ,row.names=c("Well_Features")))
+          ,row.names=c("Well_Features"))
+          )
 
 
 
 ## ---- wellfeatures_aggregates
 
-kable_zen(summarize_frame(wellfeatures))
+summarize_frame(wellfeatures)
 
 
 

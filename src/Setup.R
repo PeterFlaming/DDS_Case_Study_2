@@ -3,6 +3,7 @@ require(magrittr)
 require(kableExtra)
 require(car)
 require(knitr)
+require(summarytools)
 
 knitr::opts_chunk$set(fig.width=6,#12, 
                       fig.height=4,#8, 

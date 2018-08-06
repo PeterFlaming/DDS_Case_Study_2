@@ -57,8 +57,8 @@ ff_loccount <- fracfocus %>%
     summarize(locations = n())
 
 kable_zen(data.frame("Distinct Locations" = ff_loccount
-          ,"Unique Wellbores" = ff_wellcount
-          ,row.names=c("Frac_Focus")))
+                    ,"Unique Wellbores" = ff_wellcount
+                    ,row.names=c("Frac_Focus")))
 
 
 
@@ -87,12 +87,6 @@ ff_summary <- fracfocus %>%
 ## ---- fracfocus_aggregates
 
 kable_zen(summarize_frame(ff_summary))
-
-
-
-
-
-
 
 
 
