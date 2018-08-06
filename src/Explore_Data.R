@@ -20,28 +20,25 @@ welldata <- wellfeatures %>%
            select(-distance, -angle, -deviation, -weight)
 
 
-
-#welldata %>% head()
 ## ---- exp_summary
 welldata_summary <- select_if(welldata, is.numeric) %>% as.data.frame()
 
-#with(welldata_summary, descr(welldata_summary))
 kable_zen(descr(welldata_summary))
 
-# ## ---- scatter_lb_v_bbl
+# ## ---- exp
 
 
 
 
-# ggplot((welldata %>% na.omit(abv)), 
-#        aes(x=state , y=abv)) +  #TODO: Move to Appendix
-#   geom_boxplot(fill = abv_fill) +
-#   ggtitle("IBU by State") +
-#   xlab("States") +
-#   ylab("International Bitterness Units (IBU)") +
-#   theme(text = element_text(size=10),
-#         axis.text.x = element_text(angle=90, vjust=0.5),
-#         plot.title = element_text(hjust = 0.5, size = 16))
+ggplot((welldata), #%>% na.omit(abv)), 
+       aes(x=formavg , y=log(lb_ft))) +  #TODO: Move to Appendix
+  geom_boxplot(fill = COL.A.G) +
+  ggtitle("IBU by State") +
+  xlab("States") +
+  ylab("International Bitterness Units (IBU)") +
+  theme(text = element_text(size=10),
+        axis.text.x = element_text(angle=90, vjust=0.5),
+        plot.title = element_text(hjust = 0.5, size = 16))
 
 
 

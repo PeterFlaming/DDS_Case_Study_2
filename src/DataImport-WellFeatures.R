@@ -18,18 +18,14 @@ wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
                 ) %>%
              as.tibble()
 
-wellfeatures %>% colnames()
 
-"api14"     
-"api10"     
-"operalias" 
-"formavg"   
-"status"    
-"perfll"    
-"firstprod" 
-"oil.pk"    
-"vintage"   
-"age.mo"
+wf_units <- data.frame(
+        vars = c("api14","api10","operalias","formavg","status"    
+                ,"perfll","firstprod","oil.pk","vintage","age.mo"),
+        units = c("","","","",""    
+                ,"(ft)","","(bbl/day)","(year)","(months)"))
+
+
 
 # wellfeatures %>% head()
 

@@ -42,6 +42,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
              as.tibble()
 
 
+
 ## ---- fracfocus_count
 
 # count unique wellbores. api14 represents a unique wellbore.
@@ -79,9 +80,13 @@ ff_summary <- fracfocus %>%
     group_by(api10) %>%
     summarize(totalwater = max(totalbasewatervolume)
               , totalsand = sum(massingredient)
-              , percenthfjob = sum(percenthfjob)
+              #, percenthfjob = sum(percenthfjob)
               # add additional summary variables here.
               )
+
+ff_units <- data.frame(
+        vars = c("api10", "totalwater","totalsand"),
+        units = c("","(gal)","(lbs)")
 
 
 ## ---- fracfocus_aggregates
