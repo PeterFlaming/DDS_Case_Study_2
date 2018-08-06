@@ -10,7 +10,7 @@ source('Functions.R')
 fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               standardize_names() %>%
               rename(api='apinumber') %>%
-              mutate( api=as.character(api)
+              mutate( api14=as.character(api)
                      ,api10 = as.character(api10)
                      ,jobstartdate=as.Date(jobstartdate, "%m/%d/%Y")
                      ,jobenddate=as.Date(jobenddate, "%m/%d/%Y")
@@ -21,7 +21,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,massingredient = as.double(massingredient)
                      ,iswater = as.logical.factor(iswater)
                      ) %>%
-              select( api
+              select( api14
                      ,api10
                      ,wellname
                      ,operatorname
@@ -42,24 +42,27 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
              as.tibble()
 
 
-## ---- fracfocus_distinct_api
+## ---- fracfocus_count
 
-# Supplementary Data Frames - Unique record per api
-ff_distinct_api <- fracfocus %>%
-    distinct(api)
+# count unique wellbores. api14 represents a unique wellbore.
+ff_wellcount <- fracfocus %>%
+    select(api14) %>%
+    distinct(api14) %>%
+    summarize(wellbores = n())
 
-## ---- fracfocus_distinct_api10
+# count unique locations. api10 represents a unique XY coordinate pair.
+ff_loccount <- fracfocus %>%
+    select(api10) %>%
+    distinct(api10) %>%
+    summarize(locations = n())
 
-# Supplementary Data Frames - Unique record per api10
-ff_distinct_api10 <- fracfocus %>%
-    distinct(api10)
+kable_zen(data.frame("Distinct Locations" = ff_loccount
+                    ,"Unique Wellbores" = ff_wellcount
+                    ,row.names=c("Frac_Focus")))
 
 
 
 ## ---- fracfocus_summary
-
-# Clean Frac Focus Data
-### Frac Focus Summary - Unique record per well
 
 ff_summary <- fracfocus %>%
     filter('sand' %in% ingredientname
@@ -80,18 +83,10 @@ ff_summary <- fracfocus %>%
               # add additional summary variables here.
               )
 
-#ff_summary %>% head()
-
 
 ## ---- fracfocus_aggregates
 
-summarize_frame(ff_summary)
-
-
-
-
-
-
+kable_zen(summarize_frame(ff_summary))
 
 
 

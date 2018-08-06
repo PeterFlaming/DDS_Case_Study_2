@@ -1,11 +1,21 @@
 ---
-title: "Exploratory Data Analysis"
+title: "Measuring Well Productivity by Completion Design"
+author: | 
+        | Flaming  |  Trevathan
+        | Nixon  |  Friedrich
 output:
-  html_document:
-    df_print: paged
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: github
+    toc: true
+    number_sections: true
+    df_print: kable
+    fontsize: 11pt
+    fontfamily: palatino
 date: "July 24, 2018"
-theme: cosmo
+
 ---
+
 # Setup
 
 
@@ -15,10 +25,11 @@ theme: cosmo
 <!-- ``` -->
 
 ```{r setup}
-
+# run setup files, create custom functions, and read in data for analysis
 source("Setup.R")
 source("Functions.R")
 read_chunk('DataImport-FracFocus.R')
+read_chunk('DataImport-WellFeatures.R')
 
 ```
 
@@ -35,47 +46,66 @@ read_chunk('DataImport-FracFocus.R')
 
 ```
 
+# Executive Summary
 
-## Frac Focus - Data
 
 
-#### Import
+
+# Frac Focus Data
+
+
+## Import
 
 ```{r fracfocus_import}
 ```
 
-#### Distinct api List
+## Count Locations and Wellbores
 
-```{r fracfocus_distinct_api}
+```{r fracfocus_count}
 ```
 
-#### Distinct api10 List
+## Aggregate Proppant and Water by wellbore
 
-```{r fracfocus_distinct_api10}
+```{r fracfocus_summary}
 ```
 
-#### Summarize By api10 
+## Aggregates
 
 ```{r fracfocus_aggregates}
 ```
 
-#### Aggregates 
+# Well Features and Characteristics
+
+```{r wellfeatures_import}
+```
+
+## Count Locations and Wellbores
+
+```{r wellfeatures_count}
+```
+
+## Aggregates
 
 ```{r fracfocus_aggregates}
 ```
 
 
+```{r}
+
+
+```
 
 
 
 
+```{r}
+
+```
 
 
 
+# Appendix:
 
-
-
-
-
-
-
+```{r}
+sessionInfo()
+```

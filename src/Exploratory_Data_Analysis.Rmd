@@ -19,7 +19,7 @@ output:
 ```
 
 
-```{r setup, }
+```{r setup}
 
 
 # knitr::opts_chunk$set(
@@ -40,7 +40,7 @@ cool_1 = "steelblue"
 
 ```{r}
 
-
+# import data, define columns classes, and store as a tibble
 
 fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               standardize_names() %>%
@@ -96,8 +96,12 @@ driftwood <- read.csv("../data/deo_well_data.csv") %>%
 
 ```{r}
 
+# find distinct observations by api number
+
 ff_distinct_api <- fracfocus %>%
     distinct(api)
+
+# combine well data with fracturing chemical data for further analysis
 
 wells_distinct_api14 <- driftwood %>%
     inner_join(fracfocus, by = c("api", "api")) %>%
@@ -155,6 +159,9 @@ ff_summary %>% head()
 
 
 ```{r}
+
+# join well data with chemical data and create new explanatory variables for
+# modelling and prediction
 
 well_data <- driftwood %>%
     inner_join(ff_summary, by = c("api10", "api10")) %>%
@@ -238,7 +245,7 @@ well_data %>% head()
 
 ```{r}
 require(summarytools)
-well_summary <- as.data.frame(summarytools::descr(well_data, transpose= true)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
+well_summary <- as.data.frame(summarytools::descr(well_data, transpose= TRUE)) #%>% mutate_all(round, )#%>% mutate_at(vars(-mpg, -cyl), max)
 
 well_summary %>% 
   rownames_to_column('attribute') %>%
