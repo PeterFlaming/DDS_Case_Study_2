@@ -147,10 +147,11 @@ code > span.ot { color: #007020; }
 <h1><span class="header-section-number">1</span> Setup</h1>
 <!-- ```{r code = readLines('Setup.R'), message=FALSE, warning=FALSE} -->
 <!-- ``` -->
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;Setup.R&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">source</span>(<span class="st">&quot;Functions.R&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">read_chunk</span>(<span class="st">'DataImport-FracFocus.R'</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">read_chunk</span>(<span class="st">'DataImport-WellFeatures.R'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># run setup files, create custom functions, and read in data for analysis</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">source</span>(<span class="st">&quot;Setup.R&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">source</span>(<span class="st">&quot;Functions.R&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">read_chunk</span>(<span class="st">'DataImport-FracFocus.R'</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">read_chunk</span>(<span class="st">'DataImport-WellFeatures.R'</span>)</a></code></pre></div>
 </div>
 <div id="test-code" class="section level1">
 <h1><span class="header-section-number">2</span> TEST CODE</h1>
@@ -212,8 +213,8 @@ code > span.ot { color: #007020; }
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">locations =</span> <span class="kw">n</span>())</a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="kw">kable_zen</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Distinct Locations&quot;</span> =<span class="st"> </span>ff_loccount</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">          ,<span class="st">&quot;Unique Wellbores&quot;</span> =<span class="st"> </span>ff_wellcount</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">          ,<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;Frac_Focus&quot;</span>)))</a></code></pre></div>
+<a class="sourceLine" id="cb3-14" data-line-number="14">                    ,<span class="st">&quot;Unique Wellbores&quot;</span> =<span class="st"> </span>ff_wellcount</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">                    ,<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;Frac_Focus&quot;</span>)))</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -275,16 +276,16 @@ Frac_Focus
 Mean
 </th>
 <th style="text-align:right;">
-Median
+Std.Dev
 </th>
 <th style="text-align:right;">
 Min
 </th>
 <th style="text-align:right;">
-Max
+Median
 </th>
 <th style="text-align:right;">
-Std.Dev
+Max
 </th>
 <th style="text-align:right;">
 Q1
@@ -293,35 +294,29 @@ Q1
 Q3
 </th>
 <th style="text-align:right;">
-IQR
-</th>
-<th style="text-align:right;">
 N.Valid
-</th>
-<th style="text-align:right;">
-Pct.Valid
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Var1
+totalwater
 </td>
 <td style="text-align:right;">
-8631322
+8631322.07
 </td>
 <td style="text-align:right;">
-7960218
+8517091.015
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-202222958
+7960218.0
 </td>
 <td style="text-align:right;">
-8517091
+202222958
 </td>
 <td style="text-align:right;">
 1348074
@@ -330,33 +325,27 @@ Var1
 13285482
 </td>
 <td style="text-align:right;">
-11936778
-</td>
-<td style="text-align:right;">
 3162
-</td>
-<td style="text-align:right;">
-100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Var2
+totalsand
 </td>
 <td style="text-align:right;">
-834510
+834510.36
 </td>
 <td style="text-align:right;">
-807304
+520151.136
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-4556769
+807304.0
 </td>
 <td style="text-align:right;">
-520151
+4556769
 </td>
 <td style="text-align:right;">
 556858
@@ -365,33 +354,27 @@ Var2
 1117587
 </td>
 <td style="text-align:right;">
-560172
-</td>
-<td style="text-align:right;">
 3162
-</td>
-<td style="text-align:right;">
-100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Var3
+percenthfjob
 </td>
 <td style="text-align:right;">
-14499
+14498.57
 </td>
 <td style="text-align:right;">
-13524
+9432.805
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-133617
+13524.5
 </td>
 <td style="text-align:right;">
-9433
+133617
 </td>
 <td style="text-align:right;">
 10942
@@ -400,49 +383,46 @@ Var3
 15293
 </td>
 <td style="text-align:right;">
-4348
-</td>
-<td style="text-align:right;">
 3162
-</td>
-<td style="text-align:right;">
-100
 </td>
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">#descr(ff_summary, stats = u.stats)</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">    <span class="co">#, transpose = TRUE)</span></a></code></pre></div>
 </div>
 </div>
 <div id="well-features-and-characteristics" class="section level1">
 <h1><span class="header-section-number">5</span> Well Features and Characteristics</h1>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">wellfeatures &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../data/deo_well_data.csv&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">             </span><span class="kw">standardize_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">             </span><span class="kw">rename</span>(<span class="dt">oil=</span><span class="st">'oilpknormperk6mo'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">             </span><span class="kw">mutate</span>(<span class="dt">api14 =</span> <span class="kw">as.character</span>(api)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">                   ,<span class="dt">api10 =</span> <span class="kw">as.character</span>(api10)</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">                   ,<span class="dt">perfll=</span><span class="kw">as.integer</span>(perfll)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">                   ,<span class="dt">firstprod =</span> <span class="kw">as.Date</span>(firstprod, <span class="st">&quot;%m/%d/%Y&quot;</span>)</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">                   ,<span class="dt">oil =</span> <span class="kw">as.integer</span>(oil)</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">                   ,<span class="dt">firstprod_year =</span> <span class="kw">as.integer</span>(<span class="kw">format</span>(firstprod, <span class="st">'%Y'</span>))</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">                ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="st">             </span><span class="kw">as.tibble</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">wellfeatures &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../data/deo_well_data.csv&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">             </span><span class="kw">standardize_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">             </span><span class="kw">rename</span>(<span class="dt">oil=</span><span class="st">'oilpknormperk6mo'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">             </span><span class="kw">mutate</span>(<span class="dt">api14 =</span> <span class="kw">as.character</span>(api)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">                   ,<span class="dt">api10 =</span> <span class="kw">as.character</span>(api10)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">                   ,<span class="dt">perfll=</span><span class="kw">as.integer</span>(perfll)</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">                   ,<span class="dt">firstprod =</span> <span class="kw">as.Date</span>(firstprod, <span class="st">&quot;%m/%d/%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">                   ,<span class="dt">oil =</span> <span class="kw">as.integer</span>(oil)</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">                   ,<span class="dt">firstprod_year =</span> <span class="kw">as.integer</span>(<span class="kw">format</span>(firstprod, <span class="st">'%Y'</span>))</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">                ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="st">             </span><span class="kw">as.tibble</span>()</a></code></pre></div>
 <div id="count-locations-and-wellbores-1" class="section level2">
 <h2><span class="header-section-number">5.1</span> Count Locations and Wellbores</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># count unique wellbores. api14 represents a unique wellbore.</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">wf_wellcount &lt;-<span class="st"> </span>wellfeatures <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(api14) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">    </span><span class="kw">distinct</span>(api14) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">wellbores =</span> <span class="kw">n</span>())</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># count unique locations. api10 represents a unique XY coordinate pair.</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">wf_loccount &lt;-<span class="st"> </span>wellfeatures <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="st">    </span><span class="kw">select</span>(api10) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="st">    </span><span class="kw">distinct</span>(api10) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">locations =</span> <span class="kw">n</span>())</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="kw">kable_zen</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Distinct Locations&quot;</span> =<span class="st"> </span>wf_loccount</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">          ,<span class="st">&quot;Unique Wellbores&quot;</span> =<span class="st"> </span>wf_wellcount</a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">          ,<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;Well_Features&quot;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># count unique wellbores. api14 represents a unique wellbore.</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">wf_wellcount &lt;-<span class="st"> </span>wellfeatures <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(api14) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw">distinct</span>(api14) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">wellbores =</span> <span class="kw">n</span>())</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co"># count unique locations. api10 represents a unique XY coordinate pair.</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">wf_loccount &lt;-<span class="st"> </span>wellfeatures <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">    </span><span class="kw">select</span>(api10) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="st">    </span><span class="kw">distinct</span>(api10) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">locations =</span> <span class="kw">n</span>())</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="kw">kable_zen</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Distinct Locations&quot;</span> =<span class="st"> </span>wf_loccount</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">          ,<span class="st">&quot;Unique Wellbores&quot;</span> =<span class="st"> </span>wf_wellcount</a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">          ,<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;Well_Features&quot;</span>))</a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">          )</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -473,7 +453,7 @@ Well_Features
 </div>
 <div id="aggregates-1" class="section level2">
 <h2><span class="header-section-number">5.2</span> Aggregates</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">kable_zen</span>(<span class="kw">summarize_frame</span>(ff_summary))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">kable_zen</span>(<span class="kw">summarize_frame</span>(ff_summary))</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -483,16 +463,16 @@ Well_Features
 Mean
 </th>
 <th style="text-align:right;">
-Median
+Std.Dev
 </th>
 <th style="text-align:right;">
 Min
 </th>
 <th style="text-align:right;">
-Max
+Median
 </th>
 <th style="text-align:right;">
-Std.Dev
+Max
 </th>
 <th style="text-align:right;">
 Q1
@@ -501,35 +481,29 @@ Q1
 Q3
 </th>
 <th style="text-align:right;">
-IQR
-</th>
-<th style="text-align:right;">
 N.Valid
-</th>
-<th style="text-align:right;">
-Pct.Valid
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Var1
+totalwater
 </td>
 <td style="text-align:right;">
-8631322
+8631322.07
 </td>
 <td style="text-align:right;">
-7960218
+8517091.015
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-202222958
+7960218.0
 </td>
 <td style="text-align:right;">
-8517091
+202222958
 </td>
 <td style="text-align:right;">
 1348074
@@ -538,33 +512,27 @@ Var1
 13285482
 </td>
 <td style="text-align:right;">
-11936778
-</td>
-<td style="text-align:right;">
 3162
-</td>
-<td style="text-align:right;">
-100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Var2
+totalsand
 </td>
 <td style="text-align:right;">
-834510
+834510.36
 </td>
 <td style="text-align:right;">
-807304
+520151.136
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-4556769
+807304.0
 </td>
 <td style="text-align:right;">
-520151
+4556769
 </td>
 <td style="text-align:right;">
 556858
@@ -573,33 +541,27 @@ Var2
 1117587
 </td>
 <td style="text-align:right;">
-560172
-</td>
-<td style="text-align:right;">
 3162
-</td>
-<td style="text-align:right;">
-100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Var3
+percenthfjob
 </td>
 <td style="text-align:right;">
-14499
+14498.57
 </td>
 <td style="text-align:right;">
-13524
+9432.805
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-133617
+13524.5
 </td>
 <td style="text-align:right;">
-9433
+133617
 </td>
 <td style="text-align:right;">
 10942
@@ -608,17 +570,13 @@ Var3
 15293
 </td>
 <td style="text-align:right;">
-4348
-</td>
-<td style="text-align:right;">
 3162
-</td>
-<td style="text-align:right;">
-100
 </td>
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">#descr(ff_summary, stats = u.stats)</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">    <span class="co">#, transpose = TRUE)</span></a></code></pre></div>
 </div>
 </div>
 </article>

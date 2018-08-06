@@ -1,18 +1,39 @@
 
+#TODO: cleanup the commented code in this bad boy
+
 # Define Custom Functions
 
+u.stats <- c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid")
 
 ## @knitr functions
 summarize_frame <- function(frameframe)
 {
     #returns table of summary statistics for each numberic column in dataframe
-    x <- as.data.frame(summarytools::descr(frameframe, transpose = TRUE)) %>%
-    rownames_to_column('Attribute') %>%
-    mutate_if(is.numeric, round) %>%
-    column_to_rownames('Attribute') %>%
-    select(Mean, Median, Min, Max, Std.Dev, Q1, Q3, IQR, N.Valid, Pct.Valid) 
-  
-    x
+    #summarytools::descr(frameframe, transpose = TRUE) #%>%
+
+    frameframe %<>% as.data.frame()
+    descr(frameframe, stats = c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"), transpose = TRUE)
+   
+    # NOTE TO FUTURE SELF: summarytools::descr is NOT frieldly with the pipe tools. 
+
+   #cnames <- frameframe %>% select_if(is.numeric) %>% colnames()
+
+    
+    #    #t() %>%
+    #    #rownames_to_column('Attribute') %>%
+    #    #descr()
+    #    #as.data.frame() %>%
+    #    #rownames_to_column('Attribute')
+    #    #%>%
+   #descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE)
+
+   # row.names(frameframe) <- cnames
+
+   # frameframe %>% as.tibble()
+   
+    # mutate_if(is.numeric, round) %>%
+    # column_to_rownames('Attribute') %>%
+    #select(Mean, Median, Min, Max, Std.Dev, Q1, Q3, IQR, N.Valid, Pct.Valid) 
 }
 
 # standardizes column names for consistency and readability, including trimming
@@ -39,36 +60,78 @@ kable_zen <- function(frameframe)
 #   kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
+# ff_summary %>% head()
 
-# frameframe = welldata
-# as.data.frame(summarytools::descr(frameframe, transpose = TRUE)) %>%
-#     rownames_to_column('Attribute') %>%
-#     mutate_if(is.numeric, round) %>%
-#     #column_to_rownames('attribute') %>%
-#     select(Attribute, Mean, Median, Min, Max, Std.Dev, Q1, Q3, IQR, N.Valid, Pct.Valid) 
-  
-  
+# frameframe <- ff_summary %>% head(10)
+
+#     frameframe %<>% as.data.frame()
+
+#    cnames <- frameframe %>% select_if(is.numeric) %>% colnames()
+
+#    frameframe %>% as.data.frame() %>%
+#    select_if(is.numeric)  %>% descr()
+# #    #t() %>%
+# #    #rownames_to_column('Attribute') %>%
+# #    #descr()
+# #    #as.data.frame() %>%
+# #    #rownames_to_column('Attribute')
+# #    #%>%
+#    descr(frameframe, stats = c("mean", "sd", "min", "med", "max"))
+
+#    row.names(frameframe) <- cnames
+
+#    frameframe %>% as.tibble()
+
+
+#    class(frameframe)
+# ff_summary %>% head()
+
+# frameframe <- ff_summary %>% head(10)
+
+#     frameframe %<>% as.data.frame()
+
+#    cnames <- frameframe %>% select_if(is.numeric) %>% colnames()
+
+#    frameframe %>% as.data.frame() %>%
+#    select_if(is.numeric)  %>% descr()
+# #    #t() %>%
+# #    #rownames_to_column('Attribute') %>%
+# #    #descr()
+# #    #as.data.frame() %>%
+# #    #rownames_to_column('Attribute')
+# #    #%>%
+#    descr(frameframe, stats = c("mean", "sd", "min", "med", "max"))
+
+#    row.names(frameframe) <- cnames
+
+#    frameframe %>% as.tibble()
+
+
+#    class(frameframe)
+# ff_summary %>% head()
+
+# frameframe <- ff_summary %>% head(10)
+
+#     frameframe %<>% as.data.frame()
+
+#    cnames <- frameframe %>% select_if(is.numeric) %>% colnames()
+
+#    frameframe %>% as.data.frame() %>%
+#    select_if(is.numeric)  %>% descr()
+# #    #t() %>%
+# #    #rownames_to_column('Attribute') %>%
+# #    #descr()
+# #    #as.data.frame() %>%
+# #    #rownames_to_column('Attribute')
+# #    #%>%
+#    descr(frameframe, stats = c("mean", "sd", "min", "med", "max"))
+
+#    row.names(frameframe) <- cnames
+
+#    frameframe %>% as.tibble()
+
+
+#    class(frameframe)
