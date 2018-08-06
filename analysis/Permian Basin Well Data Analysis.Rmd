@@ -1,0 +1,114 @@
+---
+title: "Permian Basin Well Data Analysis"
+author: "Peter Flaming"
+date: "8/2/2018"
+output: html_document
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+library(abind)
+library(acepack)
+library(ade4)
+library(AER)
+library(Amelia)
+library(animation)
+library(anim.plots)
+library(assertthat)
+library(broom)
+library(car)
+library(carData)
+library(caret)
+library(class)
+library(cluster)
+library(clusterGeneration)
+library(DAISIE)
+library(data.table)
+library(dbplyr)
+library(dplyr)
+library(dygraphs)
+library(forcats)
+library(forecast)
+library(ggplot2)
+library(ggthemes)
+library(gtable)
+library(gvlma)
+library(lubridate)
+library(magrittr)
+library(maptools)
+library(MASS)
+library(Matrix)
+library(methods)
+library(mnormt)
+library(modelr)
+library(msme)
+library(nlme)
+library(nnet)
+library(nortest)
+library(pracma)
+library(prettyunits)
+library(princurve)
+library(psych)
+library(purrr)
+library(quantreg)
+library(R.utils)
+library(repmis)
+library(reshape)
+library(reshape2)
+library(rmarkdown)
+library(robustbase)
+library(sandwich)
+library(stringr)
+library(summarytools)
+library(survival)
+library(survey)
+library(textclean)
+library(textshape)
+library(tibble)
+library(tidyr)
+library(tidyselect)
+library(tidyverse)
+library(tseries)
+library(urca)
+library(uroot)
+library(utf8)
+library(VGAM)
+library(Zelig)
+library(zoo)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r fracfocus_registry}
+fracfocus_registry <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/fracfocus_registry.csv")
+str(fracfocus_registry)
+TVD <- as.data.frame.numeric(fracfocus_registry$TVD)
+TBWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseWaterVolume)
+TBNonWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseNonWaterVolume)
+```
+
+```{r deo_well_data}
+deo_well_data <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/deo_well_data.csv")
+deo_well_data$PerfLL <- as.data.frame.numeric(deo_well_data$PerfLL)
+deo_well_data$FirstProd <- as.data.frame.numeric(deo_well_data$FirstProd)
+deo_well_data$Oil_PkNorm_Perk_6mo <- as.data.frame.numeric(deo_well_data$Oil_PkNorm_Perk_6mo)
+str(deo_well_data)
+```
+
+```{r Basin_Data}
+Basin_Data <- merge.data.frame(deo_well_data, fracfocus_registry, by = intersect(x="API10", y="API10"))
+str(Basin_Data)
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
