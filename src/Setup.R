@@ -11,8 +11,8 @@ require(gridExtra)
 knitr::opts_chunk$set(fig.width=12, 
                       fig.height=8, 
                       fig.path='../Figs/',
-                      warning=TRUE, 
-                      message=TRUE,
+                      warning=FALSE, 
+                      message=FALSE,
                       echo = TRUE,
                       #root.dir = normalizePath(".."),
                       #child.dir = normalizePath(".."),
@@ -21,12 +21,14 @@ knitr::opts_chunk$set(fig.width=12,
                       )
 
 
+
+
 ggplot2::theme_set(ggplot2::theme_bw())
 ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5))
 
 #prevent implicit conversion to scientific notation
 options(scipen = 999)
-
+options(knitr.table.format = "html")
 #disable column wrapping
 options(width=800) 
 
@@ -34,3 +36,4 @@ options(width=800)
 st_options('escape.pipe', TRUE)
 st_options('descr.stats', c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"))
 st_options('descr.transpose', TRUE)
+st_options('style', "rmarkdown")

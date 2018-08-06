@@ -23,9 +23,6 @@ welldata <- wellfeatures %>%
 
 ## ---- exp_summary
 
-#welldata_summary <- select_if(welldata, is.numeric) %>% as.data.frame()
-
-
     kable(descr(welldata), digits = 0) %>%
     kable_styling(position = "center"
                  ,full_width = TRUE)
@@ -38,20 +35,25 @@ welldata <- wellfeatures %>%
 # welldata %>%
 # select(operalias, formavg, status, vintage.yr)
 
-freq_by_vintage <- kable(freq(welldata$vintage.yr) %>% 
-    kable_styling(position = "float_right", full_width = FALSE))
-freq_by_operalias <- kable(freq(welldata$operalias) %>% 
-    kable_styling(position = "float_right", full_width = FALSE))
-freq_by_status <- kable(freq(welldata$status) %>% 
-    kable_styling(position = "float_right", full_width = FALSE))
+kable(freq(welldata$vintage.yr) %>% 
+    kable_styling(position = "float_right", 
+                  full_width = FALSE,
+                  bootstrap_options = c("striped", "hover", "condensed")
+                 ) %>%
+                 row_spec(0, angle = -45)
+    )
+#  kable(freq(welldata$operalias) %>% 
+#     kable_styling(position = "float_left", full_width = FALSE))
+kable(freq(welldata$status) %>% 
+    kable_styling(position = "float_left", full_width = FALSE))
 
-freq_layout <- rbind(c(1,1,1,2,2),
-                     c(1,1,1,3,3))
+# freq_layout <- rbind(c(1,1,1,2,2),
+#                      c(1,1,1,3,3))
 
-grid.arrange(tableGrob(freq_by_vintage)
-                      ,tableGrob(freq_by_operalias)
-                      ,tableGrob(freq_by_status)
-                      , layout_matrix = freq_layout)
+# grid.arrange(tableGrob(freq(welldata$vintage.yr))
+#                       ,tableGrob(freq(welldata$vintage.yr))
+#                       ,tableGrob(freq(welldata$vintage.yr))
+#                       , layout_matrix = freq_layout)
 
 ## ---- exp_freq_by_form
 
@@ -90,9 +92,6 @@ ggplot((welldata), #%>% na.omit(abv)),
 
 ## ---- exp_hist_prod
 
-# qplot(mpg, data=mtcars, geom="density", fill=gear, alpha=I(.5),
-#    main="Distribution of Gas Milage", xlab="Miles Per Gallon",
-#    ylab="Density")
 
 
 ## ---- 

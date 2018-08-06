@@ -15,7 +15,7 @@ COL.ALLFORMS[name]
 names(COL.ALLFORMS)
 
 
-
+freq(welldata$status) %>% as.data.frame() %>% select("Freq","% Total")
 
 
 
