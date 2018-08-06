@@ -90,6 +90,8 @@ fit.full.basin <- glm(ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude
 summary(fit.full.basin)
 #There are three formations ("SPBY_L_SILT", "SPBY_M", and "WFMP_D") and one predictor variable ("StatusTA") that are not statistically significant
 plot(fit.full.basin)
+#95% CI for Full Logistic Model
+exp(confint(fit.full.basin))
 ```
 
 
@@ -101,5 +103,23 @@ fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + CountyName + L
 summary(fit.reduced.basin)
 #Plot of reduced Logistic Model
 plot(fit.reduced.basin)
+#95% CI for Reduced Logistic Model
+exp(confint(fit.reduced.basin))
+
+```
+```{r Check for Overdispersion of Logistic Regression Model}
+#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if larger than 1, you have evidence of overdispersion
+overdispersion_test <- deviance(fit.reduced.basin)/df.residual(fit.reduced.basin)
+overdispersion_test
 ```
 
+```{r Hypothesis test for H0 = 1 and Ha != 1}
+fit <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + CountyName + Latitude + Longitude + Projection, data=Basin_Model_Data, family=binomial())
+
+fit.od <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + CountyName + Latitude + Longitude + Projection, data=Basin_Model_Data, family = quasibinomial())
+
+#If the p-value is small (say, less than 0.05), you'd reject the null hypothesis
+pchisq(summary(fit.od)$dispersion * fit$df.residual,
+fit$df.residual, lower = F)
+#The resulting p-value is clearly significant (p < 0.05), strengthening the belief that overdispersion isn't a problem
+```
