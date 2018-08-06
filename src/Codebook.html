@@ -177,12 +177,17 @@ $(document).ready(function () {
 <li><p>car</p></li>
 </ul>
 </div>
-<div id="functions-used-to-tidy-data" class="section level1">
-<h1>Functions Used to tidy data</h1>
+<div id="data-sets-created-to-tidy-data" class="section level1">
+<h1>Data Sets Created to Tidy Data</h1>
 <ul>
-<li><p>as.tibble() - Coerce lists and matrices to data frames</p></li>
-<li></li>
+<li>ff_distinct_api &lt;- fracfocus %&gt;% distinct(api)</li>
 </ul>
+<p>Create new data set to find distinct observations by api number</p>
+<ul>
+<li><p>wells_distinct_api14 &lt;- driftwood %&gt;% inner_join(fracfocus, by = c(“api”, “api”)) %&gt;% distinct(api) Create new data set to combine well data with fracturing chemical data for further analysis</p></li>
+<li><p>ff_summary &lt;- fracfocus %&gt;% filter(‘sand’ %in% ingredientname | ‘silica’ %in% ingredientname | ‘propp’ %in% ingredientname | ‘mesh’ %in% ingredientname | ‘brown’ %in% ingredientname | ‘white’ %in% ingredientname | ‘30%50’ %in% ingredientname | ‘40%70’ %in% ingredientname | ‘30%50’ %in% ingredientname | ‘100’ %in% ingredientname ) %&gt;% group_by(api10) %&gt;% summarize(totalwater = max(totalbasewatervolume) , totalsand = sum(massingredient) , percenthfjob = sum(percenthfjob) )</p></li>
+</ul>
+<p>Create new data set to aggregate sand and water based on specific wells</p>
 </div>
 
 

@@ -81,8 +81,36 @@ elevation of the rotary kelly bushing.
 
 * car
 
-# Functions Used to tidy data
+# Data Sets Created to Tidy Data
 
-* as.tibble() - Coerce lists and matrices to data frames
+* ff_distinct_api <- fracfocus %>% 
+  distinct(api)
+  
+Create new data set to find distinct observations by api number
 
-*
+* wells_distinct_api14 <- driftwood %>%
+    inner_join(fracfocus, by = c("api", "api")) %>%
+    distinct(api)
+Create new data set to combine well data with fracturing chemical data for further analysis
+
+* ff_summary <- fracfocus %>%
+    filter('sand' %in% ingredientname
+        | 'silica' %in% ingredientname
+        | 'propp' %in% ingredientname
+        | 'mesh' %in% ingredientname
+        | 'brown' %in% ingredientname
+        | 'white' %in% ingredientname
+        | '30%50' %in% ingredientname
+        | '40%70' %in% ingredientname
+        | '30%50' %in% ingredientname
+        | '100' %in% ingredientname
+        ) %>%
+    group_by(api10) %>%
+    summarize(totalwater = max(totalbasewatervolume)
+              , totalsand = sum(massingredient)
+              , percenthfjob = sum(percenthfjob)
+              )
+
+Create new data set to aggregate sand and water based on specific wells
+
+
