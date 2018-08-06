@@ -9,8 +9,8 @@ source('Functions.R')
 #import fracfocus data
 fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               standardize_names() %>%
-              rename(api='apinumber') %>%
-              mutate( api14=as.character(api)
+              rename(api14='apinumber') %>%
+              mutate( api14=as.character(api14)
                      ,api10 = as.character(api10)
                      ,jobstartdate=as.Date(jobstartdate, "%m/%d/%Y")
                      ,jobenddate=as.Date(jobenddate, "%m/%d/%Y")
@@ -86,7 +86,7 @@ ff_summary <- fracfocus %>%
 
 ## ---- fracfocus_aggregates
 
-kable_zen(summarize_frame(ff_summary))
+kable_zen(descr(ff_summary))
 
 
 

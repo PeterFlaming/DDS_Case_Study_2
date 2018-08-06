@@ -1,8 +1,10 @@
 ---
 title: "Measuring Well Productivity by Completion Design"
 author: | 
-        | Flaming  |  Trevathan
-        | Nixon  |  Friedrich
+        | Flaming  
+        | Trevathan
+        | Nixon  
+        | Friedrich
 output:
   prettydoc::html_pretty:
     theme: leonids
@@ -30,21 +32,10 @@ source("Setup.R")
 source("Functions.R")
 read_chunk('DataImport-FracFocus.R')
 read_chunk('DataImport-WellFeatures.R')
+read_chunk('Explore_Data.R')
 
 ```
 
-
-
-
-# TEST CODE #
-```{r echo = FALSE}
-
-#getwd()
-#read_chunk('Functions.R')
-#read_chunk('DataImport-FracFocus.R')
-#source("Functions.R")
-
-```
 
 # Executive Summary
 
@@ -56,7 +47,7 @@ read_chunk('DataImport-WellFeatures.R')
 
 ## Import
 
-```{r fracfocus_import}
+```{r fracfocus_import, cache = TRUE}
 ```
 
 ## Count Locations and Wellbores
@@ -90,16 +81,17 @@ read_chunk('DataImport-WellFeatures.R')
 ```
 
 
-```{r}
 
+# Data Exploration
 
+## Add Calculated Columns
+
+```{r exp_welldata_calcs}
 ```
 
+## Summarize Well Data 
 
-
-
-```{r}
-
+```{r exp_summary}
 ```
 
 

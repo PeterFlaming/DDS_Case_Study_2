@@ -27,3 +27,8 @@ options(scipen = 999)
 
 #disable column wrapping
 options(width=800) 
+
+
+st_options('escape.pipe', TRUE)
+st_options('descr.stats', c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"))
+st_options('descr.transpose', TRUE)

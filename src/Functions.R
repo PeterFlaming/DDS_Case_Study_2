@@ -3,7 +3,37 @@
 
 # Define Custom Functions
 
-u.stats <- c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid")
+#U.STATS <- c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid")
+
+
+# analogous palette
+COL.A.G = '#CDFFAC'
+COL.A.B = '#87E4E8'
+COL.A.P = '#9F6FFF'
+COL.A.R = '#E8A8A4'
+COL.A.O = '#FFDA81'
+
+# monochromatic greens
+COL.M.G1 = '#1A7F67'
+COL.M.G2 = '#81FFE0'
+COL.M.G3 = '#34FFCE'
+COL.M.G4 = '#407F70'
+COL.M.G5 = '#2ACCA4'
+
+# complementary green/red
+COL.CO.G1 = '#56B262'
+COL.CO.G2 = '#AEFFB8'
+COL.CO.G3 = '#94FFA2'
+COL.CO.R4 = '#B24462'
+COL.CO.R5 = '#FF94B1'
+
+# compound palette
+COL.CP.B1 = '#7EA3CC' # muted blue
+COL.CP.B2 = '#3F6999' # navy blue
+COL.CP.B3 = '#CEFFFF' # pale blue
+COL.CP.O4 = '#FFA58B' # pale orange
+COL.CP.N5 = '#CCB1AE' # light brown
+
 
 ## @knitr functions
 summarize_frame <- function(frameframe)
@@ -11,8 +41,9 @@ summarize_frame <- function(frameframe)
     #returns table of summary statistics for each numberic column in dataframe
     #summarytools::descr(frameframe, transpose = TRUE) #%>%
 
-    frameframe %<>% as.data.frame()
-    descr(frameframe, stats = c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"), transpose = TRUE)
+    #frameframe %<>% as.data.frame()
+
+    descr(frameframe, transpose = TRUE)
    
     # NOTE TO FUTURE SELF: summarytools::descr is NOT frieldly with the pipe tools. 
 
