@@ -9,9 +9,10 @@ source('Functions.R')
 #import fracfocus data
 fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               standardize_names() %>%
-              rename(api='apinumber') %>%
-              mutate( api14=as.character(api)
+              rename(api14='apinumber') %>%
+              mutate( api14=as.character(api14)
                      ,api10 = as.character(api10)
+                     ,tvd = as.integer(tvd)
                      ,jobstartdate=as.Date(jobstartdate, "%m/%d/%Y")
                      ,jobenddate=as.Date(jobenddate, "%m/%d/%Y")
                      ,totalbasewatervolume = as.double(totalbasewatervolume)
@@ -25,6 +26,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,api10
                      ,wellname
                      ,operatorname
+                     ,tvd
                      ,jobstartdate
                      ,jobenddate
                      ,latitude
@@ -40,6 +42,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,iswater
                      ) %>%
              as.tibble()
+
 
 
 ## ---- fracfocus_count
@@ -77,16 +80,21 @@ ff_summary <- fracfocus %>%
         | '100' %in% ingredientname
         ) %>%
     group_by(api10) %>%
-    summarize(totalwater = max(totalbasewatervolume)
-              , totalsand = sum(massingredient)
-              , percenthfjob = sum(percenthfjob)
+    summarize(totalwater.gal = max(totalbasewatervolume)
+              ,totalsand.lb = sum(massingredient)
+              ,tvd.ft = max(tvd)
+              #, percenthfjob = sum(percenthfjob)
               # add additional summary variables here.
               )
+
+# ff_units <- data.frame(
+#         vars = c("api10", "totalwater","totalsand", "tvd"),
+#         units = c("","(gal)","(lbs)", "(ft)"))
 
 
 ## ---- fracfocus_aggregates
 
-kable_zen(summarize_frame(ff_summary))
+kable_zen(descr(ff_summary))
 
 
 

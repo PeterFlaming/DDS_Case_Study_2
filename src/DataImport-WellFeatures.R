@@ -6,16 +6,27 @@ source('Functions.R')
 
 wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
              standardize_names() %>% 
-             rename(oil='oilpknormperk6mo') %>%
-             mutate(api14 = as.character(api)
+             rename(oil.pk.bbl='oilpknormperk6mo'
+                    ,api14='api'
+                    ,perfll.ft='perfll') %>%
+             mutate(api14 = as.character(api14)
                    ,api10 = as.character(api10)
-                   ,perfll=as.integer(perfll)
+                   ,perfll.ft=as.integer(perfll.ft)
                    ,firstprod = as.Date(firstprod, "%m/%d/%Y")
-                   ,oil.pk = as.integer(oil)
-                   ,vintage = as.integer(format(firstprod, '%Y'))
+                   ,oil.pk.bbl = as.integer(oil.pk.bbl)
+                   ,vintage.yr = as.integer(format(firstprod, '%Y'))
                    ,age.mo = as.integer((as.Date('08/01/2018', "%m/%d/%Y") - firstprod)/(365/12)) #30.4 = avg month duration
                 ) %>%
              as.tibble()
+
+
+# wf_units <- data.frame(
+#         vars = c("api14","api10","operalias","formavg","status"    
+#                 ,"perfll","firstprod","oil.pk","vintage","age.mo"),
+#         units = c("","","","",""    
+#                 ,"(ft)","","(bbl/day)","(year)","(months)"))
+
+
 
 # wellfeatures %>% head()
 
@@ -27,7 +38,7 @@ wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
 # class(as.Date('08/01/2018', "%m/%d/%Y"))
 # wellfeatures$firstprod - as.Date('08/01/2018', "%m/%d/%Y")
 
-
+#read.csv("../data/deo_well_data.csv") %>%standardize_names() %>%  head()
 
 
 ## ---- wellfeatures_count
@@ -53,7 +64,7 @@ kable_zen(data.frame("Distinct Locations" = wf_loccount
 
 ## ---- wellfeatures_aggregates
 
-summarize_frame(wellfeatures)
+kable_zen(descr(wellfeatures))
 
 
 

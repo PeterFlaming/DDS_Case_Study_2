@@ -5,9 +5,11 @@ require(car)
 require(knitr)
 require(summarytools)
 require(units)
+require(grid)
+require(gridExtra)
 
-knitr::opts_chunk$set(fig.width=6,#12, 
-                      fig.height=4,#8, 
+knitr::opts_chunk$set(fig.width=12, 
+                      fig.height=8, 
                       fig.path='../Figs/',
                       warning=TRUE, 
                       message=TRUE,
@@ -27,3 +29,8 @@ options(scipen = 999)
 
 #disable column wrapping
 options(width=800) 
+
+
+st_options('escape.pipe', TRUE)
+st_options('descr.stats', c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"))
+st_options('descr.transpose', TRUE)
