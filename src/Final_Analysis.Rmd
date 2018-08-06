@@ -1,5 +1,8 @@
 ---
 title: "Measuring Well Productivity by Completion Design"
+author: | 
+        | Flaming  |  Trevathan
+        | Nixon  |  Friedrich
 output:
   prettydoc::html_pretty:
     theme: leonids
@@ -12,6 +15,7 @@ output:
 date: "July 24, 2018"
 
 ---
+
 # Setup
 
 
@@ -89,7 +93,6 @@ read_chunk('DataImport-WellFeatures.R')
 ```{r}
 
 
-
 ```
 
 
@@ -97,4 +100,12 @@ read_chunk('DataImport-WellFeatures.R')
 
 ```{r}
 
+```
+
+
+
+# Appendix:
+
+```{r}
+sessionInfo()
 ```

@@ -11,10 +11,22 @@ wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
                    ,api10 = as.character(api10)
                    ,perfll=as.integer(perfll)
                    ,firstprod = as.Date(firstprod, "%m/%d/%Y")
-                   ,oil = as.integer(oil)
-                   ,firstprod_year = as.integer(format(firstprod, '%Y'))
+                   ,oil.pk = as.integer(oil)
+                   ,vintage = as.integer(format(firstprod, '%Y'))
+                   ,age.mo = as.integer((as.Date('08/01/2018', "%m/%d/%Y") - firstprod)/(365/12)) #30.4 = avg month duration
                 ) %>%
              as.tibble()
+
+# wellfeatures %>% head()
+
+# wellfeatures %>% 
+# mutate(age.mo = as.integer((as.Date('08/01/2018', "%m/%d/%Y") - firstprod)/30.4)) %>%
+# select(firstprod, age.mo) %>%
+# head() 
+
+# class(as.Date('08/01/2018', "%m/%d/%Y"))
+# wellfeatures$firstprod - as.Date('08/01/2018', "%m/%d/%Y")
+
 
 
 
@@ -42,14 +54,6 @@ kable_zen(data.frame("Distinct Locations" = wf_loccount
 ## ---- wellfeatures_aggregates
 
 summarize_frame(wellfeatures)
-
-
-
-
-
-
-
-
 
 
 
