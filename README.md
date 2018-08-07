@@ -59,7 +59,7 @@ knitr::write_bib(PackagesUsed, file = "Packages.bib")
 
 ### Open Rmarkdown and follow code
 
-Use the following code to reproduce the study [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/src/Final_Analysis.Rmd).
+Use the following code to reproduce the study [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/Final_Analysis.md).
 
 
 # Executive Summary
