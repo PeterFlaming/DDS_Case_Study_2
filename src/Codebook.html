@@ -91,9 +91,6 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
-.html-widget {
-  margin-bottom: 20px;
-}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -130,7 +127,7 @@ $(document).ready(function () {
 
 <div id="codebook-for-fracking-data" class="section level2">
 <h2>Codebook for Fracking Data</h2>
-<p>This codebook is for the fracking data obtained on <a href="http://fracfocus.org/data-download" class="uri">http://fracfocus.org/data-download</a>. This includes regulatory data that reports chemicals and proppants used for hydraulic fracturing. The first of two raw datasets consist of deo_well_data.csv (Driftwood), which provides various wells with data such as their identification number and production dates. The second set is fracfocus_registry.csv, which has much more detailed analysis of fracturing operations, their locations, names and the materials and chemicals used in their operation.</p>
+<p>This codebook is for the fracking data obtained on <a href="http://fracfocus.org/data-download" class="uri">http://fracfocus.org/data-download</a>. This includes regulatory data that reports chemicals and proppants used for hydraulic fracturing. The first of two raw datasets consist of deo_well_data.csv (Driftwood), which provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells.The second set is fracfocus_registry.csv, which has much more detailed analysis of fracturing operations, their locations, names and the materials and chemicals used in their operation.</p>
 </div>
 <div id="driftwood-data-points" class="section level1">
 <h1>Driftwood Data Points</h1>
@@ -184,10 +181,53 @@ $(document).ready(function () {
 </ul>
 <p>Create new data set to find distinct observations by api number</p>
 <ul>
-<li><p>wells_distinct_api14 &lt;- driftwood %&gt;% inner_join(fracfocus, by = c(“api”, “api”)) %&gt;% distinct(api) Create new data set to combine well data with fracturing chemical data for further analysis</p></li>
-<li><p>ff_summary &lt;- fracfocus %&gt;% filter(‘sand’ %in% ingredientname | ‘silica’ %in% ingredientname | ‘propp’ %in% ingredientname | ‘mesh’ %in% ingredientname | ‘brown’ %in% ingredientname | ‘white’ %in% ingredientname | ‘30%50’ %in% ingredientname | ‘40%70’ %in% ingredientname | ‘30%50’ %in% ingredientname | ‘100’ %in% ingredientname ) %&gt;% group_by(api10) %&gt;% summarize(totalwater = max(totalbasewatervolume) , totalsand = sum(massingredient) , percenthfjob = sum(percenthfjob) )</p></li>
+<li>wells_distinct_api14 &lt;- driftwood %&gt;% inner_join(fracfocus, by = c(“api”, “api”)) %&gt;% distinct(api)</li>
+</ul>
+<p>Create new data set to combine well data with fracturing chemical data for further analysis</p>
+<ul>
+<li>ff_summary &lt;- fracfocus %&gt;% filter(‘sand’ %in% ingredientname | ‘silica’ %in% ingredientname | ‘propp’ %in% ingredientname | ‘mesh’ %in% ingredientname | ‘brown’ %in% ingredientname | ‘white’ %in% ingredientname | ‘30%50’ %in% ingredientname | ‘40%70’ %in% ingredientname | ‘30%50’ %in% ingredientname | ‘100’ %in% ingredientname ) %&gt;% group_by(api10) %&gt;% summarize(totalwater = max(totalbasewatervolume) , totalsand = sum(massingredient) , percenthfjob = sum(percenthfjob) )</li>
 </ul>
 <p>Create new data set to aggregate sand and water based on specific wells</p>
+<ul>
+<li>kable(descr(ff_summary), digits = 0) %&gt;% kable_styling(position = “center” ,full_width = FALSE )</li>
+</ul>
+<p>Used to generate descriptive statistics for the summarized chemical data</p>
+<ul>
+<li>wf_wellcount &lt;- wellfeatures %&gt;% select(api14) %&gt;% distinct(api14) %&gt;% summarize(wellbores = n())</li>
+</ul>
+<p>Gives a count unique wellbores. api14 represents a unique wellbore.</p>
+<ul>
+<li>wf_loccount &lt;- wellfeatures %&gt;% select(api10) %&gt;% distinct(api10) %&gt;% summarize(locations = n())</li>
+</ul>
+<p>Gives a count unique locations. api10 represents a unique XY coordinate pair.</p>
+<ul>
+<li>kable(descr(welldata), digits = 0) %&gt;% kable_styling(position = “center” ,full_width = TRUE)</li>
+</ul>
+<p>Function call to provide summary statistics for well data</p>
+</div>
+<div id="munging-data-sets" class="section level1">
+<h1>Munging Data Sets</h1>
+<p>Before developing models and making predictions, it’s important to understand the data. Here we’re summarize the data mathematically and explore it visually.</p>
+<ul>
+<li>wd_nrow &lt;- list() wd_nrow[[‘All Records’]] &lt;- nrow(welldata)</li>
+</ul>
+<p>Creates a count of well observations</p>
+<ul>
+<li>welldata &lt;- welldata %&lt;&gt;% filter(!formavg %in% c(“UNKNOWN”,“GRID_ERROR”))</li>
+</ul>
+<p>Removes observations with insufficient information</p>
+<ul>
+<li>wd_nrow[[‘Cleaned Forms’]] &lt;- nrow(welldata)</li>
+</ul>
+<p>Provides a count of observations that will be used for analysis</p>
+<ul>
+<li>wd_nrow[[‘Cleaned Frac Size’]] &lt;- nrow(welldata)</li>
+</ul>
+<p>Summarizes the number of “clean” observations</p>
+<ul>
+<li>welldata &lt;- welldata %&gt;% na.omit(vintage.yr)</li>
+</ul>
+<p>Summarizes the number of observations after, and removes NAs from, the vintage column</p>
 </div>
 
 

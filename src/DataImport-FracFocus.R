@@ -70,8 +70,6 @@ kable(data.frame("Distinct Locations" = ff_loccount
                  ,full_width = FALSE
                  )
 
-
-
 ## ---- fracfocus_summary
 
 # create a tidy table summarizing the data imported from the FracFocus registry
@@ -93,8 +91,6 @@ ff_summary <- fracfocus %>%
               ,totalsand.lb = sum(massingredient)
               ,tvd.ft = max(tvd)
               ,jobduration.day = max(jobduration)
-              #, percenthfjob = sum(percenthfjob)
-              # add additional summary variables here.
               ) %>%
     inner_join(
                 fracfocus %>%
@@ -102,11 +98,6 @@ ff_summary <- fracfocus %>%
                     summarize(additive.ct = n_distinct(ingredientname))
                 ,by = c("api10", "api10")
               )
-
-# ff_units <- data.frame(
-#         vars = c("api10", "totalwater","totalsand", "tvd"),
-#         units = c("","(gal)","(lbs)", "(ft)"))
-
 
 ## ---- fracfocus_aggregates
 

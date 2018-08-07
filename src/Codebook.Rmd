@@ -7,7 +7,8 @@ output: html_document
 
 ## Codebook for Fracking Data
 
-This codebook is for the fracking data obtained on http://fracfocus.org/data-download. This includes regulatory data that reports chemicals and proppants used for hydraulic fracturing. The first of two raw datasets consist of deo_well_data.csv (Driftwood), which provides various wells with data such as their identification number and production dates. The second set is fracfocus_registry.csv, which has much more detailed analysis of fracturing operations, their locations, names and the materials and chemicals used in their operation. 
+This codebook is for the fracking data obtained on http://fracfocus.org/data-download. This includes regulatory data that reports chemicals and proppants used for hydraulic fracturing. The first of two raw datasets consist of deo_well_data.csv (Driftwood), which provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells.The second set is fracfocus_registry.csv, which has much more detailed analysis of fracturing operations, their locations, names and the materials and chemicals used in their operation. 
+
 
 # Driftwood Data Points
  
@@ -24,6 +25,7 @@ This codebook is for the fracking data obtained on http://fracfocus.org/data-dow
 * FirstProd - date of first oil/gas production
 
 * Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft
+
 
 # FracFocus Registry data
 
@@ -71,6 +73,7 @@ elevation of the rotary kelly bushing.
 
 * FederalWell - True = Yes, False = No.
 
+
 # R Packages Used
 
 * tidyverse
@@ -80,6 +83,7 @@ elevation of the rotary kelly bushing.
 * kableExtra
 
 * car
+
 
 # Data Sets Created to Tidy Data
 
@@ -91,7 +95,8 @@ Create new data set to find distinct observations by api number
 * wells_distinct_api14 <- driftwood %>%
     inner_join(fracfocus, by = c("api", "api")) %>%
     distinct(api)
-Create new data set to combine well data with fracturing chemical data for further analysis
+
+Create new data set to combine well data with fracturing chemical data for       further analysis
 
 * ff_summary <- fracfocus %>%
     filter('sand' %in% ingredientname
@@ -113,4 +118,60 @@ Create new data set to combine well data with fracturing chemical data for furth
 
 Create new data set to aggregate sand and water based on specific wells
 
+* kable(descr(ff_summary), digits = 0) %>%
+    kable_styling(position = "center"
+                 ,full_width = FALSE
+                 )
+                 
+Used to generate descriptive statistics for the summarized chemical data
+
+* wf_wellcount <- wellfeatures %>%
+    select(api14) %>%
+    distinct(api14) %>%
+    summarize(wellbores = n())
+    
+Gives a count unique wellbores. api14 represents a unique wellbore.
+
+* wf_loccount <- wellfeatures %>%
+    select(api10) %>%
+    distinct(api10) %>%
+    summarize(locations = n())
+    
+Gives a count unique locations. api10 represents a unique XY coordinate pair.
+
+* kable(descr(welldata), digits = 0) %>%
+    kable_styling(position = "center"
+                 ,full_width = TRUE)
+                 
+Function call to provide summary statistics for well data
+
+
+# Munging Data Sets
+
+Before developing models and making predictions, it's important to understand the data. Here we're summarize the data mathematically and explore it visually.
+
+* wd_nrow <- list()
+                wd_nrow[['All Records']] <- nrow(welldata)
+  
+Creates a count of well observations
+
+* welldata <- welldata %<>% 
+                filter(!formavg %in% c("UNKNOWN","GRID_ERROR"))
+                
+Removes observations with insufficient information 
+
+* wd_nrow[['Cleaned Forms']] <- nrow(welldata)
+
+Provides a count of observations that will be used for analysis
+
+* wd_nrow[['Cleaned Frac Size']] <- nrow(welldata)
+
+Summarizes the number of "clean" observations
+
+* welldata <- welldata %>% na.omit(vintage.yr)
+
+Summarizes the number of observations after, and removes NAs from, the vintage column
+
+
+                
 
