@@ -179,7 +179,7 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 ## Frac Size Distribution
 ### Plot 1
 ```{r}
-<<<<<<< HEAD
+
 
 ```
 
@@ -212,8 +212,7 @@ The use of logarithmic transformations on the quantifiable variables is needed t
 ```{r} 
 #  Linear Regression Model for Well Productivity Summary}
 summary(well.production)
-=======
->>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
+
 ```
 
 
@@ -272,14 +271,13 @@ anova(well.production)
 ```
 
 
-=======
->>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
+
 ## Conclusions
 From the p-values for the Linear Regression Model coefficients (last column) from the anova() output, you can see that the explanitory variable frac.size given formavg makes a significant contribution to the equation (you can reject the hypothesis that the parameters are 0). With that being evident, there is no need to fit a second reduced model that may fit the data as well. The log-log Linear Regression Model shows that each regression coefficient in the model is statistically significant (p < .05). The anova() function for linear models uses a F-test resulting in an (F-value = 5.9052) and (Pr(>F) < 0.0001). The nonsignificant  F-value (p < 0.0001) suggests that the model fits well, reinforcing your belief that frac.size given formavg adds significantly to the model above and therefore, you can base your interpretations on the resulting linear model. 
 
 
 
-<<<<<<< HEAD
+
 ```{r} 
 #  deo_well_data}
 deo_well_data <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/deo_well_data.csv")
@@ -358,32 +356,39 @@ The results suggest that you can be 95% confident that the intervals that DO NOT
 #Reduced Logistic Model formula = ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, family = binomial(), data = Basin_Model_Data
 fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
 ```
-=======
-## Conclusions
-From the p-values for the Full Logistic Regression Model coefficients (last column) of the anova.full model output, you can see that the predictor variable Status may not make a significant contribution to the equation (you can't reject the hypothesis that the parameters are 0). With that being evident, there is a need to fit a second equation without the Status variable and test whether this reduced model fits the data as well. The Reduced Logistic Regression Model shows that each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test. The nonsignificant chi-square value (p < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with seven predictors, reinforcing your belief that Status, CountyName, Latitude, and Longitude don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model. 
->>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
 
 
-# Appendix:
 
 ```{r session_info, echo = FALSE}
-
-<<<<<<< HEAD
-```{r} 
 #  Reduced Logistic Regression Model Plots}
 #Plot of reduced Logistic Model
 influencePlot(fit.reduced.basin)
 ```
 The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
-=======
+
+## Two-Way Anova for Reduced Logistic Regression Model
+### For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated
+```{r} 
+#  Results for Anova Chi-Suared Test}
+#Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Model
+anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
+
+```
+The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with six predictors, reinforcing your belief that status, latitude, longitude, and countyname don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model.
+
+
+## Conclusions
+From the p-values for the Full Logistic Regression Model coefficients (last column) of the anova.full model output, you can see that the predictor variable Status may not make a significant contribution to the equation (you can't reject the hypothesis that the parameters are 0). With that being evident, there is a need to fit a second equation without the Status variable and test whether this reduced model fits the data as well. The Reduced Logistic Regression Model shows that each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test. The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with seven predictors, reinforcing your belief that Status, CountyName, Latitude, and Longitude don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model. 
+
+# Appendix:
+
 #session <- sessionInfo()
 session <- sessionInfo()
 #kable_zen(as.data.frame(session[["R.version"]]))
 attributes(session)
-```
+
 
 ```{r  echo = FALSE}
->>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
 
 ```
 
@@ -407,28 +412,6 @@ session[["running"]] %>%
   as.data.frame() %>%
   kable_zen()
 ```
-The resulting p-value is clearly significant (p < 0.05), strengthening the belief that overdispersion isn't a problem
-
-<<<<<<< HEAD
-Each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test.
-
-
-## Two-Way Anova for Reduced Logistic Regression Model
-### For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated
-```{r} 
-#  Results for Anova Chi-Suared Test}
-#Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Model
-anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
-
-```
-The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with six predictors, reinforcing your belief that status, latitude, longitude, and countyname don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can
-base your interpretations on the simpler model.
-
-## Conclusions
-From the p-values for the Full Logistic Regression Model coefficients (last column) of the anova.full model output, you can see that the predictor variable Status may not make a significant contribution to the equation (you can’t reject the hypothesis that the parameters are 0). With that being evident, there is a need to fit a second equation without the Status variable and test whether this reduced model fits the data as well. The Reduced Logistic Regression Model shows that each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test. The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with seven predictors, reinforcing your belief that Status, CountyName, Latitude, and Longitude don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model. 
-
-
-# Appendix:
 
 ```{r}
 sessionInfo()
@@ -457,4 +440,4 @@ session[["loadedOnly"]] %>%
   distinct(pkgs) %>%
   kable_zen()
 ```
->>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
+
