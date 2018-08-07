@@ -4,7 +4,6 @@ require(kableExtra)
 require(car)
 require(knitr)
 require(summarytools)
-require(units)
 require(grid)
 require(gridExtra)
 
@@ -32,7 +31,7 @@ ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5))
 options(scipen = 999)
 options(knitr.table.format = "html")
 #disable column wrapping
-options(width=800) 
+options(width=100) 
 
 # set options for descriptive statistics
 st_options('escape.pipe', TRUE)
