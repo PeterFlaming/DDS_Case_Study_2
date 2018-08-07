@@ -7,6 +7,7 @@ author: |
         | Friedrich
 output:
   prettydoc::html_pretty:
+    keep_md: yes
     theme: leonids
     highlight: github
     toc: true
@@ -76,6 +77,7 @@ CTOP companies no longer have to rely on hope as a strategy for finding producti
 
 ## Count Locations and Wellbores
 
+
 ```{r wellfeatures_count, cache = TRUE}
 ```
 
@@ -109,7 +111,6 @@ CTOP companies no longer have to rely on hope as a strategy for finding producti
 ```{r exp_boxplot_fracsize}
 ```
 
-
 ### Frequencies
 
 ```{r exp_freq_vintage}
@@ -118,6 +119,31 @@ CTOP companies no longer have to rely on hope as a strategy for finding producti
 
 ```{r exp_freq_status}
 ```
+
+# Histograms (to be added)
+
+# Regression Model 1  (to be added)
+
+ - Peter: Insert your model here if you have it, otherwise I will make one.
+
+ - Well Productivity (oil.pk.bbl) vs frac.size, controlling for formation, would be a really good one.
+  - Well Productivity (oil.pk.bbl) vs frac.size, controlling for formation, would be a really good one.
+
+# Regression Model 2  (to be added)
+
+ - Peter: Insert your model here if you have it, otherwise I will make one.
+
+- Well Productivity (oil.pk.bbl) vs formation | perf.ll.ft + lb.ft + bbl.ft + additive.ct and controlling for formation would also be great.
+
+# Anova to compare models
+
+
+
+# Results of Tests
+
+
+
+# Conclusions
 
 
 
