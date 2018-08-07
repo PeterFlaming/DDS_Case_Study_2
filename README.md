@@ -1,15 +1,3 @@
-# DDS_Case_Study_2
-
-* analysis -> final analysis code
-* data -> raw datasets
-    - on dropbox: https://www.dropbox.com/sh/w8hp62d6o4blmo2/AAC6VeGM2EIUSKLaPGw-AGnZa?dl=0
-    - source data: http://fracfocusdata.org/digitaldownload/fracfocuscsv.zip
-* output -> sims/processed data
-* fig -> charts
-* assets -> assets for presentation/report
-* src -> code other than the final analysis
-
-
 ---
 output:
   html_document: default
@@ -19,17 +7,17 @@ output:
 
 ## Case Study 2 with R and RStudio
 
-### Group Members
+### Group Members (alphabetically)
   
-`Member Name           GitHub Username           Project Duties `  
+`Member Name           GitHub Username            Project Duties                                `  
 
-`Peter Flaming         PeterFlaming                             `  
+`Peter Flaming         PeterFlaming               Logistic Regression Model/README/Presentation `  
 
-`Brock Friedrich       la-mar                                   `
+`Brock Friedrich       la-mar                     R Code/Rmarkdown/Data Gathering/Organization  `
 
-`Quinton Nixon         qatsmu                                   ` 
+`Quinton Nixon         qatsmu                     R Code/Code Commenting/Powerpoint Preparation ` 
 
-`Matthew Trevathan     mrtrevathan0                             `     
+`Matthew Trevathan     mrtrevathan0               Codebook/Code Formatting/Organization         `     
 
 
 ### Purose of Case Study 2
@@ -69,27 +57,10 @@ repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = TRUE)
 knitr::write_bib(PackagesUsed, file = "Packages.bib")
 ```
 
-### Data Gathering
+### Open Rmarkdown and follow code
 
-Use the following code to reproduce the data gathering:
+Use the following code to reproduce the study [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/src/Final_Analysis.Rmd).
 
-#### Import Frac Focus Data and Clean
-
-In this section we load and begin cleaning the data in order to aid our
-exploratory analysis.
-
-```r
-
-```
-
-#### Import Deo Well Data and Clean
-
-In this section we load and begin cleaning the data in order to aid our
-exploratory analysis.
-
-```r
-
-```
 
 
 
