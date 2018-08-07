@@ -19,7 +19,8 @@ knitr::opts_chunk$set(fig.width=12,
                       #child.dir = normalizePath(".."),
                       cache = FALSE,
                       results = 'markup',
-                      collapse = TRUE
+                      collapse = TRUE#,
+                      #tidy = TRUE
                       )
 
 

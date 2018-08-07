@@ -29,6 +29,49 @@ fracfocus %>% colnames()
   theme(plot.title = element_text(hjust = 0.5))
 
 
+``{r  echo = FALSE}
+kable_zen(as.data.frame(session[["platform"]]))
+```
+
+```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["locale"]]))
+```
+
+```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["running"]]))
+```
+
+```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["basePkgs"]]))
+```
+
+```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["otherPkgs"]]))
+```
+
+```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["BLAS"]]))
+```
+
+```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["LAPACK"]]))
+```
+ [1] "R.version"  "platform"   "locale"     "running"    "basePkgs"
+ [6] "otherPkgs"  "loadedOnly" "matprod"    "BLAS"       "LAPACK"
+
+
+ggplot(welldata) +
+      geom_bar(aes(x = reorder(vintage.yr, vintage.yr, FUN=mean),
+                   y = frac.size), 
+               stat ="identity",
+               fill = COL.A.G) 
+
+
+
+ggplot(welldata, aes(x = frac.size, fill = vintage.yr)) +
+        geom_histogram() +
+        #geom_freqpoly() +
+        xlim(0, 2000000)
 
 
 
@@ -37,6 +80,14 @@ fracfocus %>% colnames()
 
 
 
+
+
+```
+
+### Plot 2
+```{r}
+
+```
 
 
 
@@ -97,12 +148,87 @@ css:
 <div class="col2">
 </div>
 
- 
+ ```{r  echo = FALSE}
+kable_zen(as.data.frame(session[["loadedOnly"]]))
+```
 
 
 
 
 ---------------------------------------------------------------------
+
+
+## Regression Model 1
+### Multiple Linear Regression Model for Well Productivity given Aggregate and Formation Interaction
+Some of the most interesting research findings are those involving interactions among
+predictor variables. Consider the welldata oil.pk.bbl measure of production. Let’s say
+that you’re interested in the impact of geological formation (formavg) and aggregates (frac.size) on well production (oil.pk.bbl). You could fit a regression model that includes both predictors, along with their
+interaction, as shown in the model formula below.
+
+ - formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)  
+
+The formula is typically written as Y ~ X1 + X2 + ... + Xk where the ~ separates the response variable log(oil.pk.bbl) on the left from the predictor variables log(frac.size) : formavg on the right, and the predictor variables are separated by + signs. The colon is used to denote an interaction between predictor variables. A prediction of y from x, z, and the interaction between x and z would be coded y ~ x + z + x:z.
+```{r} 
+#  Linear Regression Model for Well Productivity}
+#Linear Regression Model formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)
+well.production <- lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data = welldata)
+```
+
+The use of logarithmic transformations on the quantifiable variables is needed to meet the four linear regression assumptions of Normality, Independence, Linearity, and Homoscedasticity. These logarithmic transformations allow the model to meet all assumptions and our goal is to select model parameters (intercept and slopes) that minimize the difference between actual response values and those predicted by the model. Specifically, model parameters are selected to minimize the sum of squared residuals.
+
+
+## Linear Regression Model for Well Productivity given Aggregate and Formation Summary
+### Summary of Significant Aggregate-Formation Combinations
+```{r} 
+#  Linear Regression Model for Well Productivity Summary}
+summary(well.production)
+```
+You can see from the Pr(>|t|) column that the interaction between log(frac.size) and
+formavg is significant. What does this mean? A significant interaction between two
+predictor variables tells you that the relationship between one predictor and the
+response variable depends on the level of the other predictor. Here it means the relationship
+between log(oil.pk.bbl) and log(frac.size) varies by formavg.
+
+
+
+## Linear Regression Model for Well Productivity Plots
+### Plots of Linear Model for Production given all Aggregate-Formation Combinations
+```{r} 
+#  Linear Regression Model for Well Productivity Plots}
+install.packages("effects")
+library(effects)
+#Plot for effect on log(Production) by Aggregate-Formation interaction 
+plot(effect("frac.size:formavg", well.production,, list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
+
+```
+
+
+## Linear Regression Model for Well Productivity 95% CIs
+### 95% CIs for Significant Aggregate-Formation Combinations
+```{r} 
+#  Linear Regression Model for Well Productivity 95% CIs}
+#95% CI for Linear Regression Model
+confint(well.production)
+```
+
+## Overdispersion Check for Linear Model
+### Rebuild Model if considerally larger than 1
+```{r} 
+#  Check222 for Overdispersion of Logistic Regression Model}
+#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
+overdispersion_test1 <- deviance(well.production)/df.residual(well.production)
+overdispersion_test1
+```
+
+
+## Results of Linear Regression Model for Well Productivity given all Aggregate-Formation Combinations
+```{r} 
+# Results for Anova Test}
+#Comparison of the One-Way Anova Tests for Linear Regression Model
+anova(well.production)
+
+```
+
 
 ## Regression Model 2  
 ### Logistic Regression Model for Successfully Drilling the Target Formation  

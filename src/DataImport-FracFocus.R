@@ -43,7 +43,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,percenthfjob
                      ,massingredient
                      ,iswater
-                     ) %>%
+                     ) %>%       
              as.tibble()
 
 

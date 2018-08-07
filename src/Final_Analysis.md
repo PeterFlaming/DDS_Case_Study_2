@@ -99,7 +99,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,percenthfjob
                      ,massingredient
                      ,iswater
-                     ) %>%
+                     ) %>%       
              as.tibble()
 ```
 
@@ -1134,188 +1134,7 @@ kable(freq(welldata$status), digits = 0) %>%
 ## Frac Size Distribution
 ### Plot 1
 
-```r
 
-ggplot(welldata, aes(x = frac.size, fill = vintage.yr)) +
-        geom_histogram() +
-        #geom_freqpoly() +
-        xlim(0, 2000000)
-```
-
-![](../Figs/unnamed-chunk-1-1.png)<!-- -->
-
-```r
-
-
-
-
-
-
-ggplot(welldata) +
-      geom_bar(aes(x = reorder(vintage.yr, vintage.yr, FUN=mean),
-                   y = frac.size), 
-               stat ="identity",
-               fill = COL.A.G) 
-```
-
-![](../Figs/unnamed-chunk-1-2.png)<!-- -->
-
-### Plot 2
-
-
-## Regression Model 1
-### Multiple Linear Regression Model for Well Productivity given Aggregate and Formation Interaction
-Some of the most interesting research findings are those involving interactions among
-predictor variables. Consider the welldata oil.pk.bbl measure of production. Let’s say
-that you’re interested in the impact of geological formation (formavg) and aggregates (frac.size) on well production (oil.pk.bbl). You could fit a regression model that includes both predictors, along with their
-interaction, as shown in the model formula below.
-
- - formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)  
-
-The formula is typically written as Y ~ X1 + X2 + ... + Xk where the ~ separates the response variable log(oil.pk.bbl) on the left from the predictor variables log(frac.size) : formavg on the right, and the predictor variables are separated by + signs. The colon is used to denote an interaction between predictor variables. A prediction of y from x, z, and the interaction between x and z would be coded y ~ x + z + x:z.
-
-```r
-#  Linear Regression Model for Well Productivity}
-#Linear Regression Model formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)
-well.production <- lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data = welldata)
-```
-
-The use of logarithmic transformations on the quantifiable variables is needed to meet the four linear regression assumptions of Normality, Independence, Linearity, and Homoscedasticity. These logarithmic transformations allow the model to meet all assumptions and our goal is to select model parameters (intercept and slopes) that minimize the difference between actual response values and those predicted by the model. Specifically, model parameters are selected to minimize the sum of squared residuals.
-
-
-## Linear Regression Model for Well Productivity given Aggregate and Formation Summary
-### Summary of Significant Aggregate-Formation Combinations
-
-```r
-#  Linear Regression Model for Well Productivity Summary}
-summary(well.production)
-## 
-## Call:
-## lm(formula = log(oil.pk.bbl) ~ log(frac.size):formavg, data = welldata)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -6.5388 -0.3630  0.3245  0.6889  1.5302 
-## 
-## Coefficients:
-##                                     Estimate Std. Error t value             Pr(>|t|)    
-## (Intercept)                          5.59209    0.22439  24.921 < 0.0000000000000002 ***
-## log(frac.size):formavgDEAN           0.05920    0.03716   1.593             0.111285    
-## log(frac.size):formavgSPBY_L_SHALE   0.02542    0.01979   1.285             0.199139    
-## log(frac.size):formavgSPBY_L_SILT    0.02856    0.05494   0.520             0.603177    
-## log(frac.size):formavgSPBY_M         0.10701    0.05455   1.962             0.049945 *  
-## log(frac.size):formavgSTRAWN+        0.02256    0.03764   0.599             0.549076    
-## log(frac.size):formavgWFMP_A         0.08151    0.01627   5.009          0.000000603 ***
-## log(frac.size):formavgWFMP_B         0.07298    0.01606   4.545          0.000005892 ***
-## log(frac.size):formavgWFMP_B_LOWER   0.06439    0.01622   3.969          0.000075194 ***
-## log(frac.size):formavgWFMP_C         0.06286    0.01885   3.334             0.000873 ***
-## log(frac.size):formavgWFMP_C_TARGET  0.07541    0.02494   3.024             0.002534 ** 
-## log(frac.size):formavgWFMP_D         0.08168    0.02421   3.374             0.000758 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.002 on 1703 degrees of freedom
-## Multiple R-squared:  0.02871,	Adjusted R-squared:  0.02244 
-## F-statistic: 4.577 on 11 and 1703 DF,  p-value: 0.000000695
-```
-You can see from the Pr(>|t|) column that the interaction between log(frac.size) and
-formavg is significant. What does this mean? A significant interaction between two
-predictor variables tells you that the relationship between one predictor and the
-response variable depends on the level of the other predictor. Here it means the relationship
-between log(oil.pk.bbl) and log(frac.size) varies by formavg.
-
-
-
-## Linear Regression Model for Well Productivity Plots
-### Plots of Linear Model for Production given all Aggregate-Formation Combinations
-
-```r
-#  Linear Regression Model for Well Productivity Plots}
-install.packages("effects")
-library(effects)
-#Plot for effect on log(Production) by Aggregate-Formation interaction 
-plot(effect("frac.size:formavg", well.production,, list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
-```
-
-![](../Figs/unnamed-chunk-5-1.png)<!-- -->
-
-
-## Linear Regression Model for Well Productivity 95% CIs
-### 95% CIs for Significant Aggregate-Formation Combinations
-
-```r
-#  Linear Regression Model for Well Productivity 95% CIs}
-#95% CI for Linear Regression Model
-confint(well.production)
-##                                              2.5 %     97.5 %
-## (Intercept)                          5.15197468326 6.03220931
-## log(frac.size):formavgDEAN          -0.01367664156 0.13207616
-## log(frac.size):formavgSPBY_L_SHALE  -0.01339273299 0.06422537
-## log(frac.size):formavgSPBY_L_SILT   -0.07918830395 0.13631620
-## log(frac.size):formavgSPBY_M         0.00002549649 0.21399773
-## log(frac.size):formavgSTRAWN+       -0.05126686093 0.09637750
-## log(frac.size):formavgWFMP_A         0.04959354520 0.11342024
-## log(frac.size):formavgWFMP_B         0.04148128099 0.10447213
-## log(frac.size):formavgWFMP_B_LOWER   0.03256841547 0.09620556
-## log(frac.size):formavgWFMP_C         0.02588502165 0.09983879
-## log(frac.size):formavgWFMP_C_TARGET  0.02649455092 0.12432712
-## log(frac.size):formavgWFMP_D         0.03419390086 0.12916785
-```
-
-## Overdispersion Check for Linear Model
-### Rebuild Model if considerally larger than 1
-
-```r
-#  Check222 for Overdispersion of Logistic Regression Model}
-#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
-overdispersion_test1 <- deviance(well.production)/df.residual(well.production)
-overdispersion_test1
-## [1] 1.004765
-```
-
-
-## Results of Linear Regression Model for Well Productivity given all Aggregate-Formation Combinations
-
-```r
-# Results for Anova Test}
-#Comparison of the One-Way Anova Tests for Linear Regression Model
-anova(well.production)
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum Sq </th>
-   <th style="text-align:right;"> Mean Sq </th>
-   <th style="text-align:right;"> F value </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> log(frac.size):formavg </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 50.58608 </td>
-   <td style="text-align:right;"> 4.598734 </td>
-   <td style="text-align:right;"> 4.576923 </td>
-   <td style="text-align:right;"> 0.0000007 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Residuals </td>
-   <td style="text-align:right;"> 1703 </td>
-   <td style="text-align:right;"> 1711.11563 </td>
-   <td style="text-align:right;"> 1.004765 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
 
 
 ## Conclusions
@@ -1330,43 +1149,404 @@ From the p-values for the Full Logistic Regression Model coefficients (last colu
 # Appendix:
 
 
-```r
-sessionInfo()
-## R version 3.5.1 (2018-07-02)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 16299)
-## 
-## Matrix products: default
-## 
-## locale:
-## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252   
-## [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C                          
-## [5] LC_TIME=English_United States.1252    
-## 
-## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] AER_1.2-5          survival_2.42-3    sandwich_2.4-0     lmtest_0.9-36      zoo_1.8-3         
-##  [6] effects_4.0-2      rmarkdown_1.10     bindrcpp_0.2.2     gridExtra_2.3      summarytools_0.8.7
-## [11] knitr_1.20         car_3.0-0          carData_3.0-1      kableExtra_0.9.0   magrittr_1.5      
-## [16] forcats_0.3.0      stringr_1.3.1      dplyr_0.7.6        purrr_0.2.5        readr_1.1.1       
-## [21] tidyr_0.8.1        tibble_1.4.2       ggplot2_3.0.0      tidyverse_1.2.1   
-## 
-## loaded via a namespace (and not attached):
-##  [1] nlme_3.1-137       bitops_1.0-6       matrixStats_0.54.0 lubridate_1.7.4    httr_1.3.1        
-##  [6] rprojroot_1.3-2    tools_3.5.1        backports_1.1.2    utf8_1.1.4         R6_2.2.2          
-## [11] lazyeval_0.2.1     colorspace_1.3-2   nnet_7.3-12        withr_2.1.2        tidyselect_0.2.4  
-## [16] curl_3.2           compiler_3.5.1     cli_1.0.0          rvest_0.3.2        xml2_1.2.0        
-## [21] labeling_0.3       scales_0.5.0       digest_0.6.15      foreign_0.8-70     minqa_1.2.4       
-## [26] rio_0.5.10         pkgconfig_2.0.1    htmltools_0.3.6    lme4_1.1-17        highr_0.7         
-## [31] rlang_0.2.1        readxl_1.1.0       rstudioapi_0.7     pryr_0.1.4         prettydoc_0.2.1   
-## [36] bindr_0.1.1        jsonlite_1.5       zip_1.0.0          RCurl_1.95-4.11    Formula_1.2-3     
-## [41] rapportools_1.0    Matrix_1.2-14      Rcpp_0.12.17       munsell_0.5.0      fansi_0.2.3       
-## [46] abind_1.4-5        stringi_1.2.3      yaml_2.1.19        MASS_7.3-50        plyr_1.8.4        
-## [51] crayon_1.3.4       lattice_0.20-35    haven_1.1.2        splines_3.5.1      pander_0.6.2      
-## [56] hms_0.4.2          pillar_1.3.0       estimability_1.3   codetools_0.2-15   glue_1.3.0        
-## [61] evaluate_0.11      data.table_1.11.4  modelr_0.1.2       nloptr_1.0.4       cellranger_1.1.0  
-## [66] gtable_0.2.0       assertthat_0.2.0   openxlsx_4.1.0     broom_0.5.0        survey_3.33-2     
-## [71] viridisLite_0.3.0
 ```
+## $names
+##  [1] "R.version"  "platform"   "locale"     "running"    "basePkgs"   "otherPkgs"  "loadedOnly"
+##  [8] "matprod"    "BLAS"       "LAPACK"    
+## 
+## $class
+## [1] "sessionInfo"
+```
+
+
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> platform </th>
+   <th style="text-align:left;"> arch </th>
+   <th style="text-align:left;"> os </th>
+   <th style="text-align:left;"> system </th>
+   <th style="text-align:left;"> status </th>
+   <th style="text-align:left;"> major </th>
+   <th style="text-align:left;"> minor </th>
+   <th style="text-align:left;"> year </th>
+   <th style="text-align:left;"> month </th>
+   <th style="text-align:left;"> day </th>
+   <th style="text-align:left;"> svn.rev </th>
+   <th style="text-align:left;"> language </th>
+   <th style="text-align:left;"> version.string </th>
+   <th style="text-align:left;"> nickname </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> x86_64-w64-mingw32 </td>
+   <td style="text-align:left;"> x86_64 </td>
+   <td style="text-align:left;"> mingw32 </td>
+   <td style="text-align:left;"> x86_64, mingw32 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> 5.1 </td>
+   <td style="text-align:left;"> 2018 </td>
+   <td style="text-align:left;"> 07 </td>
+   <td style="text-align:left;"> 02 </td>
+   <td style="text-align:left;"> 74947 </td>
+   <td style="text-align:left;"> R </td>
+   <td style="text-align:left;"> R version 3.5.1 (2018-07-02) </td>
+   <td style="text-align:left;"> Feather Spray </td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> . </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> x86_64-w64-mingw32/x64 (64-bit) </td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> . </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> LC_COLLATE=English_United States.1252;LC_CTYPE=English_United States.1252;LC_MONETARY=English_United States.1252;LC_NUMERIC=C;LC_TIME=English_United States.1252 </td>
+  </tr>
+</tbody>
+</table>
+
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> . </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Windows 10 x64 (build 16299) </td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> . </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> grid </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stats </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> graphics </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> grDevices </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> utils </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> datasets </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> methods </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> base </td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> pkgs </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> bindrcpp </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> survival </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sandwich </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lmtest </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> zoo </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gridExtra </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> summarytools </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> knitr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> car </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> carData </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> kableExtra </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> magrittr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> forcats </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stringr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dplyr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> purrr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> readr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tibble </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggplot2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyverse </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rmarkdown </td>
+  </tr>
+</tbody>
+</table>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> pkgs </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> httr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jsonlite </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> viridisLite </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> splines </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> prettydoc </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> modelr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Formula </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> assertthat </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> highr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pander </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cellranger </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> yaml </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pillar </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> backports </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lattice </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> glue </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> digest </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pryr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rvest </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> colorspace </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> htmltools </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Matrix </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> plyr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pkgconfig </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> broom </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> haven </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scales </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> openxlsx </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rio </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> withr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lazyeval </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cli </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> crayon </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> readxl </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> evaluate </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nlme </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xml2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> foreign </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rapportools </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tools </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> data.table </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hms </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> formatR </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> matrixStats </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> munsell </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> zip </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> compiler </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rlang </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RCurl </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rstudioapi </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> labeling </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bitops </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gtable </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> codetools </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> abind </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> curl </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lubridate </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bindr </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rprojroot </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stringi </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rcpp </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyselect </td>
+  </tr>
+</tbody>
+</table>
