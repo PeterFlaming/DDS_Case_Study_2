@@ -8,6 +8,7 @@ require(units)
 require(grid)
 require(gridExtra)
 
+# set knitr output options for consistent figures
 knitr::opts_chunk$set(fig.width=12, 
                       fig.height=8, 
                       fig.path='../Figs/',
@@ -22,7 +23,7 @@ knitr::opts_chunk$set(fig.width=12,
 
 
 
-
+# set visual theme for the project
 ggplot2::theme_set(ggplot2::theme_bw())
 ggplot2::theme_update(plot.title = ggplot2::element_text(hjust = 0.5))
 
@@ -32,7 +33,7 @@ options(knitr.table.format = "html")
 #disable column wrapping
 options(width=800) 
 
-
+# set options for descriptive statistics
 st_options('escape.pipe', TRUE)
 st_options('descr.stats', c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"))
 st_options('descr.transpose', TRUE)
