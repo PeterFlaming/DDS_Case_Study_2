@@ -51,19 +51,15 @@ The Hydraulic Fracturing Disclosure and Education websites found [here](http://f
 
 The GWPC and IOGCC are uniquely suited to host these websites due to their impartial nature and ties to the regulated and regulatory community. This website provides a means for industry to voluntarily supply hydraulic fracturng chemical data in a consistent and centralized location.  This open process assists both public and industry by supplying a centralized repository for the data and removing similar fragmented efforts from around the web. 
 
-<<<<<<< HEAD
 These websites provide the following:
 A means to Search for voluntarily submitted chemical records by State/County, Operator and Well.
 An Education and Informative site for the public and industry on Hydraulic Fracturing Chemicals and the processes used in Hydraulic Fracturing of wells.
-=======
+
 The data related to chemicals used to enrich the data on wells comes from the chemical registry website FracFocus.com.  The FracFocus website and data is maintained by two organizations:  Interstate Oil and Gas Compact Commission and the Ground Water Protection Council.
 
-The site maintains data on over 127,000 wells and includes not only data about which chemicals are used, but also data about groundwater protection.
->>>>>>> 9287f3028fa10e87f1fa397fea723856e5f05964
+The site maintains data on over 127,000 wells and includes not only data about which chemicals are used, but also data about groundwater protection. FracFocus has instituted a Help Desk to address any issues you may have in using the system. You can reach the Help Desk Monday-Thursday from 8 AM to 5 PM and on Friday from 8 AM to 4 PM CDT at 405-607-6808.
 
-FracFocus has instituted a Help Desk to address any issues you may have in using the system. You can reach the Help Desk Monday-Thursday from 8 AM to 5 PM and on Friday from 8 AM to 4 PM CDT at 405-607-6808.
 
-<<<<<<< HEAD
 
 ## Driftwood Well Data Source
 
@@ -80,12 +76,11 @@ The Driftwood dataset was provided by the client and can be found [here](https:/
 
 ## FracFocus Dataset Import
 ### 19 of the 24 variables are selected for the study
-=======
 The deata from FracFocus is obtained via an API call.  For the sake of reproducibility,
 the API call is made outside of the code and the resulting CSV is stored in the 
 program repository.
 
->>>>>>> 9287f3028fa10e87f1fa397fea723856e5f05964
+
 ```{r fracfocus_import, cache = TRUE}
 ```
 
