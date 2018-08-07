@@ -21,6 +21,11 @@ welldata <- wellfeatures %>%
            select(-distance, -angle, -deviation, -weight)
 
 
+## ---- exp_wd_nrow_1
+
+wd_nrow <- list()
+wd_nrow[['All Records']] <- nrow(welldata)
+
 ## ---- exp_summary
 
     kable(descr(welldata), digits = 0) %>%
@@ -30,36 +35,56 @@ welldata <- wellfeatures %>%
 
 ## ---- exp_clean_forms
 
+welldata <- welldata %<>% 
+                filter(!formavg %in% c("UNKNOWN","GRID_ERROR"))
+
+
+## ---- exp_wd_nrow_2
+
+wd_nrow[['Cleaned Forms']] <- nrow(welldata)
 
 
 ## ---- exp_clean_frac_size
 
-## ---- exp_freq
+#TODO: Fix this filter
 
-# freq(welldata$vintage.yr)
+welldata <- welldata %>% 
+                filter(160000 < totalsand.lb
+                     & totalsand.lb < 50000000)
+                    #  & 100000 < totalwater.bbl 
+                    #  & totalwater.bbl < 4080000)
 
-# welldata %>%
-# select(operalias, formavg, status, vintage.yr)
 
-kable(freq(welldata$vintage.yr, digits = 0) %>% 
-    kable_styling(position = "float_right", 
-                  full_width = FALSE,
-                  bootstrap_options = c("striped", "hover", "condensed")
-                 ) %>%
-                 row_spec(0, angle = -45)
-    )
-#  kable(freq(welldata$operalias) %>% 
-#     kable_styling(position = "float_left", full_width = FALSE))
-kable(freq(welldata$status, digits = 0) %>% 
-    kable_styling(position = "float_left", full_width = FALSE))
 
-# freq_layout <- rbind(c(1,1,1,2,2),
-#                      c(1,1,1,3,3))
 
-# grid.arrange(tableGrob(freq(welldata$vintage.yr))
-#                       ,tableGrob(freq(welldata$vintage.yr))
-#                       ,tableGrob(freq(welldata$vintage.yr))
-#                       , layout_matrix = freq_layout)
+## ---- exp_wd_nrow_3
+
+wd_nrow[['Cleaned Frac Size']] <- nrow(welldata)
+
+wd_nrow %>% as.data.frame()
+
+## ---- exp_wd_nrow_print
+ kable(wd_nrow %>% as.data.frame()) %>%
+    kable_styling(position = "center"
+                 ,full_width = TRUE) %>%
+ add_header_above(c(" ", "Cleansed" = 2))
+
+## ---- exp_freq_vintage
+
+kable(freq(welldata$vintage.yr), digits = 0) %>% 
+    kable_styling(position = "left", 
+                  full_width = FALSE
+                 )
+
+## ---- exp_freq_status
+
+kable(freq(welldata$status), digits = 0) %>% 
+    kable_styling(position = "right",
+                 full_width = FALSE
+                 )
+
+
+
 
 ## ---- exp_freq_by_form
 
