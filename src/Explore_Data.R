@@ -18,6 +18,10 @@ welldata <- wellfeatures %>%
            , deviation = abs(45 - angle) #deviation_from_45deg
            , weight = 500 # weighting_constant
            , frac.size = distance-(deviation-weight) # weighted_distance_from_origin
+           ,log.oil.pk.bbl = log(oil.pk.bbl)
+           ,log.frac.size = log(frac.size)
+           ,log.bbl.ft = log(bbl.ft)
+           ,log.lb.ft = log(lb.ft)
            ) %>%
            select(-distance, -angle, -deviation, -weight)
 

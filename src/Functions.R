@@ -20,12 +20,13 @@ COL.M.G3 = '#34FFCE'
 COL.M.G4 = '#407F70'
 COL.M.G5 = '#2ACCA4'
 
-# complementary green/red
+# complementary
 COL.CO.G1 = '#56B262'
 COL.CO.G2 = '#AEFFB8'
 COL.CO.G3 = '#94FFA2'
-COL.CO.R4 = '#B24462'
-COL.CO.R5 = '#FF94B1'
+COL.CO.I4 = '#adb5bd'
+COL.CO.P5 = '#adb5bd'
+
 
 # compound palette
 COL.CP.B1 = '#7EA3CC' # muted blue
@@ -67,22 +68,13 @@ COL.ALLFORMS <- c("SPBY_U" = COL.SPBY_U
                 , "GRID_ERROR" = COL.GRID_ERROR
                 )
 
-# FORM_ORDER <- c("SPBY_U"
-#                 , "SPBY_M"
-#                 , "SPBY_L_SILT"
-#                 , "SPBY_JO_MILL"
-#                 , "SPBY_L_SHALE"
-#                 , "DEAN"
-#                 , "WFMP_A"
-#                 , "WFMP_B"
-#                 , "WFMP_B_LOWER"
-#                 , "WFMP_C"
-#                 , "WFMP_C_TARGET"
-#                 , "WFMP_D"
-#                 , "STRAWN"
-#                 , "UNKNOWN"
-#                 , "GRID_ERROR"
-#                 )
+WFMP_FORMS <- c(  "WFMP_A"
+                , "WFMP_B"
+                , "WFMP_B_LOWER"
+                , "WFMP_C"
+                , "WFMP_C_TARGET"
+                , "WFMP_D"
+                )
 
 ## @knitr functions
 summarize_frame <- function(frameframe)
@@ -216,9 +208,3 @@ kable_zen <- function(frameframe)
 
 
 #    class(frameframe)
-
-
-## Conclusions
-From the p-values for the Linear Regression Model coefficients (last column) from the anova() output, you can see that the explanitory variable frac.size given formavg makes a significant contribution to the equation (you can reject the hypothesis that the parameters are 0). With that being evident, there is no need to fit a second reduced model that may fit the data as well. The log-log Linear Regression Model shows that each regression coefficient in the model is statistically significant (p < .05). The anova() function for linear models uses a F-test resulting in an (F-value = 5.9052) and (Pr(>F) < 0.0001). The nonsignificant  F-value (p < 0.0001) suggests that the model fits well, reinforcing your belief that frac.size given formavg adds significantly to the model above and therefore, you can base your interpretations on the resulting linear model. 
-
-
