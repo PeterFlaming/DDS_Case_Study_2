@@ -20,21 +20,21 @@ Quinton Nixon         qatsmu                     R Code/Code Commenting/Powerpoi
 Matthew Trevathan     mrtrevathan0               Codebook/Code Formatting/Organization             
 
 
-### Purose of Case Study 2
+## Purose of Case Study 2
 
 The client wishes to invest in the Oil & Gas industry with respect the Permian Basin, and doesn't know today's Top Plays for the region, or what type of play would be high in demand in the future. We were hired to find out what kind of play (conventional or unconventional) is most successful today in the Permian Basin by the quantitification and statitistical analysis of the well data provided for the region from open sources. This case study will make it clear to see what aspects of well data makes each play so favorable to the industry leaders in a highly competive market. We gathered data from an opensource database [here](http://fracfocusdata.org/digitaldownload/fracfocuscsv.zip) on the nation's drilling operators and companies focusing our study on the listed levels of total vertical depth (TVD), total base water volume (TBWV), projection, and frac'ing chemicals and fluids. From these data we found the most desired play in the U.S. by carefully measuring the correlation of these predictive variables from the most frequently used parameters across each play and operator/company in the region. The resulting list of top plays includes the best type to invest in for our client. 
 
 
-### Updates for Case Study 2
+## Updates for Case Study 2
 
 A number of changes have been made to this case study for the **Doing Data Science Course** with plans of **Reproducibility within R and RStudio**. Most importantly the case study structure has been planned to take full advantage of relative file paths to reproduce this research.
 
-### Current Version
+## Current Version
 
 For the current version of this **Case Study** see
 [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/README.md).
 
-### Reproduce the Case Study
+## Reproduce the Case Study
 
 Use the following directions to reproduce the data gathering, analysis, and
 presentation documents.
@@ -57,12 +57,12 @@ repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = TRUE)
 knitr::write_bib(PackagesUsed, file = "Packages.bib")
 ```
 
-### Open Rmarkdown and follow code
+## Open Rmarkdown and follow code
 
 Use the following code to reproduce the study [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/src/Final_Analysis.Rmd).
 
 
-# Executive Summary
+## Executive Summary
 
 FTNF Analytics is a boutique firm specializing in statistics and data analysis for the energy sector.  The FTNF team includes experts in geology, data visualization, statistics, and predictive modeling.  Our practice services producers globally with a special emphasis on those operating in the Southwest United States.
 
@@ -73,7 +73,7 @@ FTNF is the ideal partner for this undertaking.  Our process includes enriching 
 CTOP companies no longer have to rely on hope as a strategy for finding productive wells.  With the help of FTNF Analytics, you can rely on sound science and quantifiable predictions.
 
 
-# Frac Focus Data Source
+## Frac Focus Data Source
 
 The Hydraulic Fracturing Disclosure and Education websites found [here](http://fracfocusdata.org) are being hosted by the Ground Water Protection Council (GWPC) and the Interstate Oil and Gas Compact Commission (IOGCC).  This website provides a central location for public and industry to communicate and relay information on the chemicals used during the process of hydraulic fracturing of oil or gas wells.  The FracFocus website provides impartial and balanced education tools to the public on the topic of hydraulic fracturing.
 
@@ -86,7 +86,7 @@ An Education and Informative site for the public and industry on Hydraulic Fract
 FracFocus has instituted a Help Desk to address any issues you may have in using the system. You can reach the Help Desk Monday-Thursday from 8 AM to 5 PM and on Friday from 8 AM to 4 PM CDT at 405-607-6808.
 
 
-# Driftwood Well Data Source
+## Driftwood Well Data Source
 
 The Driftwood dataset was provided by the client and can be found [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/data/deo_well_data.csv). This dataset provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells. The following variables are included within the dataset:
 
@@ -104,7 +104,7 @@ The Driftwood dataset was provided by the client and can be found [here](https:/
 ```{r fracfocus_import, cache = TRUE}
 ```
 
-# Count Locations and Wellbores
+## Count Locations and Wellbores
 ### The FracFocus Data consists of Well Data for 3162 locations with 3163 wellbores
 ```{r fracfocus_count, cache = TRUE}
 ```
@@ -119,7 +119,7 @@ The Driftwood dataset was provided by the client and can be found [here](https:/
 ```{r fracfocus_aggregates, cache = TRUE}
 ```
 
-# Well Features and Characteristics Dataset Import
+## Well Features and Characteristics Dataset Import
 ### 7 of the 8 variables are selected for the study
 ```{r wellfeatures_import, cache = TRUE}
 ```
@@ -135,7 +135,7 @@ The Driftwood dataset was provided by the client and can be found [here](https:/
 ```
 
 
-# Data Exploration of Well Data
+## Data Exploration of Well Data
 
 Here the FracFocus and Well Features and Characteristics datasets are joined into a new dataset named welldata by the common variable api10, which represents a specific wellbore hole.
 
@@ -172,38 +172,42 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 ```{r exp_freq_status}
 ```
 
-# Histograms (to be added)
+## Histograms (to be added)
+### Plot 1
+```r
+```
 
-# Regression Model 1  (to be added)
+### Plot 2
+```r
+```
 
- - Peter: Insert your model here if you have it, otherwise I will make one.
-
- - Well Productivity (oil.pk.bbl) vs frac.size, controlling for formation, would be a really good one.
-  - Well Productivity (oil.pk.bbl) vs frac.size, controlling for formation, would be a really good one.
-
-# Regression Model 2  (to be added)
-
- - Peter: Insert your model here if you have it, otherwise I will make one.
-
-- Well Productivity (oil.pk.bbl) vs formation | perf.ll.ft + lb.ft + bbl.ft + additive.ct and controlling for formation would also be great.
-
-# Anova to compare models
+## Regression Model 1
+### Linear Regression Model of Well Productivity given Aggregate
+A Multiple Linear Regression was used to measure the response of Oil Production by the interaction of Aggregate with Geological Formation.
 
 
-
-# Results of Tests
-
-
-
-# Conclusions
+## Regression Model 2  
+### Logistic Regression Model for Successfully Drilling the Target Formation  
+A Logistic Regression Model was used to predict the production of oil by the predictor variables of Geological Formation, Oil Produced, Latitude, Longitude, and Projection.
 
 
+## Anova to compare models
+### The anova results confirm the statistical significance of the regression models used.
 
-# Appendix:
 
-```{r}
+## Results of Tests
+The unearthing of significant Geological Formations by regression models proves to mimic the industry trends.
+
+
+## Conclusions
+These statistical tests and models are great tools to use for the analysis of untamed datasets. 
+
+
+## Appendix:
+
+```r
 sessionInfo()
-
+```
 
 
 
