@@ -128,30 +128,30 @@ $(document).ready(function () {
 <h1>MSDS 6306 Doing Data Science</h1>
 <div id="case-study-2-with-r-and-rstudio" class="section level2">
 <h2>Case Study 2 with R and RStudio</h2>
-<div id="group-members" class="section level3">
-<h3>Group Members</h3>
-<p><code>Member Name           GitHub Username            Project Duties</code></p>
-<p><code>Peter Flaming         PeterFlaming               Logistic Regression Model/README/Presentation</code></p>
-<p><code>Brock Friedrich       la-mar                     R Code/Rmarkdown/Data Gathering/Organization</code></p>
-<p><code>Quinton Nixon         qatsmu                     R Code/Code Commenting/Powerpoint Preparation</code></p>
-<p><code>Matthew Trevathan     mrtrevathan0               Codebook/Code Formatting/Organization</code></p>
+<div id="group-members-and-case-study-responsibilities-alphabetically" class="section level3">
+<h3>Group Members and Case Study Responsibilities (alphabetically)</h3>
+<p>Member Name GitHub Username Project Duties</p>
+<p>Peter Flaming PeterFlaming Regression Models/README/Presentation</p>
+<p>Brock Friedrich la-mar R Code/Rmarkdown/Data Gathering/Organization</p>
+<p>Quinton Nixon qatsmu R Code/Code Commenting/Powerpoint Preparation</p>
+<p>Matthew Trevathan mrtrevathan0 Codebook/Code Formatting/Organization</p>
 </div>
-<div id="purose-of-case-study-2" class="section level3">
-<h3>Purose of Case Study 2</h3>
+</div>
+<div id="purose-of-case-study-2" class="section level2">
+<h2>Purose of Case Study 2</h2>
 <p>The client wishes to invest in the Oil &amp; Gas industry with respect the Permian Basin, and doesn’t know today’s Top Plays for the region, or what type of play would be high in demand in the future. We were hired to find out what kind of play (conventional or unconventional) is most successful today in the Permian Basin by the quantitification and statitistical analysis of the well data provided for the region from open sources. This case study will make it clear to see what aspects of well data makes each play so favorable to the industry leaders in a highly competive market. We gathered data from an opensource database <a href="http://fracfocusdata.org/digitaldownload/fracfocuscsv.zip">here</a> on the nation’s drilling operators and companies focusing our study on the listed levels of total vertical depth (TVD), total base water volume (TBWV), projection, and frac’ing chemicals and fluids. From these data we found the most desired play in the U.S. by carefully measuring the correlation of these predictive variables from the most frequently used parameters across each play and operator/company in the region. The resulting list of top plays includes the best type to invest in for our client.</p>
 </div>
-<div id="updates-for-case-study-2" class="section level3">
-<h3>Updates for Case Study 2</h3>
+<div id="updates-for-case-study-2" class="section level2">
+<h2>Updates for Case Study 2</h2>
 <p>A number of changes have been made to this case study for the <strong>Doing Data Science Course</strong> with plans of <strong>Reproducibility within R and RStudio</strong>. Most importantly the case study structure has been planned to take full advantage of relative file paths to reproduce this research.</p>
 </div>
-<div id="current-version" class="section level3">
-<h3>Current Version</h3>
+<div id="current-version" class="section level2">
+<h2>Current Version</h2>
 <p>For the current version of this <strong>Case Study</strong> see <a href="https://github.com/la-mar/DDS_Case_Study_2/blob/master/README.md">here</a>.</p>
 </div>
-<div id="reproduce-the-case-study" class="section level3">
-<h3>Reproduce the Case Study</h3>
+<div id="reproduce-the-case-study" class="section level2">
+<h2>Reproduce the Case Study</h2>
 <p>Use the following directions to reproduce the data gathering, analysis, and presentation documents.</p>
-</div>
 <div id="first-download-this-repository-onto-your-computer." class="section level3">
 <h3>First download this repository onto your computer.</h3>
 <pre class="r"><code># Set the working directory to this repository as needed for your system
@@ -169,10 +169,169 @@ repmis::LoadandCite(PackagesUsed, file = &quot;Packages.bib&quot;, install = TRU
 # Create package BibTeX file
 knitr::write_bib(PackagesUsed, file = &quot;Packages.bib&quot;)</code></pre>
 </div>
-<div id="open-rmarkdown-and-follow-code" class="section level3">
-<h3>Open Rmarkdown and follow code</h3>
-<p>Use the following code to reproduce the study <a href="https://github.com/la-mar/DDS_Case_Study_2/blob/master/src/Final_Analysis.Rmd">here</a>.</p>
 </div>
+<div id="open-rmarkdown-and-follow-code" class="section level2">
+<h2>Open Rmarkdown and follow code</h2>
+<p>Use the following code to reproduce the study <a href="https://github.com/la-mar/DDS_Case_Study_2/blob/master/Final_Analysis.md">here</a>.</p>
+</div>
+<div id="executive-summary" class="section level2">
+<h2>Executive Summary</h2>
+<p>FTNF Analytics is a boutique firm specializing in statistics and data analysis for the energy sector. The FTNF team includes experts in geology, data visualization, statistics, and predictive modeling. Our practice services producers globally with a special emphasis on those operating in the Southwest United States.</p>
+<p>The Consortium of Texas Oil Producers (CTOP), has engaged FTNF to develop a study to better understand the potential for production in designated areas and help decide the best way to allocate their valuable resources. Specifically, CTOP needs a way to predict potential energy production (and revenues generated).</p>
+<p>FTNF is the ideal partner for this undertaking. Our process includes enriching existing CTOP data to improve the ability to predict production outcomes. We start with exploring the data, creating new data, and augmenting the data. Once satisfied, we proceed to analyzing the data using contemporary statistical methods. From there, we build predictive models to provide insight necessary to make drilling decisions.</p>
+<p>CTOP companies no longer have to rely on hope as a strategy for finding productive wells. With the help of FTNF Analytics, you can rely on sound science and quantifiable predictions.</p>
+</div>
+<div id="frac-focus-data-source" class="section level2">
+<h2>Frac Focus Data Source</h2>
+<p>The Hydraulic Fracturing Disclosure and Education websites found <a href="http://fracfocusdata.org">here</a> are being hosted by the Ground Water Protection Council (GWPC) and the Interstate Oil and Gas Compact Commission (IOGCC). This website provides a central location for public and industry to communicate and relay information on the chemicals used during the process of hydraulic fracturing of oil or gas wells. The FracFocus website provides impartial and balanced education tools to the public on the topic of hydraulic fracturing.</p>
+<p>The GWPC and IOGCC are uniquely suited to host these websites due to their impartial nature and ties to the regulated and regulatory community. This website provides a means for industry to voluntarily supply hydraulic fracturng chemical data in a consistent and centralized location. This open process assists both public and industry by supplying a centralized repository for the data and removing similar fragmented efforts from around the web.</p>
+<p>These websites provide the following: A means to Search for voluntarily submitted chemical records by State/County, Operator and Well. An Education and Informative site for the public and industry on Hydraulic Fracturing Chemicals and the processes used in Hydraulic Fracturing of wells.</p>
+<p>FracFocus has instituted a Help Desk to address any issues you may have in using the system. You can reach the Help Desk Monday-Thursday from 8 AM to 5 PM and on Friday from 8 AM to 4 PM CDT at 405-607-6808.</p>
+</div>
+<div id="driftwood-well-data-source" class="section level2">
+<h2>Driftwood Well Data Source</h2>
+<p>The Driftwood dataset was provided by the client and can be found <a href="https://github.com/la-mar/DDS_Case_Study_2/blob/master/data/deo_well_data.csv">here</a>. This dataset provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells. The following variables are included within the dataset:</p>
+<ul>
+<li>API - fourteen digit american petroleum institue number</li>
+<li>API10 - ten digit american petroleum institue number. Represents a unique hole in the ground.</li>
+<li>oper_alias - standardized operator (company) names</li>
+<li>Form_Avg - geological formation names</li>
+<li>PerfLL - wellbore lateral length</li>
+<li>FirstProd - date of first oil/gas production</li>
+<li>Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft</li>
+</ul>
+</div>
+<div id="fracfocus-dataset-import" class="section level2">
+<h2>FracFocus Dataset Import</h2>
+<div id="of-the-24-variables-are-selected-for-the-study" class="section level3">
+<h3>19 of the 24 variables are selected for the study</h3>
+<p><code>{r fracfocus_import, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="count-locations-and-wellbores" class="section level2">
+<h2>Count Locations and Wellbores</h2>
+<div id="the-fracfocus-data-consists-of-well-data-for-3162-locations-with-3163-wellbores" class="section level3">
+<h3>The FracFocus Data consists of Well Data for 3162 locations with 3163 wellbores</h3>
+<p><code>{r fracfocus_count, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="aggregate-proppant-and-water-by-wellbore" class="section level2">
+<h2>Aggregate Proppant and Water by wellbore</h2>
+<div id="filtering-and-grouping-of-aggregates-proponents-and-water-for-each-wellbore" class="section level3">
+<h3>Filtering and grouping of aggregates proponents and water for each wellbore</h3>
+<p><code>{r fracfocus_summary, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="aggregates" class="section level2">
+<h2>Aggregates</h2>
+<div id="a-table-of-fracfocus-wellbore-specific-descriptive-statistics" class="section level3">
+<h3>A table of FracFocus wellbore specific descriptive statistics</h3>
+<p><code>{r fracfocus_aggregates, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="well-features-and-characteristics-dataset-import" class="section level2">
+<h2>Well Features and Characteristics Dataset Import</h2>
+<div id="of-the-8-variables-are-selected-for-the-study" class="section level3">
+<h3>7 of the 8 variables are selected for the study</h3>
+<p><code>{r wellfeatures_import, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="count-locations-and-wellbores-1" class="section level2">
+<h2>Count Locations and Wellbores</h2>
+<div id="the-well-features-and-characteristics-consists-of-well-data-for-2907-locations-with-2914-wellbores" class="section level3">
+<h3>The Well Features and Characteristics consists of Well Data for 2907 locations with 2914 wellbores</h3>
+<p><code>{r wellfeatures_count, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="aggregates-1" class="section level2">
+<h2>Aggregates</h2>
+<div id="a-table-of-well-features-and-characteristics-wellbore-specific-descriptive-statistics" class="section level3">
+<h3>A table of Well Features and Characteristics wellbore specific descriptive statistics</h3>
+<p><code>{r fracfocus_aggregates, cache = TRUE}</code></p>
+</div>
+</div>
+<div id="data-exploration-of-well-data" class="section level2">
+<h2>Data Exploration of Well Data</h2>
+<p>Here the FracFocus and Well Features and Characteristics datasets are joined into a new dataset named welldata by the common variable api10, which represents a specific wellbore hole.</p>
+</div>
+<div id="add-calculated-columns-to-well-data" class="section level2">
+<h2>Add Calculated Columns to Well Data</h2>
+<div id="columns-are-created-by-the-mutate-function-to-provide-8-new-variables-for-upcomming-data-analysis" class="section level3">
+<h3>Columns are created by the mutate function to provide 8 new variables for upcomming data analysis</h3>
+<p><code>{r exp_welldata_calcs}</code></p>
+</div>
+</div>
+<div id="clean-well-data" class="section level2">
+<h2>Clean Well Data</h2>
+<div id="here-the-welldata-is-cleaned-in-preparation-for-statistical-procedures-and-visualization" class="section level3">
+<h3>Here the welldata is cleaned in preparation for statistical procedures and visualization</h3>
+<p><code>{r exp_welldata_calcs}</code></p>
+</div>
+</div>
+<div id="summarize-well-data" class="section level2">
+<h2>Summarize Well Data</h2>
+<div id="a-table-of-well-data-wellbore-specific-descriptive-statistics" class="section level3">
+<h3>A table of Well Data wellbore specific descriptive statistics</h3>
+<p><code>{r exp_summary}</code> ## Well Data Box Plot ### A visualization of the summary statistics for Well Data <code>{r exp_boxplot_fracsize}</code></p>
+<p><code>{r exp_boxplot_fracsize}</code></p>
+</div>
+</div>
+<div id="wellsite-frequencies" class="section level2">
+<h2>Wellsite Frequencies</h2>
+<div id="a-table-of-well-frequency-by-respective-year" class="section level3">
+<h3>A table of well frequency by respective year</h3>
+<p><code>{r exp_freq_vintage}</code></p>
+</div>
+</div>
+<div id="wellsite-production-frequencies" class="section level2">
+<h2>Wellsite Production Frequencies</h2>
+<div id="a-table-of-well-production-by-respective-year" class="section level3">
+<h3>A table of well production by respective year</h3>
+<p><code>{r exp_freq_status}</code></p>
+</div>
+</div>
+<div id="histograms-to-be-added" class="section level2">
+<h2>Histograms (to be added)</h2>
+<div id="plot-1" class="section level3">
+<h3>Plot 1</h3>
+<pre class="r"><code></code></pre>
+</div>
+<div id="plot-2" class="section level3">
+<h3>Plot 2</h3>
+<pre class="r"><code></code></pre>
+</div>
+</div>
+<div id="regression-model-1" class="section level2">
+<h2>Regression Model 1</h2>
+<div id="linear-regression-model-of-well-productivity-given-aggregate" class="section level3">
+<h3>Linear Regression Model of Well Productivity given Aggregate</h3>
+<p>A Multiple Linear Regression was used to measure the response of Oil Production by the interaction of Aggregate with Geological Formation.</p>
+</div>
+</div>
+<div id="regression-model-2" class="section level2">
+<h2>Regression Model 2</h2>
+<div id="logistic-regression-model-for-successfully-drilling-the-target-formation" class="section level3">
+<h3>Logistic Regression Model for Successfully Drilling the Target Formation</h3>
+<p>A Logistic Regression Model was used to predict the production of oil by the predictor variables of Geological Formation, Oil Produced, Latitude, Longitude, and Projection.</p>
+</div>
+</div>
+<div id="anova-to-compare-models" class="section level2">
+<h2>Anova to compare models</h2>
+<div id="the-anova-results-confirm-the-statistical-significance-of-the-regression-models-used." class="section level3">
+<h3>The anova results confirm the statistical significance of the regression models used.</h3>
+</div>
+</div>
+<div id="results-of-tests" class="section level2">
+<h2>Results of Tests</h2>
+<p>The unearthing of significant Geological Formations by regression models proves to mimic the industry trends.</p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>These statistical tests and models are great tools to use for the analysis of untamed datasets.</p>
+</div>
+<div id="appendix" class="section level2">
+<h2>Appendix:</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
 </div>
 </div>
 
