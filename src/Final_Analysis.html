@@ -143,7 +143,9 @@ Friedrich</div></span>
 <li><a href="#data-exploration"><span class="toc-section-number">4</span> Data Exploration</a><ul>
 <li><a href="#add-calculated-columns"><span class="toc-section-number">4.1</span> Add Calculated Columns</a></li>
 <li><a href="#clean-data"><span class="toc-section-number">4.2</span> Clean data</a></li>
-<li><a href="#summarize-well-data"><span class="toc-section-number">4.3</span> Summarize Well Data</a></li>
+<li><a href="#summarize-well-data"><span class="toc-section-number">4.3</span> Summarize Well Data</a><ul>
+<li><a href="#frequencies"><span class="toc-section-number">4.3.1</span> Frequencies</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#appendix"><span class="toc-section-number">5</span> Appendix:</a></li>
 </ul>
@@ -213,9 +215,13 @@ Friedrich</div></span>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">    </span><span class="kw">distinct</span>(api10) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">locations =</span> <span class="kw">n</span>())</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">kable_zen</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Distinct Locations&quot;</span> =<span class="st"> </span>ff_loccount</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">                    ,<span class="st">&quot;Unique Wellbores&quot;</span> =<span class="st"> </span>ff_wellcount</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">                    ,<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;Frac_Focus&quot;</span>)))</a></code></pre></div>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">kable</span>(<span class="kw">data.frame</span>(<span class="st">&quot;Distinct Locations&quot;</span> =<span class="st"> </span>ff_loccount</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">                ,<span class="st">&quot;Unique Wellbores&quot;</span> =<span class="st"> </span>ff_wellcount</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">                ,<span class="dt">row.names=</span><span class="kw">c</span>(<span class="st">&quot;Frac_Focus&quot;</span>))</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">        , <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;center&quot;</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">                 ,<span class="dt">full_width =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">                 )</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -279,7 +285,10 @@ Frac_Focus
 </div>
 <div id="aggregates" class="section level2">
 <h2><span class="header-section-number">2.4</span> Aggregates</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">kable_zen</span>(<span class="kw">descr</span>(ff_summary))</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">kable</span>(<span class="kw">descr</span>(ff_summary), <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;center&quot;</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">                 ,<span class="dt">full_width =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">                 )</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -317,10 +326,10 @@ N.Valid
 totalwater.gal
 </td>
 <td style="text-align:right;">
-8631322.07
+8631322
 </td>
 <td style="text-align:right;">
-8517091.0
+8517091
 </td>
 <td style="text-align:right;">
 0
@@ -346,10 +355,10 @@ totalwater.gal
 totalsand.lb
 </td>
 <td style="text-align:right;">
-834510.36
+834510
 </td>
 <td style="text-align:right;">
-520151.1
+520151
 </td>
 <td style="text-align:right;">
 1
@@ -375,10 +384,10 @@ totalsand.lb
 tvd.ft
 </td>
 <td style="text-align:right;">
-88517.78
+88518
 </td>
 <td style="text-align:right;">
-4445992.9
+4445993
 </td>
 <td style="text-align:right;">
 0
@@ -394,6 +403,35 @@ tvd.ft
 </td>
 <td style="text-align:right;">
 10575
+</td>
+<td style="text-align:right;">
+3162
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+additive.ct
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+42
 </td>
 <td style="text-align:right;">
 3162
@@ -493,7 +531,10 @@ Well_Features
 </div>
 <div id="aggregates-1" class="section level2">
 <h2><span class="header-section-number">3.2</span> Aggregates</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">kable_zen</span>(<span class="kw">descr</span>(ff_summary))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">kable</span>(<span class="kw">descr</span>(ff_summary), <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;center&quot;</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                 ,<span class="dt">full_width =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">                 )</a></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -531,10 +572,10 @@ N.Valid
 totalwater.gal
 </td>
 <td style="text-align:right;">
-8631322.07
+8631322
 </td>
 <td style="text-align:right;">
-8517091.0
+8517091
 </td>
 <td style="text-align:right;">
 0
@@ -560,10 +601,10 @@ totalwater.gal
 totalsand.lb
 </td>
 <td style="text-align:right;">
-834510.36
+834510
 </td>
 <td style="text-align:right;">
-520151.1
+520151
 </td>
 <td style="text-align:right;">
 1
@@ -589,10 +630,10 @@ totalsand.lb
 tvd.ft
 </td>
 <td style="text-align:right;">
-88517.78
+88518
 </td>
 <td style="text-align:right;">
-4445992.9
+4445993
 </td>
 <td style="text-align:right;">
 0
@@ -608,6 +649,35 @@ tvd.ft
 </td>
 <td style="text-align:right;">
 10575
+</td>
+<td style="text-align:right;">
+3162
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+additive.ct
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+42
 </td>
 <td style="text-align:right;">
 3162
@@ -1064,19 +1134,31 @@ frac.size
 <a class="sourceLine" id="cb12-11" data-line-number="11">        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>, <span class="dt">vjust=</span><span class="fl">0.5</span>),</a>
 <a class="sourceLine" id="cb12-12" data-line-number="12">        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="dv">16</span>))</a></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># freq(welldata$vintage.yr)</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># welldata %&gt;%</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co"># select(operalias, formavg, status, vintage.yr)</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="kw">kable</span>(<span class="kw">freq</span>(welldata<span class="op">$</span>vintage.yr, <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;float_right&quot;</span>, </a>
-<a class="sourceLine" id="cb13-8" data-line-number="8">                  <span class="dt">full_width =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb13-9" data-line-number="9">                  <span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>)</a>
-<a class="sourceLine" id="cb13-10" data-line-number="10">                 ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="st">                 </span><span class="kw">row_spec</span>(<span class="dv">0</span>, <span class="dt">angle =</span> <span class="dv">-45</span>)</a>
-<a class="sourceLine" id="cb13-12" data-line-number="12">    )</a></code></pre></div>
-<table>
+<div id="frequencies" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Frequencies</h3>
+<style type="text/css">
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+  .col3 {
+    columns: 3 100px;
+    -webkit-columns: 3 100px;
+    -moz-columns: 3 100px;
+  }
+</style>
+<div class="col2">
+</div>
+
+ 
+</style>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">kable</span>(<span class="kw">freq</span>(welldata<span class="op">$</span>vintage.yr), <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">                  <span class="dt">full_width =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">                 )</a></code></pre></div>
+<table class="table" style="width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -1107,16 +1189,16 @@ Freq
 2
 </td>
 <td style="text-align:right;">
-0.1148106
+0
 </td>
 <td style="text-align:right;">
-0.1148106
+0
 </td>
 <td style="text-align:right;">
-0.1048218
+0
 </td>
 <td style="text-align:right;">
-0.1048218
+0
 </td>
 </tr>
 <tr>
@@ -1127,16 +1209,16 @@ Freq
 2
 </td>
 <td style="text-align:right;">
-0.1148106
+0
 </td>
 <td style="text-align:right;">
-0.2296211
+0
 </td>
 <td style="text-align:right;">
-0.1048218
+0
 </td>
 <td style="text-align:right;">
-0.2096436
+0
 </td>
 </tr>
 <tr>
@@ -1147,16 +1229,16 @@ Freq
 1
 </td>
 <td style="text-align:right;">
-0.0574053
+0
 </td>
 <td style="text-align:right;">
-0.2870264
+0
 </td>
 <td style="text-align:right;">
-0.0524109
+0
 </td>
 <td style="text-align:right;">
-0.2620545
+0
 </td>
 </tr>
 <tr>
@@ -1167,16 +1249,16 @@ Freq
 1
 </td>
 <td style="text-align:right;">
-0.0574053
+0
 </td>
 <td style="text-align:right;">
-0.3444317
+0
 </td>
 <td style="text-align:right;">
-0.0524109
+0
 </td>
 <td style="text-align:right;">
-0.3144654
+0
 </td>
 </tr>
 <tr>
@@ -1187,16 +1269,16 @@ Freq
 16
 </td>
 <td style="text-align:right;">
-0.9184845
+1
 </td>
 <td style="text-align:right;">
-1.2629162
+1
 </td>
 <td style="text-align:right;">
-0.8385744
+1
 </td>
 <td style="text-align:right;">
-1.1530398
+1
 </td>
 </tr>
 <tr>
@@ -1207,16 +1289,16 @@ Freq
 141
 </td>
 <td style="text-align:right;">
-8.0941447
+8
 </td>
 <td style="text-align:right;">
-9.3570608
+9
 </td>
 <td style="text-align:right;">
-7.3899371
+7
 </td>
 <td style="text-align:right;">
-8.5429769
+9
 </td>
 </tr>
 <tr>
@@ -1227,16 +1309,16 @@ Freq
 449
 </td>
 <td style="text-align:right;">
-25.7749713
+26
 </td>
 <td style="text-align:right;">
-35.1320321
+35
 </td>
 <td style="text-align:right;">
-23.5324948
+24
 </td>
 <td style="text-align:right;">
-32.0754717
+32
 </td>
 </tr>
 <tr>
@@ -1247,16 +1329,16 @@ Freq
 408
 </td>
 <td style="text-align:right;">
-23.4213548
+23
 </td>
 <td style="text-align:right;">
-58.5533869
+59
 </td>
 <td style="text-align:right;">
-21.3836478
+21
 </td>
 <td style="text-align:right;">
-53.4591195
+53
 </td>
 </tr>
 <tr>
@@ -1267,16 +1349,16 @@ Freq
 287
 </td>
 <td style="text-align:right;">
-16.4753157
+16
 </td>
 <td style="text-align:right;">
-75.0287026
+75
 </td>
 <td style="text-align:right;">
-15.0419287
+15
 </td>
 <td style="text-align:right;">
-68.5010482
+69
 </td>
 </tr>
 <tr>
@@ -1287,16 +1369,16 @@ Freq
 383
 </td>
 <td style="text-align:right;">
-21.9862227
+22
 </td>
 <td style="text-align:right;">
-97.0149254
+97
 </td>
 <td style="text-align:right;">
-20.0733753
+20
 </td>
 <td style="text-align:right;">
-88.5744235
+89
 </td>
 </tr>
 <tr>
@@ -1307,16 +1389,16 @@ Freq
 52
 </td>
 <td style="text-align:right;">
-2.9850746
+3
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 <td style="text-align:right;">
-2.7253669
+3
 </td>
 <td style="text-align:right;">
-91.2997904
+91
 </td>
 </tr>
 <tr>
@@ -1333,10 +1415,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-8.7002096
+9
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 </tr>
 <tr>
@@ -1347,25 +1429,25 @@ Total
 1908
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#  kable(freq(welldata$operalias) %&gt;% </span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#     kable_styling(position = &quot;float_left&quot;, full_width = FALSE))</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">kable</span>(<span class="kw">freq</span>(welldata<span class="op">$</span>status, <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;float_left&quot;</span>, <span class="dt">full_width =</span> <span class="ot">FALSE</span>))</a></code></pre></div>
-<table>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">kable</span>(<span class="kw">freq</span>(welldata<span class="op">$</span>status), <span class="dt">digits =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">    </span><span class="kw">kable_styling</span>(<span class="dt">position =</span> <span class="st">&quot;right&quot;</span>,</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">                 <span class="dt">full_width =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">                 )</a></code></pre></div>
+<table class="table" style="width: auto !important; margin-right: 0; margin-left: auto">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -1396,16 +1478,16 @@ COMPLETED
 34
 </td>
 <td style="text-align:right;">
-1.7819706
+2
 </td>
 <td style="text-align:right;">
-1.781971
+2
 </td>
 <td style="text-align:right;">
-1.7819706
+2
 </td>
 <td style="text-align:right;">
-1.781971
+2
 </td>
 </tr>
 <tr>
@@ -1416,16 +1498,16 @@ DUC
 131
 </td>
 <td style="text-align:right;">
-6.8658281
+7
 </td>
 <td style="text-align:right;">
-8.647799
+9
 </td>
 <td style="text-align:right;">
-6.8658281
+7
 </td>
 <td style="text-align:right;">
-8.647799
+9
 </td>
 </tr>
 <tr>
@@ -1436,16 +1518,16 @@ PERMIT
 1
 </td>
 <td style="text-align:right;">
-0.0524109
+0
 </td>
 <td style="text-align:right;">
-8.700210
+9
 </td>
 <td style="text-align:right;">
-0.0524109
+0
 </td>
 <td style="text-align:right;">
-8.700210
+9
 </td>
 </tr>
 <tr>
@@ -1456,16 +1538,16 @@ PRODUCING
 1732
 </td>
 <td style="text-align:right;">
-90.7756813
+91
 </td>
 <td style="text-align:right;">
-99.475891
+99
 </td>
 <td style="text-align:right;">
-90.7756813
+91
 </td>
 <td style="text-align:right;">
-99.475891
+99
 </td>
 </tr>
 <tr>
@@ -1476,16 +1558,16 @@ STALE-PERMIT
 0
 </td>
 <td style="text-align:right;">
-0.0000000
+0
 </td>
 <td style="text-align:right;">
-99.475891
+99
 </td>
 <td style="text-align:right;">
-0.0000000
+0
 </td>
 <td style="text-align:right;">
-99.475891
+99
 </td>
 </tr>
 <tr>
@@ -1496,16 +1578,16 @@ TA
 10
 </td>
 <td style="text-align:right;">
-0.5241090
+1
 </td>
 <td style="text-align:right;">
-100.000000
+100
 </td>
 <td style="text-align:right;">
-0.5241090
+1
 </td>
 <td style="text-align:right;">
-100.000000
+100
 </td>
 </tr>
 <tr>
@@ -1522,10 +1604,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-0.0000000
+0
 </td>
 <td style="text-align:right;">
-100.000000
+100
 </td>
 </tr>
 <tr>
@@ -1536,50 +1618,44 @@ Total
 1908
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 <td style="text-align:right;">
-100.000000
+100
 </td>
 <td style="text-align:right;">
-100.0000000
+100
 </td>
 <td style="text-align:right;">
-100.000000
+100
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># freq_layout &lt;- rbind(c(1,1,1,2,2),</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#                      c(1,1,1,3,3))</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co"># grid.arrange(tableGrob(freq(welldata$vintage.yr))</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#                       ,tableGrob(freq(welldata$vintage.yr))</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#                       ,tableGrob(freq(welldata$vintage.yr))</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#                       , layout_matrix = freq_layout)</span></a></code></pre></div>
+</div>
 </div>
 </div>
 <div id="appendix" class="section level1">
 <h1><span class="header-section-number">5</span> Appendix:</h1>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
-<pre><code>## R version 3.5.0 (2018-04-23)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 16299)
-## 
-## Matrix products: default
-## 
-## locale:
-## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252    LC_MONETARY=English_United States.1252 LC_NUMERIC=C                           LC_TIME=English_United States.1252    
-## 
-## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] gridExtra_2.3      units_0.6-0        summarytools_0.8.5 rmarkdown_1.10     bindrcpp_0.2.2     knitr_1.20         car_3.0-0          carData_3.0-1      kableExtra_0.9.0   magrittr_1.5       forcats_0.3.0      stringr_1.3.1      dplyr_0.7.5        purrr_0.2.5        readr_1.1.1        tidyr_0.8.1        tibble_1.4.2       ggplot2_2.2.1      tidyverse_1.2.1   
-## 
-## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.17       lubridate_1.7.4    lattice_0.20-35    utf8_1.1.4         assertthat_0.2.0   rprojroot_1.3-2    digest_0.6.15      psych_1.8.4        R6_2.2.2           cellranger_1.1.0   plyr_1.8.4         backports_1.1.2    evaluate_0.10.1    highr_0.7          httr_1.3.1         pillar_1.2.3       rlang_0.2.1        lazyeval_0.2.1     curl_3.2           readxl_1.1.0       rstudioapi_0.7     data.table_1.11.4  labeling_0.3       foreign_0.8-70     pander_0.6.1       RCurl_1.95-4.10    munsell_0.5.0      broom_0.4.4        compiler_3.5.0     modelr_0.1.2       pkgconfig_2.0.1    mnormt_1.5-5       htmltools_0.3.6    tidyselect_0.2.4   rio_0.5.10         codetools_0.2-15   matrixStats_0.53.1 viridisLite_0.3.0  crayon_1.3.4       bitops_1.0-6       nlme_3.1-137      
-## [42] jsonlite_1.5       gtable_0.2.0       scales_0.5.0       zip_1.0.0          cli_1.0.0          stringi_1.1.7      pryr_0.1.4         reshape2_1.4.3     xml2_1.2.0         rapportools_1.0    openxlsx_4.1.0     tools_3.5.0        glue_1.2.0         prettydoc_0.2.1    hms_0.4.2          abind_1.4-5        parallel_3.5.0     yaml_2.1.19        colorspace_1.3-2   rvest_0.3.2        bindr_0.1.1        haven_1.1.1</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">## R version 3.5.0 (2018-04-23)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">## Platform: x86_64-w64-mingw32/x64 (64-bit)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">## Running under: Windows 10 x64 (build 16299)</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">## </a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">## Matrix products: default</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">## </a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">## locale:</a>
+<a class="sourceLine" id="cb15-9" data-line-number="9">## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252    LC_MONETARY=English_United States.1252 LC_NUMERIC=C                           LC_TIME=English_United States.1252    </a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">## </a>
+<a class="sourceLine" id="cb15-11" data-line-number="11">## attached base packages:</a>
+<a class="sourceLine" id="cb15-12" data-line-number="12">## [1] grid      stats     graphics  grDevices utils     datasets  methods   base     </a>
+<a class="sourceLine" id="cb15-13" data-line-number="13">## </a>
+<a class="sourceLine" id="cb15-14" data-line-number="14">## other attached packages:</a>
+<a class="sourceLine" id="cb15-15" data-line-number="15">##  [1] gridExtra_2.3      units_0.6-0        summarytools_0.8.5 rmarkdown_1.10     bindrcpp_0.2.2     knitr_1.20         car_3.0-0          carData_3.0-1      kableExtra_0.9.0   magrittr_1.5       forcats_0.3.0      stringr_1.3.1      dplyr_0.7.5        purrr_0.2.5        readr_1.1.1        tidyr_0.8.1        tibble_1.4.2       ggplot2_2.2.1      tidyverse_1.2.1   </a>
+<a class="sourceLine" id="cb15-16" data-line-number="16">## </a>
+<a class="sourceLine" id="cb15-17" data-line-number="17">## loaded via a namespace (and not attached):</a>
+<a class="sourceLine" id="cb15-18" data-line-number="18">##  [1] Rcpp_0.12.17       lubridate_1.7.4    lattice_0.20-35    utf8_1.1.4         assertthat_0.2.0   rprojroot_1.3-2    digest_0.6.15      psych_1.8.4        R6_2.2.2           cellranger_1.1.0   plyr_1.8.4         backports_1.1.2    evaluate_0.10.1    highr_0.7          httr_1.3.1         pillar_1.2.3       rlang_0.2.1        lazyeval_0.2.1     curl_3.2           readxl_1.1.0       rstudioapi_0.7     data.table_1.11.4  labeling_0.3       foreign_0.8-70     pander_0.6.1       RCurl_1.95-4.10    munsell_0.5.0      broom_0.4.4        compiler_3.5.0     modelr_0.1.2       pkgconfig_2.0.1    mnormt_1.5-5       htmltools_0.3.6    tidyselect_0.2.4   rio_0.5.10         codetools_0.2-15   matrixStats_0.53.1 viridisLite_0.3.0  crayon_1.3.4       bitops_1.0-6       nlme_3.1-137      </a>
+<a class="sourceLine" id="cb15-19" data-line-number="19">## [42] jsonlite_1.5       gtable_0.2.0       scales_0.5.0       zip_1.0.0          cli_1.0.0          stringi_1.1.7      pryr_0.1.4         reshape2_1.4.3     xml2_1.2.0         rapportools_1.0    openxlsx_4.1.0     tools_3.5.0        glue_1.2.0         prettydoc_0.2.1    hms_0.4.2          abind_1.4-5        parallel_3.5.0     yaml_2.1.19        colorspace_1.3-2   rvest_0.3.2        bindr_0.1.1        haven_1.1.1</a></code></pre></div>
 </div>
 </article>
 </div>

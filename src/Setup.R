@@ -17,7 +17,8 @@ knitr::opts_chunk$set(fig.width=12,
                       #root.dir = normalizePath(".."),
                       #child.dir = normalizePath(".."),
                       cache = FALSE,
-                      results = 'markup'
+                      results = 'markup',
+                      collapse = TRUE
                       )
 
 
@@ -37,3 +38,6 @@ st_options('escape.pipe', TRUE)
 st_options('descr.stats', c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"))
 st_options('descr.transpose', TRUE)
 st_options('style', "rmarkdown")
+
+
+

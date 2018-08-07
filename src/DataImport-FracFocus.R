@@ -87,6 +87,7 @@ ff_summary <- fracfocus %>%
         ) %>%
     group_by(api10) %>%
     summarize(totalwater.gal = max(totalbasewatervolume)
+              ,totalwater.bbl = totalwater.gal/42
               ,totalsand.lb = sum(massingredient)
               ,tvd.ft = max(tvd)
               ,jobduration.day = max(jobduration)
