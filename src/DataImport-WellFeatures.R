@@ -39,7 +39,7 @@ kable(data.frame("Distinct Locations" = wf_loccount
                 ,row.names=c("Well_Features")
                 )
           , digits = 0) %>%
-        kable_styling(position = "float_right", 
+        kable_styling(position = "center", 
                 full_width = FALSE,
                 bootstrap_options = c("striped", "hover", "condensed")
                 )

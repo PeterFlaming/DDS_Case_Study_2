@@ -29,6 +29,15 @@ fracfocus %>% colnames()
   theme(plot.title = element_text(hjust = 0.5))
 
 
+```{r mlr_prod_plots} 
+# Linear Regression Model for Well Productivity Plots
+plot(effect("frac.size:formavg"
+          , well.production
+          , list(wt = c(2.2, 3.2, 4.2)))
+          , multiline = TRUE)
+
+```
+
 ``{r  echo = FALSE}
 kable_zen(as.data.frame(session[["platform"]]))
 ```
@@ -451,6 +460,110 @@ coplot(log(oil.pk.bbl) ~ log(frac.size) | formavg, data = welldata)
 
 
 
+
+## Conclusions
+From the p-values for the Linear Regression Model coefficients (last column) from the anova() output, you can see that the explanitory variable frac.size given formavg makes a significant contribution to the equation (you can reject the hypothesis that the parameters are 0). With that being evident, there is no need to fit a second reduced model that may fit the data as well. The log-log Linear Regression Model shows that each regression coefficient in the model is statistically significant (p < .05). The anova() function for linear models uses a F-test resulting in an (F-value = 5.9052) and (Pr(>F) < 0.0001). The nonsignificant  F-value (p < 0.0001) suggests that the model fits well, reinforcing your belief that frac.size given formavg adds significantly to the model above and therefore, you can base your interpretations on the resulting linear model. 
+
+----------------------------------------------------------------------------------
+
+## Logistic Regression
+```{r} 
+
+deo_well_data <- read_csv("../data/deo_well_data.csv")
+deo_well_data["PerfLL"] <- as.numeric(deo_well_data$PerfLL)
+deo_well_data["FirstProd"] <- as.numeric(deo_well_data$FirstProd)
+deo_well_data["Oil_PkNorm_Perk_6mo"] <- as.numeric(deo_well_data$Oil_PkNorm_Perk_6mo)
+
+str(deo_well_data)
+
+deo_well_data_clean <- drop_na(deo_well_data)
+
+summary(deo_well_data_clean)
+```
+
+```{r} 
+#Permian Basin Well Data Selection
+Basin_Data <- merge.data.frame(deo_well_data, fracfocus, by = intersect(x="API10", y="api10"))
+summary(Basin_Data)
+```
+
+## Data Preperation for Logistic Regression Model
+Logistic regression is applied to situations in which the response variable is dichotomous (0 or 1). The model assumes that Y follows a binomial distribution and that you can fit a linear model of the form where π = μY is the conditional mean of Y (that is, the probability that Y = 1 given a set of X values), (π/1 – π) is the odds that Y = 1, and log(π/1 – π) is the log odds, or logit. In this case, log(π/1 – π) is the link function, the probability distribution is binomial, and the logistic regression model can be fit using glm(Y~X1+X2+X3, family=binomial(link="logit"), data=mydata)
+
+```{r} 
+#  Logistic Model for Basin_Data}
+# Creating Logistic Model binary outcome for TVD greater than 8782ft set as yes, and less than 8782 as no
+Basin_Data$ynTVD[Basin_Data$TVD <= 8394] <- 0
+Basin_Data$ynTVD[Basin_Data$TVD >= 8394] <- 1
+#Create a dichotomous factor to be used as the outcome variable in a logistic regression model
+Basin_Data$ynTVD <- factor(Basin_Data$ynTVD, levels=c(0,1), labels=c("No","Yes"))
+#View table of output for new predictor variable ynTVD
+table(Basin_Data$ynTVD)
+#Selecting Basin variables for Logistic Regression and creating new dataset for analysis
+Basin_Model_Data <- Basin_Data[, c(4, 5, 8, 15, 16, 17, 18, 22, 32)]
+head(Basin_Model_Data)
+#Descriptive Statistics for Model variables
+summary(Basin_Model_Data)
+```
+
+
+
+The target depth is 8394ft. for the WFMP_C_TARGET Formation. 
+
+The glm() function allows you to fit a number of popular models, including logistic regression, Poisson regression, and survival analysis (not considered here). You can demonstrate this for the first two models as follows. Assume that you have a single response variable (Y), three predictor variables (X1, X2, X3), and a data frame (mydata) containing the data.
+
+Logistic regression is useful when you’re predicting a binary outcome from a set of continuous and/or categorical predictor variables. To demonstrate this, let’s explore the well data for total vertical depth of target formation contained in the data frame under study. Be sure to download and install the package (using install.packages("AER")) before first use.
+
+```{r full_model} 
+#  Full Logistic Regression Model
+fit.full.basin <- glm(ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, data=Basin_Model_Data, family=binomial(link='logit'))
+```
+
+
+```{r} 
+# Full Logistic Regression Model Summary
+summary(fit.full.basin)
+```
+
+From the p-values for the regression coefficients (last column), you can see that there are three predictors ("SPBY_L_SILT", "SPBY_M", and "WFMP_D") and one predictor variable ("Status") that are not statistically significant (p-values > 0.05) and they may not make a significant contribution to the equation (you can’t reject the hypothesis that the parameters are 0). Let’s fit a second equation without them and test whether this reduced model fits the data as well:
+
+```{r full_model_plots}
+# Full Logistic Regression Model Plots
+influencePlot(fit.full.basin)
+```
+
+The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
+
+```{r full_model_ci} 
+#  Full Logistic Regression Model 95% CIs
+exp(confint(fit.full.basin))
+```
+
+The results suggest that you can be 95% confident that the intervals that DO NOT contain 0 predict the true change in well production rate for their respected % change in aggregate:formation interaction rate. Remember that, because the confidence intervals for the DEAN, SPBY_L_SILT, and STRAWN formations contain 0, you can conclude that a change in their rate is unrelated to the well production rate, holding the other variables constant. But your faith in these results is only as strong as the evidence you have that your data satisfies the statistical assumptions underlying the model.
+
+```{r reduced_model} 
+# Reduced Logistic Regression Model}
+fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
+```
+
+```{r reduced_model_plots, echo = FALSE}
+#  Reduced Logistic Regression Model Plots}
+influencePlot(fit.reduced.basin)
+```
+
+The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
+
+## Two-Way Anova for Reduced Logistic Regression Model
+  - For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated.
+
+```{r anova_compare} 
+#  Results for Anova Chi-Suared Test
+#Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Models
+anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
+
+```
+
+The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with six predictors, reinforcing your belief that status, latitude, longitude, and countyname don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model.
 
 
 

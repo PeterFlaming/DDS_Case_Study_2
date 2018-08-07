@@ -241,8 +241,6 @@ The use of logarithmic transformations on the quantifiable variables is needed t
 #  Linear Regression Model for Well Productivity Summary}
 summary(well.production)
 <<<<<<< HEAD
-```
-=======
 
 >>>>>>> bc05ae33ef2d504284aea59389ea46bedd1f9195
 
@@ -378,11 +376,6 @@ exp(confint(fit.full.basin))
 The results suggest that you can be 95% confident that the intervals that DO NOT contain 0 predict the true change in well production rate for their respected % change in aggregate:formation interaction rate. Remember that, because the confidence intervals for the DEAN, SPBY_L_SILT, and STRAWN formations contain 0, you can conclude that a change in their rate is unrelated to the well production rate, holding the other variables constant. But your faith in these results is only as strong as the evidence you have that your data satisfies the statistical assumptions underlying the model.
 
 <<<<<<< HEAD
-```{r} 
-#  Reduced Logistic Regression Model}
-#Reduced Logistic Model formula = ynTVD ~ form_avg:Oil_PkNorm_Perk_6mo + Projection, family = binomial(), data = Basin_Model_Data
-fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
-=======
 ```{r reduced_model} 
 # Reduced Logistic Regression Model}
 fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
@@ -391,21 +384,10 @@ fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, da
 
 ```{r reduced_model_plots, echo = FALSE}
 #  Reduced Logistic Regression Model Plots}
-<<<<<<< HEAD
-#Plot of reduced Logistic Model
-plot(fit.reduced.basin)
-=======
 influencePlot(fit.reduced.basin)
->>>>>>> bc05ae33ef2d504284aea59389ea46bedd1f9195
 ```
 
 The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
-
-
-```{r}
-summary(fit.reduced.basin)
-
-```
 
 ## Two-Way Anova for Reduced Logistic Regression Model
   - For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated.
