@@ -200,6 +200,34 @@ $(document).ready(function () {
 <li>wf_loccount &lt;- wellfeatures %&gt;% select(api10) %&gt;% distinct(api10) %&gt;% summarize(locations = n())</li>
 </ul>
 <p>Gives a count unique locations. api10 represents a unique XY coordinate pair.</p>
+<ul>
+<li>kable(descr(welldata), digits = 0) %&gt;% kable_styling(position = “center” ,full_width = TRUE)</li>
+</ul>
+<p>Function call to provide summary statistics for well data</p>
+</div>
+<div id="munging-data-sets" class="section level1">
+<h1>Munging Data Sets</h1>
+<p>Before developing models and making predictions, it’s important to understand the data. Here we’re summarize the data mathematically and explore it visually.</p>
+<ul>
+<li>wd_nrow &lt;- list() wd_nrow[[‘All Records’]] &lt;- nrow(welldata)</li>
+</ul>
+<p>Creates a count of well observations</p>
+<ul>
+<li>welldata &lt;- welldata %&lt;&gt;% filter(!formavg %in% c(“UNKNOWN”,“GRID_ERROR”))</li>
+</ul>
+<p>Removes observations with insufficient information</p>
+<ul>
+<li>wd_nrow[[‘Cleaned Forms’]] &lt;- nrow(welldata)</li>
+</ul>
+<p>Provides a count of observations that will be used for analysis</p>
+<ul>
+<li>wd_nrow[[‘Cleaned Frac Size’]] &lt;- nrow(welldata)</li>
+</ul>
+<p>Summarizes the number of “clean” observations</p>
+<ul>
+<li>welldata &lt;- welldata %&gt;% na.omit(vintage.yr)</li>
+</ul>
+<p>Summarizes the number of observations after, and removes NAs from, the vintage column</p>
 </div>
 
 
