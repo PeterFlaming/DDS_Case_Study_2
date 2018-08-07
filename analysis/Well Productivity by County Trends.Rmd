@@ -1,0 +1,43 @@
+---
+title: "Well Productivity by County Trends"
+author: "Peter Flaming"
+date: "8/5/2018"
+output: html_document
+---
+
+```{r Permian Basin Well Data}
+library(tidyverse)
+library(ggplot2)
+library(maps)
+library(maptools)
+#Basin_Data <- merge.data.frame(deo_well_data, fracfocus_registry, by = intersect(x="API10", y="API10"))
+summary(Basin_Data)
+plot(Basin_Data$Latitude * Basin_Data$Latitude)
+plot(Basin_Data$Latitude + Basin_Data$Latitude)
+
+Basin_Data_by_county < loc(Basin_Data$CountyNumber ~ Basin_Data$Latitude + Basin_Data$Latitude)
+  
+#ggplot(Basin_Data, aes(CountyNumber, fill = CountyName)) + geom_bar() +theme(axis.text.x = element_text(angle = 70, vjust = 0.5))
+
+Basin_Data_by_county
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
