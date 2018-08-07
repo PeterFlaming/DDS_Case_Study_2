@@ -7,6 +7,7 @@ require(summarytools)
 require(grid)
 require(gridExtra)
 library(AER)
+require(effects)
 
 # set knitr output options for consistent figures
 knitr::opts_chunk$set(fig.width=12, 
@@ -40,6 +41,5 @@ st_options('escape.pipe', TRUE)
 st_options('descr.stats', c("mean", "sd", "min", "med", "max", "Q1", "Q3", "N.Valid"))
 st_options('descr.transpose', TRUE)
 st_options('style', "rmarkdown")
-
 
 

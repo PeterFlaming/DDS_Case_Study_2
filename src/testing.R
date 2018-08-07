@@ -417,4 +417,73 @@ anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
 ```
 
 
+# wf_units <- data.frame(
+#         vars = c("api14","api10","operalias","formavg","status"    
+#                 ,"perfll","firstprod","oil.pk","vintage","age.mo"),
+#         units = c("","","","",""    
+#                 ,"(ft)","","(bbl/day)","(year)","(months)"))
+
+
+
+# wellfeatures %>% head()
+
+# wellfeatures %>% 
+# mutate(age.mo = as.integer((as.Date('08/01/2018', "%m/%d/%Y") - firstprod)/30.4)) %>%
+# select(firstprod, age.mo) %>%
+# head() 
+
+# class(as.Date('08/01/2018', "%m/%d/%Y"))
+# wellfeatures$firstprod - as.Date('08/01/2018', "%m/%d/%Y")
+
+#read.csv("../data/deo_well_data.csv") %>%standardize_names() %>%  head()
+
+
+crPlots(lm(log(oil.pk.bbl) ~ log(frac.size), data = welldata))
+
+coplot(logBrain ~ logGestation|logLitter)
+
+coplot(log(oil.pk.bbl) ~ log(frac.size) | formavg, data = welldata)
+
+
+# ff_units <- data.frame(
+#         vars = c("api10", "totalwater","totalsand", "tvd"),
+#         units = c("","(gal)","(lbs)", "(ft)"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
