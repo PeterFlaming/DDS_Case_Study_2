@@ -6,6 +6,7 @@ source('DataImport-FracFocus.R')
 
 ## ---- exp_welldata_calcs
 
+# create new table by joining data on wells with data on chemicals
 welldata <- wellfeatures %>%
     inner_join(ff_summary, by = c("api10", "api10")) %>%
     #rename(vintage.yr = vintage) %>%
@@ -23,11 +24,16 @@ welldata <- wellfeatures %>%
 
 ## ---- exp_wd_nrow_1
 
+# Before developing models and making predictions, it's important to understand the data.
+# Here we're summarize the data mathematically and explore it visually.
+
+# create a count of well observations
 wd_nrow <- list()
 wd_nrow[['All Records']] <- nrow(welldata)
 
 ## ---- exp_summary
 
+# function call to provide summary statistics for well data
     kable(descr(welldata), digits = 0) %>%
     kable_styling(position = "center"
                  ,full_width = TRUE)
@@ -35,12 +41,14 @@ wd_nrow[['All Records']] <- nrow(welldata)
 
 ## ---- exp_clean_forms
 
+# remove observations with insufficient information    
 welldata <- welldata %<>% 
                 filter(!formavg %in% c("UNKNOWN","GRID_ERROR"))
 
 
 ## ---- exp_wd_nrow_2
 
+# provide count of observations that will be used for analysis
 wd_nrow[['Cleaned Forms']] <- nrow(welldata)
 
 
@@ -48,6 +56,7 @@ wd_nrow[['Cleaned Forms']] <- nrow(welldata)
 
 #TODO: Fix this filter
 
+# filters observations by the amount of sand used
 welldata <- welldata %>% 
                 filter(160000 < totalsand.lb
                      & totalsand.lb < 50000000)
@@ -59,6 +68,7 @@ welldata <- welldata %>%
 
 ## ---- exp_wd_nrow_3
 
+# summarizes the number of "clean" observations
 wd_nrow[['Cleaned Frac Size']] <- nrow(welldata)
 
 wd_nrow %>% as.data.frame()
@@ -71,6 +81,7 @@ wd_nrow %>% as.data.frame()
 
 ## ---- exp_freq_vintage
 
+# calculate frequency of wells by year 
 kable(freq(welldata$vintage.yr), digits = 0) %>% 
     kable_styling(position = "left", 
                   full_width = FALSE
@@ -78,6 +89,7 @@ kable(freq(welldata$vintage.yr), digits = 0) %>%
 
 ## ---- exp_freq_status
 
+# calculate frequency of wells by status
 kable(freq(welldata$status), digits = 0) %>% 
     kable_styling(position = "right",
                  full_width = FALSE
@@ -91,6 +103,7 @@ kable(freq(welldata$status), digits = 0) %>%
 
 ## ---- exp_boxplot_fracsize
 
+# create a summary boxplot of wells by size
 ggplot((welldata), #%>% na.omit(abv)), 
        aes(x=reorder(formavg, tvd.ft, FUN=mean) , y=log(frac.size), fill = formavg)) +
   geom_boxplot() +
@@ -107,6 +120,7 @@ ggplot((welldata), #%>% na.omit(abv)),
 
 ## ---- exp_boxplot_oil
 
+# create a summary boxplot of wells by peak production
 ggplot((welldata), #%>% na.omit(abv)), 
        aes(x=formavg , y=oil.pk.bbl, fill = formavg)) +
   geom_boxplot() +
