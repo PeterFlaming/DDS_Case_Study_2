@@ -19,21 +19,10 @@ date: "July 24, 2018"
 
 ---
 
-# Setup
-
-
-
-
-
-  html_document:
-    theme: null
-    highlight: null
-    css: dark.css
-
 <!-- ```{r code = readLines('Setup.R'), message=FALSE, warning=FALSE} -->
 <!-- ``` -->
 
-```{r setup}
+```{r setup, echo=FALSE, results="hide"}
 # run setup files, create custom functions, and read in data for analysis
 source("Setup.R")
 source("Functions.R")
@@ -92,6 +81,11 @@ read_chunk('Explore_Data.R')
 # Data Exploration
 
 ## Add Calculated Columns
+
+```{r exp_welldata_calcs}
+```
+
+## Clean data
 
 ```{r exp_welldata_calcs}
 ```
