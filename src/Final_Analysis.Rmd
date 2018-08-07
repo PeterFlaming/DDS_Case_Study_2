@@ -221,8 +221,7 @@ summary(well.production)
 ## Multiple Linear Regression Model for Well Productivity Plots
 ### Plots of Multiple Linear Regression Model for Production given all Aggregate-Formation Interactions
 ```{r} 
-#  Linear Regression Model for Well Productivity Plots}
-install.packages("effects")
+#Linear Regression Model for Well Productivity Plots}
 library(effects)
 #Plot for effect on log(Production) by Aggregate-Formation interaction 
 plot(effect("frac.size:formavg", well.production,, list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
@@ -293,9 +292,9 @@ summary(deo_well_data_clean)
 ```
 
 ```{r} 
-#  Permian Basin Well Data Selection}
+#Permian Basin Well Data Selection
 library(tidyverse)
-Basin_Data <- merge.data.frame(deo_well_data, fracfocus_registry, by = intersect(x="API10", y="API10"))
+Basin_Data <- merge.data.frame(deo_well_data, fracfocus, by = intersect(x="API10", y="api10"))
 summary(Basin_Data)
 ```
 
