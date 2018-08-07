@@ -73,6 +73,7 @@ kable(data.frame("Distinct Locations" = ff_loccount
 
 ## ---- fracfocus_summary
 
+# create a tidy table summarizing the data imported from the FracFocus registry
 ff_summary <- fracfocus %>%
     filter('sand' %in% ingredientname
         | 'silica' %in% ingredientname
@@ -108,6 +109,7 @@ ff_summary <- fracfocus %>%
 
 ## ---- fracfocus_aggregates
 
+# generate descriptive statistics for the summarized chemical data
 kable(descr(ff_summary), digits = 0) %>%
     kable_styling(position = "center"
                  ,full_width = FALSE
