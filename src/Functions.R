@@ -87,7 +87,7 @@ COL.ALLFORMS <- c("SPBY_U" = COL.SPBY_U
 ## @knitr functions
 summarize_frame <- function(frameframe)
 {
-    #returns table of summary statistics for each numberic column in dataframe
+    #returns table of summary statistics for each numeric column in dataframe
     #summarytools::descr(frameframe, transpose = TRUE) #%>%
 
     #frameframe %<>% as.data.frame()
@@ -126,6 +126,7 @@ standardize_names <- function(frameframe)
     rename_all(trimws)
 
 }
+
 
 kable_zen <- function(frameframe)
 {
