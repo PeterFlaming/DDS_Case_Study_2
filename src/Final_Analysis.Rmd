@@ -136,6 +136,9 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 
 ## Munge Datasets
 ### Here the welldata is cleaned in preparation for statistical procedures and visualization
+- Before developing models and making predictions, it's important to understand the data.
+- Here we're summarize the data mathematically and explore it visually.
+
 ```{r exp_wd_nrow_1}
 ```
 
@@ -155,11 +158,11 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 ```
 
 ## Summarize Well Data 
-### A table of Well Data wellbore specific descriptive statistics
+  - A table of Well Data wellbore specific descriptive statistics
 ```{r exp_summary}
 ```
 ## Well Data Box Plot
-### A visualization of the summary statistics for Well Data
+  - A visualization of the summary statistics for Well Data
 ```{r exp_boxplot_fracsize}
 ```
 
@@ -167,12 +170,12 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 ```
 
 ## Wellsite Frequencies
-### A table of well frequency by respective year
+  - A table of well frequency by respective year
 ```{r exp_freq_vintage}
 ```
 
 ## Wellsite Production Frequencies
-### A table of well production by respective year
+  - A table of well production by respective year
 ```{r exp_freq_status}
 ```
 
@@ -195,13 +198,41 @@ predictor variables. Consider the welldata oil.pk.bbl measure of production. Let
 that you’re interested in the impact of geological formation (formavg) and aggregates (frac.size) on well production (oil.pk.bbl). You could fit a regression model that includes both predictors, along with their
 interaction, as shown in the model formula below.
 
- - formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)  
+ - formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata) 
+
 
 The formula is typically written as Y ~ X1 + X2 + ... + Xk where the ~ separates the response variable log(oil.pk.bbl) on the left from the predictor variables log(frac.size) : formavg on the right, and the predictor variables are separated by + signs. The colon is used to denote an interaction between predictor variables. A prediction of y from x, z, and the interaction between x and z would be coded y ~ x + z + x:z.
+
+
+## title {.tabset .tabset-fade}
+content above tabbed region.
+
+### tab 1 
+
+tab content 1
+
+### tab 2
+
+tab content 2
+
+##
+
 ```{r} 
 #  Linear Regression Model for Well Productivity}
 #Linear Regression Model formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)
 well.production <- lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data = welldata)
+
+summary(well.production)
+
+
+
+
+scatterplotMatrix(welldata %>% select(oil.pk.bbl, frac.size, formavg)
+                  , smooth=FALSE
+                  , diagonal="histogram"
+                  , col= "lightsalmon2")  
+
+
 ```
 
 The use of logarithmic transformations on the quantifiable variables is needed to meet the four linear regression assumptions of Normality, Independence, Linearity, and Homoscedasticity. These logarithmic transformations allow the model to meet all assumptions and our goal is to select model parameters (intercept and slopes) that minimize the difference between actual response values and those predicted by the model. Specifically, model parameters are selected to minimize the sum of squared residuals.
@@ -211,18 +242,15 @@ The use of logarithmic transformations on the quantifiable variables is needed t
 ### Summary of Significant Aggregate-Formation Combinations
 ```{r} 
 #  Linear Regression Model for Well Productivity Summary}
-summary(well.production)
+summary(well.production) %>% attributes()
+
 
 ```
 
-
-
-<<<<<<< HEAD
 ## Multiple Linear Regression Model for Well Productivity Plots
 ### Plots of Multiple Linear Regression Model for Production given all Aggregate-Formation Interactions
 ```{r} 
 #Linear Regression Model for Well Productivity Plots}
-library(effects)
 #Plot for effect on log(Production) by Aggregate-Formation interaction 
 plot(effect("frac.size:formavg", well.production,, list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
 
@@ -237,6 +265,7 @@ Although the summary() function in listing 8.4 describes the model, it provides 
 concerning the degree to which you’ve satisfied the statistical assumptions underlying
 the model. Why is this important? Irregularities in the data or misspecifications of the relationships
 between the predictors and the response variable can lead you to settle on a model that’s wildly inaccurate. On the one hand, you may conclude that a predictor and a response variable are unrelated when, in fact, they are. On the other hand, you may conclude that a predictor and a response variable are related when, in fact, they aren’t! You may also end up with a model that makes poor predictions when applied in real-world settings, with significant and unnecessary error. Let’s look at the output from the confint() function applied to the multiple regression problem under study.
+
 ```{r} 
 #  Linear Regression Model for Well Productivity 95% CIs}
 #95% CI for Linear Regression Model
@@ -279,7 +308,7 @@ From the p-values for the Linear Regression Model coefficients (last column) fro
 
 ```{r} 
 #  deo_well_data}
-deo_well_data <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/deo_well_data.csv")
+deo_well_data <- read_csv("../data/deo_well_data.csv")
 deo_well_data["PerfLL"] <- as.numeric(deo_well_data$PerfLL)
 deo_well_data["FirstProd"] <- as.numeric(deo_well_data$FirstProd)
 deo_well_data["Oil_PkNorm_Perk_6mo"] <- as.numeric(deo_well_data$Oil_PkNorm_Perk_6mo)
@@ -303,8 +332,7 @@ Logistic regression is applied to situations in which the response variable is d
 
 ```{r} 
 #  Logistic Model for Basin_Data}
-library(AER)
-#Creating Logistic Model binary outcome for TVD greater than 8782ft set as yes, and less than 8782 as no
+# Creating Logistic Model binary outcome for TVD greater than 8782ft set as yes, and less than 8782 as no
 Basin_Data$ynTVD[Basin_Data$TVD <= 8394] <- 0
 Basin_Data$ynTVD[Basin_Data$TVD >= 8394] <- 1
 #Create a dichotomous factor to be used as the outcome variable in a logistic regression model
@@ -366,28 +394,24 @@ influencePlot(fit.reduced.basin)
 The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
 
 ## Two-Way Anova for Reduced Logistic Regression Model
-### For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated
+  - For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated.
+
 ```{r} 
 #  Results for Anova Chi-Suared Test}
 #Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Model
 anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
 
 ```
-The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with six predictors, reinforcing your belief that status, latitude, longitude, and countyname don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model.
 
+The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with six predictors, reinforcing your belief that status, latitude, longitude, and countyname don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model.
 
 ## Conclusions
 From the p-values for the Full Logistic Regression Model coefficients (last column) of the anova.full model output, you can see that the predictor variable Status may not make a significant contribution to the equation (you can't reject the hypothesis that the parameters are 0). With that being evident, there is a need to fit a second equation without the Status variable and test whether this reduced model fits the data as well. The Reduced Logistic Regression Model shows that each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test. The nonsignificant chi-square value (Chi < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with seven predictors, reinforcing your belief that Status, CountyName, Latitude, and Longitude don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model. 
 
 # Appendix:
 
-#session <- sessionInfo()
-session <- sessionInfo()
-#kable_zen(as.data.frame(session[["R.version"]]))
-attributes(session)
-
-
 ```{r  echo = FALSE}
+session <- sessionInfo()
 
 ```
 
@@ -412,10 +436,6 @@ session[["running"]] %>%
   kable_zen()
 ```
 
-```{r}
-sessionInfo()
-```
-=======
 ```{r  echo = FALSE}
 session[["basePkgs"]] %>%
   as.data.frame() %>%
@@ -439,4 +459,3 @@ session[["loadedOnly"]] %>%
   distinct(pkgs) %>%
   kable_zen()
 ```
-

@@ -24,9 +24,6 @@ welldata <- wellfeatures %>%
 
 ## ---- exp_wd_nrow_1
 
-# Before developing models and making predictions, it's important to understand the data.
-# Here we're summarize the data mathematically and explore it visually.
-
 # create a count of well observations
 wd_nrow <- list()
 wd_nrow[['All Records']] <- nrow(welldata)

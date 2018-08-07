@@ -20,28 +20,6 @@ wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
                 ) %>%
              as.tibble()
 
-
-# wf_units <- data.frame(
-#         vars = c("api14","api10","operalias","formavg","status"    
-#                 ,"perfll","firstprod","oil.pk","vintage","age.mo"),
-#         units = c("","","","",""    
-#                 ,"(ft)","","(bbl/day)","(year)","(months)"))
-
-
-
-# wellfeatures %>% head()
-
-# wellfeatures %>% 
-# mutate(age.mo = as.integer((as.Date('08/01/2018', "%m/%d/%Y") - firstprod)/30.4)) %>%
-# select(firstprod, age.mo) %>%
-# head() 
-
-# class(as.Date('08/01/2018', "%m/%d/%Y"))
-# wellfeatures$firstprod - as.Date('08/01/2018', "%m/%d/%Y")
-
-#read.csv("../data/deo_well_data.csv") %>%standardize_names() %>%  head()
-
-
 ## ---- wellfeatures_count
 
 # count unique wellbores. api14 represents a unique wellbore.
@@ -65,8 +43,6 @@ kable(data.frame("Distinct Locations" = wf_loccount
                 full_width = FALSE,
                 bootstrap_options = c("striped", "hover", "condensed")
                 )
-
-
 
 ## ---- wellfeatures_aggregates
 
