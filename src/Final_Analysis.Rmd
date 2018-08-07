@@ -49,8 +49,15 @@ CTOP companies no longer have to rely on hope as a strategy for finding producti
 
 # Frac Focus Data
 
+The data related to chemicals used to enrich the data on wells comes from the chemical registry website FracFocus.com.  The FracFocus website and data is maintained by two organizations:  Interstate Oil and Gas Compact Commission and the Ground Water Protection Council.
+
+The site maintains data on over 127,000 wells and includes not only data about which chemicals are used, but also data about groundwater protection.
 
 ## Import
+
+The deata from FracFocus is obtained via an API call.  For the sake of reproducibility,
+the API call is made outside of the code and the resulting CSV is stored in the 
+program repository.
 
 ```{r fracfocus_import, cache = TRUE}
 ```
