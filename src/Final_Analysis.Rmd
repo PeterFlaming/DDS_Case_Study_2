@@ -31,10 +31,15 @@ read_chunk('DataImport-FracFocus.R')
 read_chunk('DataImport-WellFeatures.R')
 read_chunk('Explore_Data.R')
 
+# source('DataImport-FracFocus.R')
+# source('DataImport-WellFeatures.R')
+# source('Explore_Data.R')
+
+
 ```
 
 
-## Executive Summary
+# Executive Summary
 
 FTNF Analytics is a boutique firm specializing in statistics and data analysis for the energy sector.  The FTNF team includes experts in geology, data visualization, statistics, and predictive modeling.  Our practice services producers globally with a special emphasis on those operating in the Southwest United States.
 
@@ -45,7 +50,7 @@ FTNF is the ideal partner for this undertaking.  Our process includes enriching 
 CTOP companies no longer have to rely on hope as a strategy for finding productive wells.  With the help of FTNF Analytics, you can rely on sound science and quantifiable predictions.
 
 
-## Frac Focus Data Source
+# Frac Focus Data Source
 
 The Hydraulic Fracturing Disclosure and Education websites found [here](http://fracfocusdata.org) are being hosted by the Ground Water Protection Council (GWPC) and the Interstate Oil and Gas Compact Commission (IOGCC).  This website provides a central location for public and industry to communicate and relay information on the chemicals used during the process of hydraulic fracturing of oil or gas wells.  The FracFocus website provides impartial and balanced education tools to the public on the topic of hydraulic fracturing.
 
@@ -61,18 +66,6 @@ The site maintains data on over 127,000 wells and includes not only data about w
 
 
 
-## Driftwood Well Data Source
-
-The Driftwood dataset was provided by the client and can be found [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/data/deo_well_data.csv). This dataset provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells. The following variables are included within the dataset:
-
-* API - fourteen digit american petroleum institue number
-* API10 - ten digit american petroleum institue number. Represents a unique hole in the ground.
-* oper_alias - standardized operator (company) names
-* Form_Avg - geological formation names
-* PerfLL - wellbore lateral length
-* FirstProd - date of first oil/gas production
-* Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft 
-
 
 ## FracFocus Dataset Import
 ### 19 of the 24 variables are selected for the study
@@ -86,36 +79,49 @@ program repository.
 
 ## Count Locations and Wellbores
 ### The FracFocus Data consists of Well Data for 3162 locations with 3163 wellbores
-```{r fracfocus_count, cache = TRUE}
+```{r fracfocus_count, cache = FALSE}
 ```
 
 ## Aggregate Proppant and Water by wellbore
 ### Filtering and grouping of aggregates proponents and water for each wellbore
-```{r fracfocus_summary, cache = TRUE}
+```{r fracfocus_summary, cache = FALSE}
 ```
 
 ## Aggregates
 ### A table of FracFocus wellbore specific descriptive statistics
-```{r fracfocus_aggregates, cache = TRUE}
+```{r fracfocus_aggregates, cache = FALSE}
 ```
 
+# Driftwood Well Data Source
+
+The Driftwood dataset was provided by the client and can be found [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/data/deo_well_data.csv). This dataset provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells. The following variables are included within the dataset:
+
+* API - fourteen digit american petroleum institue number
+* API10 - ten digit american petroleum institue number. Represents a unique hole in the ground.
+* oper_alias - standardized operator (company) names
+* Form_Avg - geological formation names
+* PerfLL - wellbore lateral length
+* FirstProd - date of first oil/gas production
+* Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft 
+
+
 ## Well Features and Characteristics Dataset Import
+
 ### 7 of the 8 variables are selected for the study
 ```{r wellfeatures_import, cache = TRUE}
 ```
 
 ## Count Locations and Wellbores
 ### The Well Features and Characteristics consists of Well Data for 2907 locations with 2914 wellbores
-```{r wellfeatures_count, cache = TRUE}
+```{r wellfeatures_count, cache = FALSE}
 ```
 
 ## Aggregates
 ### A table of Well Features and Characteristics wellbore specific descriptive statistics
-```{r fracfocus_aggregates, cache = TRUE}
+```{r fracfocus_aggregates, cache = FALSE}
 ```
 
-
-## Data Exploration of Well Data
+# Exploration of Datasets
 
 Here the FracFocus and Well Features and Characteristics datasets are joined into a new dataset named welldata by the common variable api10, which represents a specific wellbore hole.
 
@@ -125,9 +131,27 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 ```{r exp_welldata_calcs}
 ```
 
-## Clean Well Data
+```{r exp_summary}
+```
+
+## Munge Datasets
 ### Here the welldata is cleaned in preparation for statistical procedures and visualization
-```{r exp_welldata_calcs}
+```{r exp_wd_nrow_1}
+```
+
+```{r exp_clean_forms}
+```
+
+```{r exp_wd_nrow_2}
+```
+
+```{r exp_wd_nrow_3}
+```
+
+```{r exp_wd_nrow_4}
+```
+
+```{r exp_wd_nrow_print}
 ```
 
 ## Summarize Well Data 
@@ -152,9 +176,10 @@ Here the FracFocus and Well Features and Characteristics datasets are joined int
 ```{r exp_freq_status}
 ```
 
-## Histograms (to be added)
+## Frac Size Distribution
 ### Plot 1
 ```{r}
+<<<<<<< HEAD
 
 ```
 
@@ -187,15 +212,13 @@ The use of logarithmic transformations on the quantifiable variables is needed t
 ```{r} 
 #  Linear Regression Model for Well Productivity Summary}
 summary(well.production)
+=======
+>>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
 ```
-You can see from the Pr(>|t|) column that the interaction between log(frac.size) and
-formavg is significant. What does this mean? A significant interaction between two
-predictor variables tells you that the relationship between one predictor and the
-response variable depends on the level of the other predictor. Here it means the relationship
-between log(oil.pk.bbl) and log(frac.size) varies by formavg.
 
 
 
+<<<<<<< HEAD
 ## Multiple Linear Regression Model for Well Productivity Plots
 ### Plots of Multiple Linear Regression Model for Production given all Aggregate-Formation Interactions
 ```{r} 
@@ -249,46 +272,14 @@ anova(well.production)
 ```
 
 
+=======
+>>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
 ## Conclusions
 From the p-values for the Linear Regression Model coefficients (last column) from the anova() output, you can see that the explanitory variable frac.size given formavg makes a significant contribution to the equation (you can reject the hypothesis that the parameters are 0). With that being evident, there is no need to fit a second reduced model that may fit the data as well. The log-log Linear Regression Model shows that each regression coefficient in the model is statistically significant (p < .05). The anova() function for linear models uses a F-test resulting in an (F-value = 5.9052) and (Pr(>F) < 0.0001). The nonsignificant  F-value (p < 0.0001) suggests that the model fits well, reinforcing your belief that frac.size given formavg adds significantly to the model above and therefore, you can base your interpretations on the resulting linear model. 
 
 
-## Regression Model 2  
-### Logistic Regression Model for Successfully Drilling the Target Formation  
-```{r} 
-#  fracfocus_registry}
-library(readr)
-fracfocus_registry <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/fracfocus_registry.csv",
-col_types = cols(API10 = col_number(),
-APINumber = col_skip(), ClaimantCompany = col_skip(),
-CountyNumber = col_number(), DTMOD = col_skip(),
-FFVersion = col_number(), FederalWell = col_logical(),
-IndianWell = col_logical(), IngredientComment = col_skip(),
-IngredientMSDS = col_logical(), IsWater = col_skip(),
-JobEndDate = col_date(format = "%m/%d/%Y"),
-JobStartDate = col_date(format = "%m/%d/%Y"),
-Latitude = col_number(), Longitude = col_number(),
-MassIngredient = col_number(), PercentHFJob = col_skip(),
-PercentHighAdditive = col_skip(),
-Source = col_skip(), StateNumber = col_skip(),
-Supplier = col_skip(), SystemApproach = col_skip(),
-TVD = col_number(), TotalBaseNonWaterVolume = col_number(),
-TotalBaseWaterVolume = col_number(),
-TradeName = col_skip(), pKey = col_number(),
-pKeyDisclosure = col_number(), pKeyPurpose = col_skip(),
-pKeyRegistryUpload = col_skip()),
-na = "0")
-View(fracfocus_registry)
-str(fracfocus_registry)
-TVD <- as.data.frame.numeric(fracfocus_registry$TVD)
-TBWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseWaterVolume)
-TBNonWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseNonWaterVolume)
 
-fracfocus_registry_clean <- drop_na(fracfocus_registry)
-
-summary(fracfocus_registry_clean)
-```
-
+<<<<<<< HEAD
 ```{r} 
 #  deo_well_data}
 deo_well_data <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/deo_well_data.csv")
@@ -367,51 +358,58 @@ The results suggest that you can be 95% confident that the intervals that DO NOT
 #Reduced Logistic Model formula = ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, family = binomial(), data = Basin_Model_Data
 fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
 ```
+=======
+## Conclusions
+From the p-values for the Full Logistic Regression Model coefficients (last column) of the anova.full model output, you can see that the predictor variable Status may not make a significant contribution to the equation (you can't reject the hypothesis that the parameters are 0). With that being evident, there is a need to fit a second equation without the Status variable and test whether this reduced model fits the data as well. The Reduced Logistic Regression Model shows that each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test. The nonsignificant chi-square value (p < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with seven predictors, reinforcing your belief that Status, CountyName, Latitude, and Longitude don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model. 
+>>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
 
 
-```{r} 
-#  Reduced Logistic Regression Model Summary}
-#Descriptive Statistics for the Reduced Logistic Regression Model
-summary(fit.reduced.basin)
-```
+# Appendix:
 
+```{r session_info, echo = FALSE}
 
+<<<<<<< HEAD
 ```{r} 
 #  Reduced Logistic Regression Model Plots}
 #Plot of reduced Logistic Model
 influencePlot(fit.reduced.basin)
 ```
 The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
+=======
+#session <- sessionInfo()
+session <- sessionInfo()
+#kable_zen(as.data.frame(session[["R.version"]]))
+attributes(session)
+```
 
-```{r} 
-# Reduced Logistic Regression Model 95% CIs}
-#95% CI for Reduced Logistic Model
-exp(confint(fit.reduced.basin))
+```{r  echo = FALSE}
+>>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984
+
+```
+
+```{r  echo = FALSE}
+session[["R.version"]] %>%
+  as.data.frame() %>%
+  kable_zen()
+
+session[["platform"]] %>%
+  as.data.frame() %>%
+  kable_zen()
+
+session[["locale"]] %>%
+  as.data.frame() %>%
+  kable_zen()
 ```
 
 
-
-```{r} 
-#  Check for Overdispersion of Logistic Regression Model}
-#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
-overdispersion_test <- deviance(fit.reduced.basin)/df.residual(fit.reduced.basin)
-overdispersion_test
-```
-
-
-```{r} 
-#  Hypothesis Test for H0 = 1 and Ha != 1}
-#First instance
-fit <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + CountyName + Latitude + Longitude + Projection, data=Basin_Model_Data, family=binomial())
-#Second instance
-fit.od <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family = quasibinomial())
-
-#If the p-value is small (say, less than 0.05), you'd reject the null hypothesis
-pchisq(summary(fit.od)$dispersion * fit$df.residual, fit$df.residual, lower = F)
-#The resulting p-value is clearly significant (p < 0.05), strengthening the belief that overdispersion isn't a problem
+```{r  echo = FALSE}
+session[["running"]] %>%
+  as.data.frame() %>%
+  kable_zen()
 ```
 The resulting p-value is clearly significant (p < 0.05), strengthening the belief that overdispersion isn't a problem
 
+<<<<<<< HEAD
 Each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test.
 
 
@@ -435,3 +433,28 @@ From the p-values for the Full Logistic Regression Model coefficients (last colu
 ```{r}
 sessionInfo()
 ```
+=======
+```{r  echo = FALSE}
+session[["basePkgs"]] %>%
+  as.data.frame() %>%
+  kable_zen()
+```
+
+```{r  echo = FALSE}
+session[["otherPkgs"]] %>%
+  summary() %>%
+  as.data.frame() %>%
+  rename(pkgs=Var1) %>%
+  distinct(pkgs) %>%
+  kable_zen()
+```
+
+```{r  echo = FALSE}
+session[["loadedOnly"]] %>%
+  summary() %>%
+  as.data.frame() %>%
+  rename(pkgs=Var1) %>%
+  distinct(pkgs) %>%
+  kable_zen()
+```
+>>>>>>> 00e0d4037199962b9ced2478a7b3d62ff5e68984

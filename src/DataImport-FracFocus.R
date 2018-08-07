@@ -4,6 +4,7 @@ source('Functions.R')
 
 #if(!exists("summarize_frame", mode="function")) source("Functions.R")
 
+
 ## ---- fracfocus_import
 
 #import fracfocus data
@@ -42,7 +43,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,percenthfjob
                      ,massingredient
                      ,iswater
-                     ) %>%
+                     ) %>%       
              as.tibble()
 
 
@@ -114,53 +115,4 @@ kable(descr(ff_summary), digits = 0) %>%
     kable_styling(position = "center"
                  ,full_width = FALSE
                  )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
