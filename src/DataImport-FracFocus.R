@@ -9,11 +9,13 @@ source('Functions.R')
 #import fracfocus data
 fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
               standardize_names() %>%
-              rename(api='apinumber') %>%
-              mutate( api14=as.character(api)
+              rename(api14='apinumber') %>%
+              mutate( api14=as.character(api14)
                      ,api10 = as.character(api10)
-                     ,jobstartdate=as.Date(jobstartdate, "%m/%d/%Y")
-                     ,jobenddate=as.Date(jobenddate, "%m/%d/%Y")
+                     ,tvd = as.integer(tvd)
+                     ,jobstartdate = as.Date(jobstartdate, "%m/%d/%Y")
+                     ,jobenddate = as.Date(jobenddate, "%m/%d/%Y")
+                     ,jobduration = jobenddate - jobstartdate
                      ,totalbasewatervolume = as.double(totalbasewatervolume)
                      ,totalbasenonwatervolume = as.double(totalbasenonwatervolume)
                      ,percenthighadditive = as.double(percenthighadditive)
@@ -25,8 +27,10 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,api10
                      ,wellname
                      ,operatorname
+                     ,tvd
                      ,jobstartdate
                      ,jobenddate
+                     ,jobduration
                      ,latitude
                      ,longitude
                      ,totalbasewatervolume
@@ -40,6 +44,7 @@ fracfocus <- read.csv("../data/fracfocus_registry.csv") %>%
                      ,iswater
                      ) %>%
              as.tibble()
+
 
 
 ## ---- fracfocus_count
@@ -56,9 +61,13 @@ ff_loccount <- fracfocus %>%
     distinct(api10) %>%
     summarize(locations = n())
 
-kable_zen(data.frame("Distinct Locations" = ff_loccount
-                    ,"Unique Wellbores" = ff_wellcount
-                    ,row.names=c("Frac_Focus")))
+kable(data.frame("Distinct Locations" = ff_loccount
+                ,"Unique Wellbores" = ff_wellcount
+                ,row.names=c("Frac_Focus"))
+        , digits = 0) %>%
+    kable_styling(position = "center"
+                 ,full_width = FALSE
+                 )
 
 
 
@@ -77,16 +86,31 @@ ff_summary <- fracfocus %>%
         | '100' %in% ingredientname
         ) %>%
     group_by(api10) %>%
-    summarize(totalwater = max(totalbasewatervolume)
-              , totalsand = sum(massingredient)
-              , percenthfjob = sum(percenthfjob)
+    summarize(totalwater.gal = max(totalbasewatervolume)
+              ,totalsand.lb = sum(massingredient)
+              ,tvd.ft = max(tvd)
+              ,jobduration.day = max(jobduration)
+              #, percenthfjob = sum(percenthfjob)
               # add additional summary variables here.
+              ) %>%
+    inner_join(
+                fracfocus %>%
+                    group_by(api10) %>%
+                    summarize(additive.ct = n_distinct(ingredientname))
+                ,by = c("api10", "api10")
               )
+
+# ff_units <- data.frame(
+#         vars = c("api10", "totalwater","totalsand", "tvd"),
+#         units = c("","(gal)","(lbs)", "(ft)"))
 
 
 ## ---- fracfocus_aggregates
 
-kable_zen(summarize_frame(ff_summary))
+kable(descr(ff_summary), digits = 0) %>%
+    kable_styling(position = "center"
+                 ,full_width = FALSE
+                 )
 
 
 
