@@ -34,7 +34,7 @@ read_chunk('Explore_Data.R')
 ```
 
 
-# Executive Summary
+## Executive Summary
 
 FTNF Analytics is a boutique firm specializing in statistics and data analysis for the energy sector.  The FTNF team includes experts in geology, data visualization, statistics, and predictive modeling.  Our practice services producers globally with a special emphasis on those operating in the Southwest United States.
 
@@ -45,106 +45,338 @@ FTNF is the ideal partner for this undertaking.  Our process includes enriching 
 CTOP companies no longer have to rely on hope as a strategy for finding productive wells.  With the help of FTNF Analytics, you can rely on sound science and quantifiable predictions.
 
 
+## Frac Focus Data Source
+
+The Hydraulic Fracturing Disclosure and Education websites found [here](http://fracfocusdata.org) are being hosted by the Ground Water Protection Council (GWPC) and the Interstate Oil and Gas Compact Commission (IOGCC).  This website provides a central location for public and industry to communicate and relay information on the chemicals used during the process of hydraulic fracturing of oil or gas wells.  The FracFocus website provides impartial and balanced education tools to the public on the topic of hydraulic fracturing.
+
+The GWPC and IOGCC are uniquely suited to host these websites due to their impartial nature and ties to the regulated and regulatory community. This website provides a means for industry to voluntarily supply hydraulic fracturng chemical data in a consistent and centralized location.  This open process assists both public and industry by supplying a centralized repository for the data and removing similar fragmented efforts from around the web. 
+
+These websites provide the following:
+A means to Search for voluntarily submitted chemical records by State/County, Operator and Well.
+An Education and Informative site for the public and industry on Hydraulic Fracturing Chemicals and the processes used in Hydraulic Fracturing of wells.
+
+FracFocus has instituted a Help Desk to address any issues you may have in using the system. You can reach the Help Desk Monday-Thursday from 8 AM to 5 PM and on Friday from 8 AM to 4 PM CDT at 405-607-6808.
 
 
-# Frac Focus Data
+## Driftwood Well Data Source
+
+The Driftwood dataset was provided by the client and can be found [here](https://github.com/la-mar/DDS_Case_Study_2/blob/master/data/deo_well_data.csv). This dataset provides a central location for wellsites to communicate and relay information on the drilling parameters used during the process of extraction of oil or gas wells. The following variables are included within the dataset:
+
+* API - fourteen digit american petroleum institue number
+* API10 - ten digit american petroleum institue number. Represents a unique hole in the ground.
+* oper_alias - standardized operator (company) names
+* Form_Avg - geological formation names
+* PerfLL - wellbore lateral length
+* FirstProd - date of first oil/gas production
+* Oil_PkNorm_PerK_6mo - peak oil production within the first 6 months of first production, normalized to 1000 ft 
 
 
-## Import
-
+## FracFocus Dataset Import
+### 19 of the 24 variables are selected for the study
 ```{r fracfocus_import, cache = TRUE}
 ```
 
 ## Count Locations and Wellbores
-
+### The FracFocus Data consists of Well Data for 3162 locations with 3163 wellbores
 ```{r fracfocus_count, cache = TRUE}
 ```
 
 ## Aggregate Proppant and Water by wellbore
-
+### Filtering and grouping of aggregates proponents and water for each wellbore
 ```{r fracfocus_summary, cache = TRUE}
 ```
 
 ## Aggregates
-
+### A table of FracFocus wellbore specific descriptive statistics
 ```{r fracfocus_aggregates, cache = TRUE}
 ```
 
-# Well Features and Characteristics
-
+## Well Features and Characteristics Dataset Import
+### 7 of the 8 variables are selected for the study
 ```{r wellfeatures_import, cache = TRUE}
 ```
 
 ## Count Locations and Wellbores
-
-
+### The Well Features and Characteristics consists of Well Data for 2907 locations with 2914 wellbores
 ```{r wellfeatures_count, cache = TRUE}
 ```
 
 ## Aggregates
-
+### A table of Well Features and Characteristics wellbore specific descriptive statistics
 ```{r fracfocus_aggregates, cache = TRUE}
 ```
 
 
+## Data Exploration of Well Data
 
-# Data Exploration
+Here the FracFocus and Well Features and Characteristics datasets are joined into a new dataset named welldata by the common variable api10, which represents a specific wellbore hole.
 
-## Add Calculated Columns
 
+## Add Calculated Columns to Well Data
+### Columns are created by the mutate function to provide 8 new variables for upcomming data analysis
 ```{r exp_welldata_calcs}
 ```
 
-## Clean data
-
+## Clean Well Data
+### Here the welldata is cleaned in preparation for statistical procedures and visualization
 ```{r exp_welldata_calcs}
 ```
 
 ## Summarize Well Data 
-
+### A table of Well Data wellbore specific descriptive statistics
 ```{r exp_summary}
 ```
-
+## Well Data Box Plot
+### A visualization of the summary statistics for Well Data
 ```{r exp_boxplot_fracsize}
 ```
 
 ```{r exp_boxplot_fracsize}
 ```
 
-### Frequencies
-
+## Wellsite Frequencies
+### A table of well frequency by respective year
 ```{r exp_freq_vintage}
 ```
 
-
+## Wellsite Production Frequencies
+### A table of well production by respective year
 ```{r exp_freq_status}
 ```
 
-# Histograms (to be added)
+## Histograms (to be added)
+### Plot 1
+```{r}
 
-# Regression Model 1  (to be added)
+```
 
- - Peter: Insert your model here if you have it, otherwise I will make one.
+### Plot 2
+```{r}
 
- - Well Productivity (oil.pk.bbl) vs frac.size, controlling for formation, would be a really good one.
-  - Well Productivity (oil.pk.bbl) vs frac.size, controlling for formation, would be a really good one.
+```
 
-# Regression Model 2  (to be added)
+## Regression Model 1
+### Linear Regression Model for Well Productivity given Aggregate and Formation
+```{r Linear Regression Model for Well Productivity}
+#Linear Regression Model formula = glm(oil.pk.bbl ~ formavg + frac.size + totalwater.gal + tvd.ft, data=welldata, family = gaussian(link="identity"))
+well.production <- lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data = welldata)
+```
 
- - Peter: Insert your model here if you have it, otherwise I will make one.
+## Linear Regression Model for Well Productivity given Aggregate and Formation Summary
+### Summary of Significant Aggregate-Formation Combinations
+```{r Linear Regression Model for Well Productivity Summary}
+summary(well.production)
+```
 
-- Well Productivity (oil.pk.bbl) vs formation | perf.ll.ft + lb.ft + bbl.ft + additive.ct and controlling for formation would also be great.
+## Linear Regression Model for Well Productivity Plots
+### Plots of Linear Model for Production given all Aggregate-Formation Combinations
+```{r Linear Regression Model for Well Productivity Plots}
+install.packages("effects")
+library(effects)
+#Plot for effect on log(Production) by Aggregate-Formation interaction 
+plot(effect("frac.size:formavg", well.production,, list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
 
-# Anova to compare models
+```
+
+## Linear Regression Model for Well Productivity 95% CIs
+### 95% CIs for Significant Aggregate-Formation Combinations
+```{r Linear Regression Model for Well Productivity 95% CIs}
+#95% CI for Linear Regression Model
+confint(well.production)
+```
+
+## Overdispersion Check for Linear Model
+### Rebuild Model if considerally larger than 1
+```{r Check for Overdispersion of Logistic Regression Model}
+#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
+overdispersion_test1 <- deviance(well.production)/df.residual(well.production)
+overdispersion_test1
+```
+
+
+## Results of Linear Regression Model for Well Productivity given all Aggregate-Formation Combinations
+```{r Results for Anova Test}
+#Comparison of the One-Way Anova Tests for Linear Regression Model
+anova(well.production)
+
+```
+
+
+## Conclusions
+From the p-values for the Linear Regression Model coefficients (last column) from the anova() output, you can see that the explanitory variable frac.size given formavg makes a significant contribution to the equation (you can reject the hypothesis that the parameters are 0). With that being evident, there is no need to fit a second reduced model that may fit the data as well. The log-log Linear Regression Model shows that each regression coefficient in the model is statistically significant (p < .05). The anova() function for linear models uses a F-test resulting in an (F-value = 5.9052) and (Pr(>F) < 0.0001). The nonsignificant  F-value (p < 0.0001) suggests that the model fits well, reinforcing your belief that frac.size given formavg adds significantly to the model above and therefore, you can base your interpretations on the resulting linear model. 
+
+
+## Regression Model 2  
+### Logistic Regression Model for Successfully Drilling the Target Formation  
+```{r fracfocus_registry}
+library(readr)
+fracfocus_registry <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/fracfocus_registry.csv",
+col_types = cols(API10 = col_number(),
+APINumber = col_skip(), ClaimantCompany = col_skip(),
+CountyNumber = col_number(), DTMOD = col_skip(),
+FFVersion = col_number(), FederalWell = col_logical(),
+IndianWell = col_logical(), IngredientComment = col_skip(),
+IngredientMSDS = col_logical(), IsWater = col_skip(),
+JobEndDate = col_date(format = "%m/%d/%Y"),
+JobStartDate = col_date(format = "%m/%d/%Y"),
+Latitude = col_number(), Longitude = col_number(),
+MassIngredient = col_number(), PercentHFJob = col_skip(),
+PercentHighAdditive = col_skip(),
+Source = col_skip(), StateNumber = col_skip(),
+Supplier = col_skip(), SystemApproach = col_skip(),
+TVD = col_number(), TotalBaseNonWaterVolume = col_number(),
+TotalBaseWaterVolume = col_number(),
+TradeName = col_skip(), pKey = col_number(),
+pKeyDisclosure = col_number(), pKeyPurpose = col_skip(),
+pKeyRegistryUpload = col_skip()),
+na = "0")
+View(fracfocus_registry)
+str(fracfocus_registry)
+TVD <- as.data.frame.numeric(fracfocus_registry$TVD)
+TBWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseWaterVolume)
+TBNonWV <- as.data.frame.numeric(fracfocus_registry$TotalBaseNonWaterVolume)
+
+fracfocus_registry_clean <- drop_na(fracfocus_registry)
+
+summary(fracfocus_registry_clean)
+```
+
+```{r deo_well_data}
+deo_well_data <- read_csv("~/Documents/GitHub/DDS_Case_Study_2/data/deo_well_data.csv")
+deo_well_data["PerfLL"] <- as.numeric(deo_well_data$PerfLL)
+deo_well_data["FirstProd"] <- as.numeric(deo_well_data$FirstProd)
+deo_well_data["Oil_PkNorm_Perk_6mo"] <- as.numeric(deo_well_data$Oil_PkNorm_Perk_6mo)
+
+str(deo_well_data)
+
+deo_well_data_clean <- drop_na(deo_well_data)
+
+summary(deo_well_data_clean)
+```
+
+```{r Permian Basin Well Data Selection}
+library(tidyverse)
+Basin_Data <- merge.data.frame(deo_well_data, fracfocus_registry, by = intersect(x="API10", y="API10"))
+summary(Basin_Data)
+```
+
+## Data Preperation for Logistic Regression Model
+
+```{r Logistic Model for Basin_Data}
+library(AER)
+#Creating Logistic Model binary outcome for TVD greater than 8782ft set as yes, and less than 8782 as no
+Basin_Data$ynTVD[Basin_Data$TVD <= 8394] <- 0
+Basin_Data$ynTVD[Basin_Data$TVD >= 8394] <- 1
+#Create a dichotomous factor to be used as the outcome variable in a logistic regression model
+Basin_Data$ynTVD <- factor(Basin_Data$ynTVD, levels=c(0,1), labels=c("No","Yes"))
+#View table of output for new predictor variable ynTVD
+table(Basin_Data$ynTVD)
+#Selecting Basin variables for Logistic Regression and creating new dataset for analysis
+Basin_Model_Data <- Basin_Data[, c(4, 5, 8, 15, 16, 17, 18, 22, 32)]
+head(Basin_Model_Data)
+#Descriptive Statistics for Model variables
+summary(Basin_Model_Data)
+```
+
+```{r Full Logistic Regression Model}
+#Full Model formula = ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, family = binomial(), data = Basin_Model_Data
+fit.full.basin <- glm(ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, data=Basin_Model_Data, family=binomial(link='logit'))
+```
+
+
+```{r Full Logistic Regression Model Summary}
+#Descriptive Statistics for the Full Logistic Regression Model
+summary(fit.full.basin)
+#There are three predictors ("SPBY_L_SILT", "SPBY_M", and "WFMP_D") and one predictor variable ("Status") that are not statistically significant
+```
+
+
+```{r Full Logistic Regression Model Plots}
+plot(fit.full.basin)
+```
+
+
+```{r Full Logistic Regression Model 95% CIs}
+#95% CI for Full Logistic Model
+exp(confint(fit.full.basin))
+```
+
+
+```{r Reduced Logistic Regression Model}
+#Reduced Logistic Model formula = ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, family = binomial(), data = Basin_Model_Data
+fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
+```
+
+
+```{r Reduced Logistic Regression Model Summary}
+#Descriptive Statistics for the Reduced Logistic Regression Model
+summary(fit.reduced.basin)
+```
+
+
+```{r Reduced Logistic Regression Model Plots}
+#Plot of reduced Logistic Model
+plot(fit.reduced.basin)
+```
+
+
+```{r Reduced Logistic Regression Model 95% CIs}
+#95% CI for Reduced Logistic Model
+exp(confint(fit.reduced.basin))
+```
 
 
 
-# Results of Tests
+```{r Check for Overdispersion of Logistic Regression Model}
+#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
+overdispersion_test <- deviance(fit.reduced.basin)/df.residual(fit.reduced.basin)
+overdispersion_test
+```
 
 
+```{r Hypothesis Test for H0 = 1 and Ha != 1}
+#First instance
+fit <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + CountyName + Latitude + Longitude + Projection, data=Basin_Model_Data, family=binomial())
+#Second instance
+fit.od <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family = quasibinomial())
 
-# Conclusions
+#If the p-value is small (say, less than 0.05), you'd reject the null hypothesis
+pchisq(summary(fit.od)$dispersion * fit$df.residual, fit$df.residual, lower = F)
+#The resulting p-value is clearly significant (p < 0.05), strengthening the belief that overdispersion isn't a problem
+```
 
+
+## Two-Way Anova for Full Logistic Regression Model
+### For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated
+```{r Two-Way Anova for Full Logistic Regression Model}
+library(car)
+#Two-Way Anova Test for Full Logistic Regression Model
+anova.full <- Anova(fit.full.basin)
+
+anova.full
+```
+
+## Two-Way Anova for Reduced Logistic Regression Model
+### For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated
+```{r Two-Way Anova for the Reduced Logistic Regression Model}
+library(car)
+#Two-Way Anova Test for Reduced Logistic Regression Model
+anova.reduced <- Anova(fit.reduced.basin)
+
+anova.reduced
+```
+
+
+## Results of Tests
+```{r Results for Anova Chi-Suared Test}
+#Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Model
+anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
+
+```
+
+
+## Conclusions
+From the p-values for the Full Logistic Regression Model coefficients (last column) of the anova.full model output, you can see that the predictor variable Status may not make a significant contribution to the equation (you can’t reject the hypothesis that the parameters are 0). With that being evident, there is a need to fit a second equation without the Status variable and test whether this reduced model fits the data as well. The Reduced Logistic Regression Model shows that each regression coefficient in the reduced model is statistically significant (p < .05). Because the two models are nested (fit.reduced is a subset of fit.full), you can use the anova() function to compare them. For generalized linear models, you’ll want a chi-square version of this test. The nonsignificant chi-square value (p < 0.0001) suggests that the reduced model with three predictors fits as well as the full model with seven predictors, reinforcing your belief that Status, CountyName, Latitude, and Longitude don’t add significantly to the prediction above and beyond the other variables in the equation. Therefore, you can base your interpretations on the simpler model. 
 
 
 # Appendix:

@@ -7,17 +7,17 @@ output:
 
 ## Case Study 2 with R and RStudio
 
-### Group Members (alphabetically)
+### Group Members and Case Study Responsibilities (alphabetically)
   
-`Member Name           GitHub Username            Project Duties                                `  
+Member Name           GitHub Username            Project Duties                                  
 
-`Peter Flaming         PeterFlaming               Logistic Regression Model/README/Presentation `  
+Peter Flaming         PeterFlaming               Regression Models/README/Presentation   
 
-`Brock Friedrich       la-mar                     R Code/Rmarkdown/Data Gathering/Organization  `
+Brock Friedrich       la-mar                     R Code/Rmarkdown/Data Gathering/Organization  
 
-`Quinton Nixon         qatsmu                     R Code/Code Commenting/Powerpoint Preparation ` 
+Quinton Nixon         qatsmu                     R Code/Code Commenting/Powerpoint Preparation  
 
-`Matthew Trevathan     mrtrevathan0               Codebook/Code Formatting/Organization         `     
+Matthew Trevathan     mrtrevathan0               Codebook/Code Formatting/Organization             
 
 
 ### Purose of Case Study 2
