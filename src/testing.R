@@ -4,6 +4,9 @@ st_options()
 
 welldata %>% head()
 
+
+welldata %>% colnames()
+
 fracfocus %>% colnames()
 
 nrow(welldata)

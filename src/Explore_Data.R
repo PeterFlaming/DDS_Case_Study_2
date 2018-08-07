@@ -54,14 +54,12 @@ wd_nrow[['Cleaned Forms']] <- nrow(welldata)
 
 ## ---- exp_clean_frac_size
 
-#TODO: Fix this filter
-
 # filters observations by the amount of sand used
 welldata <- welldata %>% 
                 filter(160000 < totalsand.lb
-                     & totalsand.lb < 50000000)
-                    #  & 100000 < totalwater.bbl 
-                    #  & totalwater.bbl < 4080000)
+                     & totalsand.lb < 50000000
+                     & 100000 < totalwater.bbl 
+                     & totalwater.bbl < 4080000)
 
 
 
@@ -71,7 +69,7 @@ welldata <- welldata %>%
 # summarizes the number of "clean" observations
 wd_nrow[['Cleaned Frac Size']] <- nrow(welldata)
 
-wd_nrow %>% as.data.frame()
+# wd_nrow %>% as.data.frame()
 
 ## ---- exp_wd_nrow_print
  kable(wd_nrow %>% as.data.frame()) %>%
@@ -99,7 +97,10 @@ kable(freq(welldata$status), digits = 0) %>%
 
 
 ## ---- exp_freq_by_form
-
+kable(freq(welldata$form), digits = 0) %>% 
+    kable_styling(position = "right",
+                 full_width = FALSE
+                 )
 
 ## ---- exp_boxplot_fracsize
 
