@@ -69,13 +69,20 @@ welldata <- welldata %>%
 # summarizes the number of "clean" observations
 wd_nrow[['Cleaned Frac Size']] <- nrow(welldata)
 
+
+## ---- exp_wd_nrow_4
+# summarizes the number of observations after 
+# removing NAs from vintage column
+welldata <- welldata %>% na.omit(vintage.yr)
+
+wd_nrow[['Cleaned Vintage']] <- nrow(welldata)
 # wd_nrow %>% as.data.frame()
 
 ## ---- exp_wd_nrow_print
  kable(wd_nrow %>% as.data.frame()) %>%
     kable_styling(position = "center"
                  ,full_width = TRUE) %>%
- add_header_above(c(" ", "Cleansed" = 2))
+ add_header_above(c(" ", "Cleansed" = 3))
 
 ## ---- exp_freq_vintage
 
@@ -93,11 +100,8 @@ kable(freq(welldata$status), digits = 0) %>%
                  full_width = FALSE
                  )
 
-
-
-
 ## ---- exp_freq_by_form
-kable(freq(welldata$form), digits = 0) %>% 
+kable(freq(welldata$formavg), digits = 0) %>% 
     kable_styling(position = "right",
                  full_width = FALSE
                  )

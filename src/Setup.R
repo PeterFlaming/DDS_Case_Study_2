@@ -6,6 +6,7 @@ require(knitr)
 require(summarytools)
 require(grid)
 require(gridExtra)
+library(AER)
 
 # set knitr output options for consistent figures
 knitr::opts_chunk$set(fig.width=12, 

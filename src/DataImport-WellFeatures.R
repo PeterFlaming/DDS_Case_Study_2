@@ -1,4 +1,4 @@
-setwd('C:\\Repositories\\DDS_Case_Study_2\\src')
+
 source('Setup.R')
 source('Functions.R')
 
