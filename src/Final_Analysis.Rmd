@@ -217,60 +217,58 @@ tab content 2
 
 ##
 
-```{r} 
-#  Linear Regression Model for Well Productivity}
-#Linear Regression Model formula = lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data=welldata)
+```{r mlr_prod_model} 
+# Linear Regression Model for Well Productivity}
 well.production <- lm(log(oil.pk.bbl) ~ log(frac.size) : formavg, data = welldata)
 
 summary(well.production)
 
-
-
-
 scatterplotMatrix(welldata %>% select(oil.pk.bbl, frac.size, formavg)
                   , smooth=FALSE
                   , diagonal="histogram"
-                  , col= "lightsalmon2")  
+                  , col= COL.CP.B1)  
 
 
 ```
 
 The use of logarithmic transformations on the quantifiable variables is needed to meet the four linear regression assumptions of Normality, Independence, Linearity, and Homoscedasticity. These logarithmic transformations allow the model to meet all assumptions and our goal is to select model parameters (intercept and slopes) that minimize the difference between actual response values and those predicted by the model. Specifically, model parameters are selected to minimize the sum of squared residuals.
 
+## Multiple Linear Regression 
+  - Model for Well Productivity given Aggregate and Formation Summary
+  - Summary of Significant Aggregate-Formation Combinations
 
-## Multiple Linear Regression Model for Well Productivity given Aggregate and Formation Summary
-### Summary of Significant Aggregate-Formation Combinations
-```{r} 
+```{r mlr_prod_summary} 
 #  Linear Regression Model for Well Productivity Summary}
-summary(well.production) %>% attributes()
+summary(well.production)
 
 
 ```
 
-## Multiple Linear Regression Model for Well Productivity Plots
-### Plots of Multiple Linear Regression Model for Production given all Aggregate-Formation Interactions
-```{r} 
-#Linear Regression Model for Well Productivity Plots}
-#Plot for effect on log(Production) by Aggregate-Formation interaction 
-plot(effect("frac.size:formavg", well.production,, list(wt = c(2.2, 3.2, 4.2))), multiline = TRUE)
+### MLR Plots
+  -  Plots of Multiple Linear Regression Model for Production given all Aggregate-Formation Interactions
+```{r mlr_prod_plots} 
+# Linear Regression Model for Well Productivity Plots
+plot(effect("frac.size:formavg"
+          , well.production
+          , list(wt = c(2.2, 3.2, 4.2)))
+          , multiline = TRUE)
 
 ```
 You can see from this graph that as the geological formation (formavg) of the well increases in depth, the relationship between aggregate (frac.size) and well production dramatically weakens for the Spayberry Lower Shale and the Strawn formations, but there is also a gradual weakening from the Wolfcamp A formation towards the formation of Wolfcamp C, and once the well reaches the target formation of Wolfcamp C Target, there is a drastic increase in oil production through the well.
 
 Unfortunately, fitting the model is only the first step in the analysis. Once you fit a regression model, you need to evaluate whether you’ve met the statistical assumptions underlying your approach before you can have confidence in the inferences you draw. The use of confidence intervals, overdispersion tests, and the anova test will be useful in checking if the statistical assumptions are met.
 
-## Multiple Linear Regression Model for Well Productivity 95% CIs
-### 95% CIs for Significant Aggregate-Formation Combinations
-Although the summary() function in listing 8.4 describes the model, it provides no information
-concerning the degree to which you’ve satisfied the statistical assumptions underlying
-the model. Why is this important? Irregularities in the data or misspecifications of the relationships
-between the predictors and the response variable can lead you to settle on a model that’s wildly inaccurate. On the one hand, you may conclude that a predictor and a response variable are unrelated when, in fact, they are. On the other hand, you may conclude that a predictor and a response variable are related when, in fact, they aren’t! You may also end up with a model that makes poor predictions when applied in real-world settings, with significant and unnecessary error. Let’s look at the output from the confint() function applied to the multiple regression problem under study.
+### Confidence
+  - 95% CIs for Significant Aggregate-Formation Combinations
+
+Although the summary() function in listing 8.4 describes the model, it provides no information concerning the degree to which you’ve satisfied the statistical assumptions underlying the model. Why is this important? Irregularities in the data or misspecifications of the relationships between the predictors and the response variable can lead you to settle on a model that’s wildly inaccurate. On the one hand, you may conclude that a predictor and a response variable are unrelated when, in fact, they are. On the other hand, you may conclude that a predictor and a response variable are related when, in fact, they aren’t! You may also end up with a model that makes poor predictions when applied in real-world settings, with significant and unnecessary error. Let’s look at the output from the confint() function applied to the multiple regression problem under study.
 
 ```{r} 
 #  Linear Regression Model for Well Productivity 95% CIs}
 #95% CI for Linear Regression Model
 confint(well.production)
 ```
+
 The results suggest that you can be 95% confident that the intervals that DO NOT contain 0 give the true change in well production rate for their respected % change in aggregate:formation interaction rate. Remember that, because the confidence intervals for the DEAN, SPBY_L_SILT, and STRAWN formations contain 0, you can conclude that a change in their rate is unrelated to the well production rate, holding the other variables constant. But your faith in these results is only as strong as the evidence you have that your data satisfies the statistical assumptions underlying the model.
 
 A set of techniques called regression diagnostics provides the necessary tools for evaluating
@@ -280,30 +278,25 @@ with R’s base installation. Then we’ll look at newer, improved methods avail
 through the car package.
 
 
-## Overdispersion Check for Linear Model
-### Rebuild Model if considerally larger than 1
-```{r} 
-#  Check222 for Overdispersion of Logistic Regression Model}
-#Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
+### Overdispersion
+  -  Check for overdispersion in linear model
+  - Rebuild Model if considerally larger than 1
+
+```{r mlr_od_check} 
+# Check for Overdispersion of Logistic Regression Model}
 overdispersion_test1 <- deviance(well.production)/df.residual(well.production)
 overdispersion_test1
 ```
 
+Residual deviance divided by residual degrees of freedom is used to detect overdispersion in a binomial model, if considerably larger than 1, you have evidence of overdispersion
 
-## Results of Linear Regression Model for Well Productivity given all Aggregate-Formation Combinations
-```{r} 
-# Results for Anova Test}
-#Comparison of the One-Way Anova Tests for Linear Regression Model
+### Results
+  - Linear Regression Model for Well Productivity given all Aggregate-Formation Combinations
+```{r mlr_anova_compare} 
+# Linear Regression Model Comparison
 anova(well.production)
 
 ```
-
-
-
-## Conclusions
-From the p-values for the Linear Regression Model coefficients (last column) from the anova() output, you can see that the explanitory variable frac.size given formavg makes a significant contribution to the equation (you can reject the hypothesis that the parameters are 0). With that being evident, there is no need to fit a second reduced model that may fit the data as well. The log-log Linear Regression Model shows that each regression coefficient in the model is statistically significant (p < .05). The anova() function for linear models uses a F-test resulting in an (F-value = 5.9052) and (Pr(>F) < 0.0001). The nonsignificant  F-value (p < 0.0001) suggests that the model fits well, reinforcing your belief that frac.size given formavg adds significantly to the model above and therefore, you can base your interpretations on the resulting linear model. 
-
-
 
 
 ```{r} 
@@ -322,7 +315,6 @@ summary(deo_well_data_clean)
 
 ```{r} 
 #Permian Basin Well Data Selection
-library(tidyverse)
 Basin_Data <- merge.data.frame(deo_well_data, fracfocus, by = intersect(x="API10", y="api10"))
 summary(Basin_Data)
 ```
@@ -345,60 +337,60 @@ head(Basin_Model_Data)
 #Descriptive Statistics for Model variables
 summary(Basin_Model_Data)
 ```
+
+
+
 The target depth is 8394ft. for the WFMP_C_TARGET Formation. 
 
 The glm() function allows you to fit a number of popular models, including logistic regression, Poisson regression, and survival analysis (not considered here). You can demonstrate this for the first two models as follows. Assume that you have a single response variable (Y), three predictor variables (X1, X2, X3), and a data frame (mydata) containing the data.
 
 Logistic regression is useful when you’re predicting a binary outcome from a set of continuous and/or categorical predictor variables. To demonstrate this, let’s explore the well data for total vertical depth of target formation contained in the data frame under study. Be sure to download and install the package (using install.packages("AER")) before first use.
-```{r} 
-#  Full Logistic Regression Model}
-#Full Model formula = ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, family = binomial(), data = Basin_Model_Data
+
+```{r full_model} 
+#  Full Logistic Regression Model
 fit.full.basin <- glm(ynTVD ~ form_avg + Status + Oil_PkNorm_Perk_6mo + Latitude + Longitude + Projection + CountyName, data=Basin_Model_Data, family=binomial(link='logit'))
 ```
 
 
 ```{r} 
-#  Full Logistic Regression Model Summary}
-#Descriptive Statistics for the Full Logistic Regression Model
+# Full Logistic Regression Model Summary
 summary(fit.full.basin)
-#There are three predictors ("SPBY_L_SILT", "SPBY_M", and "WFMP_D") and one predictor variable ("Status") that are not statistically significant
 ```
+
 From the p-values for the regression coefficients (last column), you can see that there are three predictors ("SPBY_L_SILT", "SPBY_M", and "WFMP_D") and one predictor variable ("Status") that are not statistically significant (p-values > 0.05) and they may not make a significant contribution to the equation (you can’t reject the hypothesis that the parameters are 0). Let’s fit a second equation without them and test whether this reduced model fits the data as well:
 
-
-```{r Full Logistic Regression Model Plots}
+```{r full_model_plots}
+# Full Logistic Regression Model Plots
 influencePlot(fit.full.basin)
 ```
+
 The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
 
-```{r} 
-#  Full Logistic Regression Model 95% CIs}
-#95% CI for Full Logistic Model
+```{r full_model_ci} 
+#  Full Logistic Regression Model 95% CIs
 exp(confint(fit.full.basin))
 ```
+
 The results suggest that you can be 95% confident that the intervals that DO NOT contain 0 predict the true change in well production rate for their respected % change in aggregate:formation interaction rate. Remember that, because the confidence intervals for the DEAN, SPBY_L_SILT, and STRAWN formations contain 0, you can conclude that a change in their rate is unrelated to the well production rate, holding the other variables constant. But your faith in these results is only as strong as the evidence you have that your data satisfies the statistical assumptions underlying the model.
 
-```{r} 
-#  Reduced Logistic Regression Model}
-#Reduced Logistic Model formula = ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, family = binomial(), data = Basin_Model_Data
+```{r reduced_model} 
+# Reduced Logistic Regression Model}
 fit.reduced.basin <- glm(ynTVD ~ form_avg + Oil_PkNorm_Perk_6mo + Projection, data=Basin_Model_Data, family=binomial(link='logit'))
 ```
 
-
-
-```{r session_info, echo = FALSE}
+```{r reduced_model_plots, echo = FALSE}
 #  Reduced Logistic Regression Model Plots}
-#Plot of reduced Logistic Model
 influencePlot(fit.reduced.basin)
 ```
+
 The horizontal axis is the leverage, the vertical axis is the studentized residual, and the plotted symbol is proportional to the Cook’s distance. Diagnostic plots tend to be most helpful when the response variable takes on many values. When the response variable can only take on a limited number of values (for example, logistic regression), the utility of these plots is decreased.You can see from these graphs that as the geological formation (form_avg) of the well increases in depth, the relationship between those significant predictors explane the response of target formation depth throughout the well drilling process.
 
 ## Two-Way Anova for Reduced Logistic Regression Model
   - For the two generalized linear models, likelihood-ratio chisquare, Wald chisquare, or F-tests are calculated.
 
-```{r} 
-#  Results for Anova Chi-Suared Test}
-#Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Model
+```{r anova_compare} 
+#  Results for Anova Chi-Suared Test
+#Comparison of the Two-Way Anova Tests for Full and Reduced Logistic Regression Models
 anova(fit.reduced.basin, fit.full.basin, test = "Chisq")
 
 ```
@@ -410,22 +402,24 @@ From the p-values for the Full Logistic Regression Model coefficients (last colu
 
 # Appendix:
 
-```{r  echo = FALSE}
+```{r session_info, echo = FALSE}
 session <- sessionInfo()
 
 ```
 
 ```{r  echo = FALSE}
+
+cbind(
 session[["R.version"]] %>%
-  as.data.frame() %>%
-  kable_zen()
-
+  as.data.frame()
+,
 session[["platform"]] %>%
-  as.data.frame() %>%
-  kable_zen()
-
+  as.data.frame()
+,
 session[["locale"]] %>%
-  as.data.frame() %>%
+  as.data.frame()
+
+  ) %>%
   kable_zen()
 ```
 
