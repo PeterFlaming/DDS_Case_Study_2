@@ -4,6 +4,7 @@ source('Functions.R')
 
 ## ---- wellfeatures_import
 
+# import data features of individual wells
 wellfeatures <- read.csv("../data/deo_well_data.csv") %>%
              standardize_names() %>% 
              rename(oil.pk.bbl='oilpknormperk6mo'
@@ -69,6 +70,7 @@ kable(data.frame("Distinct Locations" = wf_loccount
 
 ## ---- wellfeatures_aggregates
 
+# generate descriptive statistics of the individual well features
 kable_zen(descr(wellfeatures))
 
 
